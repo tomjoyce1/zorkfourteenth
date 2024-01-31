@@ -86,7 +86,8 @@ CREATE TABLE Events (
     Venue_id NOT NULL,
     created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (Venue_id) REFERENCES Venues(Venue_id)
+    FOREIGN KEY (Venue_id) REFERENCES Venues(Venue_id),
+    FOREIGN KEY (Club_id) REFERENCES Clubs(ClubID)
 );
 
 CREATE TRIGGER IF NOT EXISTS insert_timestamp_trigger
@@ -137,10 +138,11 @@ CREATE TABLE Event_Registration (
     Registration_id INTEGER PRIMARY KEY AUTOINCREMENT,
     Event_id INTEGER NOT NULL,
     User_id INTEGER NOT NULL,
-    Approval_status CHAR(15) NOT NULL,
+    ApprovalStatus TEXT CHECK(ApprovalStatus IN ('approved', 'pending', 'rejected')),
     created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (Event_id) REFERENCES Events(Event_id)
+    FOREIGN KEY (Event_id) REFERENCES Events(Event_id),
+    FOREIGN KEY (User_id) REFERENCES Users(UserID)
 );
 
 
@@ -158,4 +160,7 @@ FOR EACH ROW
 BEGIN
     UPDATE Event_Registration SET updated_timestamp = CURRENT_TIMESTAMP WHERE Registration_id = NEW.Registration_id;
 END;
+
+
+
 
