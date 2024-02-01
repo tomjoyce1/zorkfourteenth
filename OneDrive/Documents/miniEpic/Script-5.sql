@@ -73,3 +73,94 @@ BEGIN
     SELECT RAISE(ABORT, 'Maximum number of clubs joined reached'); -- Raises an error if the maximum number of clubs is reached
 END;
 -- --------------------------
+
+
+/*Events///////////////////////////////////////////////////////////////*/
+CREATE TABLE Events (
+    Event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Club_id INTEGER,
+    Title VARCHAR(20) NOT NULL,
+    Description VARCHAR(30),
+    Date_ DATE NOT NULL,
+    Time_ TIME NOT NULL,
+    Venue_id NOT NULL,
+    created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (Venue_id) REFERENCES Venues(Venue_id),
+    FOREIGN KEY (Club_id) REFERENCES Clubs(ClubID)
+);
+
+CREATE TRIGGER IF NOT EXISTS insert_timestamp_trigger
+AFTER INSERT ON Events
+FOR EACH ROW
+BEGIN
+    UPDATE Events SET created_timestamp = IFNULL(NEW.created_timestamp, CURRENT_TIMESTAMP) WHERE Event_id = NEW.Event_id;
+END;
+
+
+CREATE TRIGGER IF NOT EXISTS update_timestamp_trigger
+BEFORE UPDATE ON Events
+FOR EACH ROW
+BEGIN
+    UPDATE Events SET updated_timestamp = CURRENT_TIMESTAMP WHERE Event_id = NEW.Event_id;
+END;
+
+
+
+/*Venues///////////////////////////////////////////////////////////////////*/
+
+CREATE TABLE Venues(
+Venue_id INTEGER PRIMARY KEY AUTOINCREMENT,
+Venue_name VARCHAR(20),
+created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+
+CREATE TRIGGER IF NOT EXISTS insert_timestamp_trigger
+AFTER INSERT ON Venues
+FOR EACH ROW
+BEGIN
+    UPDATE Venues SET created_timestamp = IFNULL(NEW.created_timestamp, CURRENT_TIMESTAMP) WHERE Venue_id = NEW.Venue_id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS update_timestamp_trigger
+BEFORE UPDATE ON Venues
+FOR EACH ROW
+BEGIN
+    UPDATE Venues SET updated_timestamp = CURRENT_TIMESTAMP WHERE Venue_id = NEW.Venue_id;
+END;
+
+
+/*Event Registration/////////////////////////////////////////////////////////////////////*/
+
+CREATE TABLE Event_Registration (
+    Registration_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Event_id INTEGER NOT NULL,
+    User_id INTEGER NOT NULL,
+    ApprovalStatus TEXT CHECK(ApprovalStatus IN ('approved', 'pending', 'rejected')),
+    created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (Event_id) REFERENCES Events(Event_id),
+    FOREIGN KEY (User_id) REFERENCES Users(UserID)
+);
+
+
+CREATE TRIGGER IF NOT EXISTS insert_timestamp_trigger
+AFTER INSERT ON Event_Registration
+FOR EACH ROW
+BEGIN
+    UPDATE Event_Registration SET created_timestamp = IFNULL(NEW.created_timestamp, CURRENT_TIMESTAMP) WHERE Registration_id = NEW.Registration_id;
+END;
+
+
+CREATE TRIGGER IF NOT EXISTS update_timestamp_trigger
+BEFORE UPDATE ON Event_Registration
+FOR EACH ROW
+BEGIN
+    UPDATE Event_Registration SET updated_timestamp = CURRENT_TIMESTAMP WHERE Registration_id = NEW.Registration_id;
+END;
+
+
+
+
