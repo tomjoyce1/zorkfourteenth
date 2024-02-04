@@ -10,11 +10,11 @@ cursor = conn.cursor()
 ######################################################################################################################################################################################
 
 #initializing variables
-username = ""
-password = ""
-option = ""
+#username = ""
+#password = ""
+#option = ""
 count = 0
-name = ""
+#name = ""
 
 #function to verify user credentials
 def validate_user(username, password):
@@ -26,15 +26,16 @@ def validate_user(username, password):
         user_id = int(row[0]) #assigns user ID from databse to user_id variable
         cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
         row = cursor.fetchone() #returns first row of database
-        name = str(row).replace('(', '').replace(')', '').replace("'", '') #assigns name from database to name variable
+        name = row[0] #assigns name from database to name variable
 
         return True
     else:
         return False
     
 def login():
-    username = input("Enter your username: ") #prompts user to enter username
-    password = input("Enter your password: ") #prompts user to enter password
+
+    username = input("Enter your username: ") #prompts user to enter username++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    password = input("Enter your password: ") #prompts user to enter password++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     if validate_user(username, password): #checks if username and password are valid
 
@@ -43,10 +44,13 @@ def login():
         user_id = int(row[0]) #gets user ID from database
         cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
         row = cursor.fetchone() #returns first row of database
-        name = str(row).replace('(', '').replace(')', '').replace("'", '') #assigns name from database to name variable
+        name = row[0] #assigns name from database to name variable
 
         print("Login successful")
         print("Welcome to ClubHub", name)
+        verify_role(user_id) #returns to verify role screen
+
+
     else:
         print("Invalid username or password")
         print("Please try again")
@@ -56,12 +60,13 @@ def login():
 
 
 def signup():
-    username = input("Enter your username: ") #prompts user to enter username
-    password = input("Enter your password: ") #prompts user to enter password
-    name = input("Enter your name: ") #prompts user to enter name
-    surname = input("Enter your surname: ") #prompts user to enter surname
-    email = input("Enter your email: ") #prompts user to enter email
-    phone = input("Enter your phone number: ") #prompts user to enter phone number
+    
+    username = input("Enter your username: ") #prompts user to enter username++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    password = input("Enter your password: ") #prompts user to enter password++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    name = input("Enter your name: ") #prompts user to enter name++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    surname = input("Enter your surname: ") #prompts user to enter surname+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    email = input("Enter your email: ") #prompts user to enter email+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    phone = input("Enter your phone number: ") #prompts user to enter phone number+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     cursor.execute("INSERT INTO Users (Name, Surname, Email) VALUES (?,?,?)", (name, surname, email)) #creates new record in Users table with provided data
     conn.commit() #commits attributes to database
@@ -79,19 +84,40 @@ def signup():
     login() #returns to login screen
 
 
+def verify_role(user_id):
+    cursor.execute("SELECT Role, ApprovalStatus FROM Users WHERE UserID=?", (user_id,)) #checks role of user from Users table
+    row = cursor.fetchone() #returns first row of database
+    role = row[0]
+    approval_status = row[1]
+
+    if approval_status != "approved":
+        print("You're approval status is", approval_status)
+   
+   
+    if role == "ADMIN":
+        print("You are an Admin")######################################################Admin page
+
+    elif role == "COORDINATOR":
+        print("You are a Coordinator")######################################################Coordinator page
+    
+    elif role == "STUDENT":
+        print("You are a Student")######################################################Student page
+    
+    else:
+        print("ERROR: Invalid role")
 
 
 
 
 def prompt_options(): 
     global count
-    global username, password
     global name
 
     if count >= 3: #blocks if user has reached maximum number of login attempts
         print("Too many login attempts, please try again later")
     else:
-        option = input("Login or signup?(L/S)") #prompts user to enter login or signup
+
+        option = input("Login or signup?(L/S)") #prompts user to enter login or signup++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         if option == "L": #login option
             login()
@@ -113,4 +139,3 @@ def prompt_options():
 prompt_options() #function to start the program
 
 conn.close()#closes connection to database
-
