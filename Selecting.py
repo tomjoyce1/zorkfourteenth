@@ -17,19 +17,11 @@ def validate_user(username, password):
     row = cursor.fetchone() #returns first row of database
 
     if row is not None:
-        user_id = int(row[0]) #assigns user ID from databse to user_id variable
-        cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
-        row = cursor.fetchone() #returns first row of database
-        name = row[0] #assigns name from database to name variable
-
         return True
     else:
         return False
     
-def login():
-
-    username = input("Enter your username: ") #prompts user to enter username++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    password = input("Enter your password: ") #prompts user to enter password++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+def login(username, password):
 
     if validate_user(username, password): #checks if username and password are valid
 
@@ -44,12 +36,11 @@ def login():
         print("Welcome to ISEagles", name)
         verify_role(user_id) #returns to verify role screen
 
-
     else:
         print("Invalid username or password")
         print("Please try again")
-        count += 1 #keeps track of login attempts
-        prompt_options() #returns to option menu
+
+    
 
 def create_account(username, password, name, surname, email, phone):
     cursor.execute("INSERT INTO Users (Name, Surname, Email) VALUES (?,?,?)", (name, surname, email)) #creates new record in Users table with provided data
@@ -63,14 +54,8 @@ def create_account(username, password, name, surname, email, phone):
     cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
     conn.commit() #commits attributes to database
 
-def signup():
-    
-    username = input("Enter your username: ") #prompts user to enter username++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    password = input("Enter your password: ") #prompts user to enter password++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    name = input("Enter your name: ") #prompts user to enter name++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    surname = input("Enter your surname: ") #prompts user to enter surname+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    email = input("Enter your email: ") #prompts user to enter email+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    phone = input("Enter your phone number: ") #prompts user to enter phone number+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+def signup(username, password, name, surname, email, phone):
 
     confirmation = input("Please confirm your details(Confirm(C)/Deny(D)): ") #prompts user to confirm details++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     if confirmation == "C":
@@ -83,10 +68,7 @@ def signup():
 
     print("Signup successful")
     print("Please Login", name)
-    login() #returns to login screen
-
-
-
+  
 
 def verify_role(user_id):
     cursor.execute("SELECT Role, ApprovalStatus FROM Users WHERE UserID=?", (user_id,)) #checks role of user from Users table
@@ -113,36 +95,24 @@ def verify_role(user_id):
 
 
 
-def prompt_options(): 
-    global count
-    global name
-
-    if count >= 3: #blocks if user has reached maximum number of login attempts
-        print("Too many login attempts, please try again later")
-    else:
-
-        option = input("Login or signup?(L/S)") #prompts user to enter login or signup++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-        if option == "L": #login option
-            login()
-
-        elif option == "S": #signup option
-          signup()
-            
-        else:
-            print("Invalid option")
-            print("Please try again")
-            prompt_options() #returns to option menu
-
-
-
-
 ##########################################################################################################################
 #                                                    START OF PROGRAM                                                    #
 ##########################################################################################################################
-prompt_options() #function to start the program
+#Login
+username = input("Enter username:")
+password = input("Enter password:")
+
+login(username, password)
 
 
+#Signup
+username = input("Enter username:")
+password = input("Enter password:")
+name = input("Enter name:")
+surname = input("Enter surname:")
+email = input("Enter email:")
+phone = input("Enter phone:")
 
+signup(username, password, name, surname, email, phone)
 
 conn.close()#closes connection to database
