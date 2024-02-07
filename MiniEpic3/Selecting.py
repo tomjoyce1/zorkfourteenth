@@ -41,7 +41,7 @@ def login():
         name = row[0] #assigns name from database to name variable
 
         print("Login successful")
-        print("Welcome to ClubHub", name)
+        print("Welcome to ISEagles", name)
         verify_role(user_id) #returns to verify role screen
 
 
@@ -51,17 +51,7 @@ def login():
         count += 1 #keeps track of login attempts
         prompt_options() #returns to option menu
 
-
-
-def signup():
-    
-    username = input("Enter your username: ") #prompts user to enter username++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    password = input("Enter your password: ") #prompts user to enter password++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    name = input("Enter your name: ") #prompts user to enter name++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    surname = input("Enter your surname: ") #prompts user to enter surname+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    email = input("Enter your email: ") #prompts user to enter email+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    phone = input("Enter your phone number: ") #prompts user to enter phone number+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
+def create_account(username, password, name, surname, email, phone):
     cursor.execute("INSERT INTO Users (Name, Surname, Email) VALUES (?,?,?)", (name, surname, email)) #creates new record in Users table with provided data
     conn.commit() #commits attributes to database
 
@@ -73,9 +63,29 @@ def signup():
     cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
     conn.commit() #commits attributes to database
 
+def signup():
+    
+    username = input("Enter your username: ") #prompts user to enter username++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    password = input("Enter your password: ") #prompts user to enter password++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    name = input("Enter your name: ") #prompts user to enter name++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    surname = input("Enter your surname: ") #prompts user to enter surname+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    email = input("Enter your email: ") #prompts user to enter email+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    phone = input("Enter your phone number: ") #prompts user to enter phone number+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    confirmation = input("Please confirm your details(Confirm(C)/Deny(D)): ") #prompts user to confirm details++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    if confirmation == "C":
+        create_account(username, password, name, surname, email, phone)
+    elif confirmation == "D":
+        signup()
+    else:
+        print("Invalid option")
+        signup()
+
     print("Signup successful")
     print("Please Login", name)
     login() #returns to login screen
+
+
 
 
 def verify_role(user_id):
@@ -131,5 +141,8 @@ def prompt_options():
 #                                                    START OF PROGRAM                                                    #
 ##########################################################################################################################
 prompt_options() #function to start the program
+
+
+
 
 conn.close()#closes connection to database
