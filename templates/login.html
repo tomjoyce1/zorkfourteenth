@@ -1,0 +1,21 @@
+{% extends "base2.html" %}
+{% set currentTitle = "Login Page" %}
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+                {% endfor %}
+            {% endif %}
+    {% endwith %}
+
+    <form action="#" method="post"> 
+        <p>Name:</p>
+        <p><input type="text" name="nm" /></p>
+    
+        <p>Email:</p>
+        <p><input type="email" name="em" placeholder="Enter Email" value="{{email if email}}" /></p>
+    
+        <p><input type="submit" value="Submit" /></p>
+    </form>    
+{% endblock %}
