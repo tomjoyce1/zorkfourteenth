@@ -106,13 +106,13 @@ login(username, password)
 
 
 #Signup
-#username = input("Enter username:")
-#password = input("Enter password:")
-#name = input("Enter name:")
-#surname = input("Enter surname:")
-#email = input("Enter email:")
-#phone = input("Enter phone:")
+username = input("Enter username:")
+password = input("Enter password:")
+name = input("Enter name:")
+surname = input("Enter surname:")
+email = input("Enter email:")
+phone = input("Enter phone:")
 
-#signup(username, password, name, surname, email, phone)
+signup(username, password, name, surname, email, phone)
 
 conn.close()#closes connection to database
