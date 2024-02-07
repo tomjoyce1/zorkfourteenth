@@ -32,6 +32,10 @@ def login():
             return redirect(url_for("home"))
 
         return render_template("login.html", user=session.get("user", None), isCoordinator=isCoordinator, isAdmin=isAdmin)
+    
+@app.route("/register")
+def register():
+    return render_template("register.html")
 
 @app.route("/logout")
 def logout():
