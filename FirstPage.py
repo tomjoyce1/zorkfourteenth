@@ -5,13 +5,13 @@ from datetime import timedelta
 app = Flask(__name__)
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
-isCoordinator = False
 isAdmin = False
+isCoordinator = False
 
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template("home.html", user=session.get("user", None), isCoordinator=isCoordinator, isAdmin=isAdmin)
+    return render_template("home.html")
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -31,7 +31,7 @@ def login():
         if "user" in session:
             return redirect(url_for("home"))
 
-        return render_template("login.html", user=session.get("user", None), isCoordinator=isCoordinator, isAdmin=isAdmin)
+        return render_template("login.html")
     
 @app.route("/register")
 def register():
