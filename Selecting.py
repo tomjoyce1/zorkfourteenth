@@ -13,7 +13,7 @@ count = 0
 #function to verify user credentials
 def validate_user(username, password):
     global name
-    cursor.execute("SELECT UserID FROM login WHERE username=? AND password=?", (username, password)) #checks login table for provided username and password
+    cursor.execute("SELECT UserID FROM Login WHERE username=? AND password=?", (username, password)) #checks login table for provided username and password
     row = cursor.fetchone() #returns first row of database
 
     if row is not None:
@@ -25,7 +25,7 @@ def login(username, password):
 
     if validate_user(username, password): #checks if username and password are valid
 
-        cursor.execute("SELECT UserID FROM login WHERE Username=? AND Password=?", (username, password)) #checks login table for provided username and password
+        cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password)) #checks login table for provided username and password
         row = cursor.fetchone() #returns first row of database
         user_id = int(row[0]) #gets user ID from database
         cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
@@ -50,7 +50,7 @@ def create_account(username, password, name, surname, email, phone):
     row = cursor.fetchone() #returns first row of database
     user_id = int(row[0]) #gets user ID from database
 
-    cursor.execute("INSERT INTO login (username, password) VALUES (?,?)", (username, password)) #creates new record in login table with provided username and password
+    cursor.execute("INSERT INTO Login (username, password) VALUES (?,?)", (username, password)) #creates new record in login table with provided username and password
     cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
     conn.commit() #commits attributes to database
 
