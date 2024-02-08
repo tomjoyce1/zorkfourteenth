@@ -27,7 +27,7 @@ END;
 
 -===========================
 
-CREATE TABLE login(
+CREATE TABLE Login(
 UserID INTEGER PRIMARY KEY,
 Username TEXT NOT NULL UNIQUE,
 Password TEXT NOT NULL,
@@ -37,10 +37,10 @@ FOREIGN KEY (UserID) REFERENCES Users(UserID)
 )
 
 CREATE TRIGGER IF NOT EXISTS login_insert_trigger
-AFTER INSERT ON login
+AFTER INSERT ON Login
 FOR EACH ROW
 BEGIN
-    UPDATE login SET CreatedTimestamp = NEW.CreatedTimestamp WHERE UserID = NEW.UserID;
+    UPDATE Login SET CreatedTimestamp = NEW.CreatedTimestamp WHERE UserID = NEW.UserID;
 END;
 
 CREATE TRIGGER IF NOT EXISTS login_update_trigger
@@ -55,7 +55,7 @@ END;
 CREATE TABLE Clubs (
     ClubID INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL,
-    CoordinatorID INTEGER,
+    CoordinatorID INTEGER NOT NULL UNIQUE,
     Description TEXT,
     ValidityStatus TEXT DEFAULT 'pending' NOT NULL CHECK(ValidityStatus IN ('approved', 'pending', 'rejected')),
     CreatedTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -80,14 +80,15 @@ END;
 --------------------
 
 CREATE TABLE ClubMemberships (
-    MembershipID INTEGER PRIMARY KEY autoincrement,
-    UserID INTEGER,
-    ClubID INTEGER,
+    MembershipID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INTEGER NOT NULL,
+    ClubID INTEGER NOT NULL,
     ApprovalStatus TEXT DEFAULT 'pending' NOT NULL CHECK(ApprovalStatus IN ('approved', 'pending', 'rejected')),
     CreatedTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     UpdatedTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (ClubID) REFERENCES Clubs(ClubID)
+    CONSTRAINT UniqueUserClubID UNIQUE (UserID, ClubID)
 );
 
 CREATE TRIGGER IF NOT EXISTS clubmemberships_insert_trigger
@@ -108,8 +109,8 @@ END;
 
 CREATE TABLE PhoneNumber (
     UserID INTEGER PRIMARY KEY,
-    PhoneNumber TEXT NOT NULL,
-     CreatedTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PhoneNumber TEXT NOT NULL UNIQUE,
+    CreatedTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     UpdatedTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
@@ -155,8 +156,10 @@ CREATE TABLE Events (
     created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (Venue_id) REFERENCES Venues(Venue_id),
-    FOREIGN KEY (Club_id) REFERENCES Clubs(ClubID)
+    FOREIGN KEY (Club_id) REFERENCES Clubs(ClubID),
+    CONSTRAINT UniqueDateTimeVenue UNIQUE (Date_, Time_, Venue_id)
 );
+
 
 
 CREATE TRIGGER IF NOT EXISTS insert_timestamp_trigger
@@ -179,10 +182,10 @@ END;
 /*Venues///////////////////////////////////////////////////////////////////*/
 
 CREATE TABLE Venues(
-Venue_id INTEGER PRIMARY KEY AUTOINCREMENT,
-Venue_name VARCHAR(20),
-created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	Venue_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	Venue_name VARCHAR(20) NOT NULL UNIQUE,
+	created_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 
 
@@ -212,6 +215,7 @@ CREATE TABLE Event_Registration (
     updated_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (Event_id) REFERENCES Events(Event_id),
     FOREIGN KEY (User_id) REFERENCES Users(UserID)
+    CONSTRAINT UniqueEventUserID UNIQUE (Event_id, User_id)
 );
 
 
@@ -233,13 +237,34 @@ END;
 ------------------------------------------
 /*Sample Queries*/
 INSERT INTO Users (Name, Surname, Email) VALUES ('Dawid', 'Jakubowski', 'dawijak@gmail.com'), ('James', 'Bond', 'jb.mi6@gmail.com'), ('Mike', 'Ryan', 'mryan@gmail.com'), ('Jacob', 'Stanely', 'jacobstan@gmail.com'), ('Adam', 'Murphy', 'smurf@gmail.com')
-UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 2
+UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 4
 UPDATE Users SET ApprovalStatus = 'approved'
 
-INSERT INTO login (UserID, Username, Password) VALUES (1, 'dawijak', 'ISE123'), (2, 'Bond', 'moneypenny'), (3, 'Michael', 'Portlaoise04'), (4, 'JacStan20', 'Biscuits29'), (5, 'Murpher35', 'icecream82')
+INSERT INTO Login (UserID, Username, Password) VALUES (1, 'dawijak', 'ISE123'), (2, 'Bond', 'moneypenny'), (3, 'Michael', 'Portlaoise04'), (4, 'JacStan20', 'Biscuits29'), (5, 'Murpher35', 'icecream82')
 
 INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (1, '0872838474'), (2, '0864240572'), (3, '0892849291'), (4, '0892936471'), (5, '0862846208')
 
-SELECT * FROM login
+
+INSERT INTO Venues (Venue_name) VALUES ("Tennis Courts"), ("Swimming Pool"), ("Sports Arena"), ("McGuire Fields")
+
+INSERT INTO Clubs (Name, CoordinatorID, Description) VALUES ("Archery", 2, "Develop archery skills by participating in weekly events"), ("Swimming", 3, "Become a professional swimmer by training in our olympic sized pool"), ("Tennis", 4, "Practice tennis in our well equipped tennis courts")
+UPDATE Clubs SET ValidityStatus = 'approved'
+
+INSERT INTO ClubMemberships (UserID, ClubID) VALUES (8, 1), (9, 2), (5, 3), (11, 1), (8, 3), (6, 2)
+UPDATE ClubMemberships SET ApprovalStatus = 'approved'
+
+INSERT INTO Events (Club_id, Title, Description, Date_, Time_, Venue_id)
+VALUES
+  (1, 'Archery Tryouts', 'Opportunity to try archery', '2024-03-01', '14:00', 8),
+  (3, 'Tennis Championships', 'Tennis county finals', '2024-03-12', '12:00', 5),
+  (2, 'AquaAerobic', 'Fitness exercises in a swimming pool', '2024-03-15', '18:00', 6);
+ 
+ 
+ INSERT INTO Event_Registration (Event_id, User_id) VALUES (1, 8), (1, 11), (2, 5), (3, 9), (3, 6)
+
+
+SELECT * FROM Login
 SELECT * FROM Users 
 SELECT * FROM PhoneNumber
+
+SELECT * FROM Events
