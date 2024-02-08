@@ -24,10 +24,16 @@ def verify_role(UserID):
         print("Role Denied")
         return False
     
+def verify_clubs_coordinated(UserID):
+    cursor.execute("SELECT COUNT(*) FROM Clubs WHERE CoordinatorID=?", (UserID,))
+    row = cursor.fetchone()
+    clubs_coordinated = row[0]
+    return (clubs_coordinated < 1)
+    
 
 #Creating a new club
 def creating_club(Name, CoordinatorID, Description): 
-    if verify_role(CoordinatorID): 
+    if verify_role(CoordinatorID) and verify_clubs_coordinated(CoordinatorID): 
         cursor.execute("INSERT INTO Clubs (Name, CoordinatorID, Description) VALUES (?,?,?)", (Name, CoordinatorID, Description))
         conn.commit()
         print("Club Created")
@@ -41,14 +47,22 @@ def verify_clubs_joined(UserID):
     clubs_joined = row[0]
     return clubs_joined
 
-def club_registration(UserID, ClubID):
-    if (verify_clubs_joined(UserID) < 3):
-        cursor.execute("INSERT INTO ClubMemberships (UserID, ClubID) VALUES (?,?)", (UserID, ClubID))
-        conn.commit()
-        print("Club Registration Successful")
+def club_registration(UserID, ClubName):
+    if verify_clubs_joined(UserID) < 3:
+        cursor.execute("SELECT ClubID FROM Clubs WHERE Name=?", (ClubName,))
+        row = cursor.fetchone()
+
+        if row is None:
+            print("Club does not exist")
+        else:
+            clubID = row[0]
+            cursor.execute("INSERT INTO ClubMemberships (UserID, ClubID) VALUES (?,?)", (UserID, clubID))
+            conn.commit()
+            print("Club Registration Successful")
     else:
         print("Club Registration Denied")
         print("Too many clubs joined")
+
 
 
 
@@ -60,6 +74,9 @@ def club_registration(UserID, ClubID):
 
 #Userid = 5  #Data stored from login page
 #verify_clubs_joined(Userid)
+        
+#user = 6     
+#print(verify_clubs_coordinated(user))
     
 
 #ClubName = "Baking Club" #
@@ -68,6 +85,8 @@ def club_registration(UserID, ClubID):
 #creating_club(ClubName, CoordinatorID, Description)
 
 
-#Userid = 8  #Data stored from login page
-#ClubID = 2
-#club_registration(Userid, ClubID)
+#Userid = 9 #Data stored from login page
+#ClubName = "Baking Club"
+#club_registration(Userid, ClubName)
+        
+
