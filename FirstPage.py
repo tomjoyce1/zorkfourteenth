@@ -18,10 +18,8 @@ def login():
     global isCoordinator, isAdmin  # Declare as global variables
     if request.method == "POST":
         session.permanent = True
-        user = request.form["nm"]
-        email = request.form["em"]    
+        user = request.form["username"]
         session["user"] = user
-        session["email"] = email
         if user == "coord":
             isCoordinator = True
         if user == "admin":
