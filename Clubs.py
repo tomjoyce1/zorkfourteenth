@@ -68,6 +68,8 @@ def club_registration(UserID, ClubName):
 
 
 
+
+
 ################################################################################################################################
     
 
@@ -89,4 +91,11 @@ def club_registration(UserID, ClubName):
 #ClubName = "Baking Club"
 #club_registration(Userid, ClubName)
         
+
+
+cursor.execute("SELECT * FROM ClubsView")     
+row = cursor.fetchall
+
+for row in cursor.fetchall():
+    print(row)
 
