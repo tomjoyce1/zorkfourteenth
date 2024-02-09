@@ -63,7 +63,56 @@ def club_registration(UserID, ClubName):
         print("Club Registration Denied")
         print("Too many clubs joined")
 
+def user_view_clubs():
+    cursor.execute("SELECT * FROM ClubsView")     
+    row = cursor.fetchall
+    for row in cursor.fetchall():
+        print(row)
 
+
+def admin_view_clubs():
+    cursor.execute("SELECT * FROM AdminClubsView")     
+    row = cursor.fetchall
+    for row in cursor.fetchall():
+        print(row)
+
+def coordinator_view_club_memberships(CoordinatorID):
+    cursor.execute("SELECT M.MembershipID, U.Name || ' ' || U.Surname AS 'User Name', M.ApprovalStatus, M.CreatedTimestamp, M.UpdatedTimestamp FROM Clubs C, Users U, ClubMemberships M WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID AND C.CoordinatorID = ? ORDER BY M.CreatedTimestamp DESC", (CoordinatorID,))
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+def coordinator_view_club_pending_memberships(CoordinatorID):
+    cursor.execute("SELECT M.MembershipID, U.Name || ' ' || U.Surname AS 'User Name', M.ApprovalStatus, M.CreatedTimestamp, M.UpdatedTimestamp FROM Clubs C, Users U, ClubMemberships M WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID AND C.CoordinatorID = ? AND M.ApprovalStatus = 'pending' ORDER BY M.CreatedTimestamp DESC", (CoordinatorID,))
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+
+def admin_view_club_memberships():
+    cursor.execute("SELECT * FROM AdminClubMembershipView")
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
+
+
+
+def approve_club_membership(membershipID, CoordinatorID):
+    cursor.execute("SELECT * FROM ClubMemberships WHERE MembershipID = ?", (membershipID,))
+    membership_row = cursor.fetchone()
+
+    if membership_row is not None:
+        cursor.execute("SELECT * FROM ClubMemberships M, Clubs C WHERE M.MembershipID = ? AND M.ApprovalStatus = 'pending' AND C.ClubID = (SELECT ClubID FROM Clubs WHERE CoordinatorID = ?)", (membershipID, CoordinatorID))
+        membership_row = cursor.fetchone()
+
+        if membership_row is not None or CoordinatorID == 1:
+            cursor.execute("UPDATE ClubMemberships SET ApprovalStatus = 'approved' WHERE MembershipID = ?", (membershipID,))
+            conn.commit()
+            print("Club Membership Approved")
+        else:
+            print("Club Membership Denied")
+    else:
+        print("Membership not found")
 
 
 
@@ -92,10 +141,6 @@ def club_registration(UserID, ClubName):
 #club_registration(Userid, ClubName)
         
 
-
-cursor.execute("SELECT * FROM ClubsView")     
-row = cursor.fetchall
-
-for row in cursor.fetchall():
-    print(row)
-
+#user_view_clubs() #displays all the approved clubs
+        
+admin_view_clubs()    
