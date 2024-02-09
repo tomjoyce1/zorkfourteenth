@@ -235,10 +235,39 @@ BEGIN
 END;
 
 ------------------------------------------
+/*Views*/
+CREATE VIEW IF NOT EXISTS ClubsView AS
+SELECT C.Name, U.Name || " " || U.Surname AS 'Coordinator Name', C.Description
+FROM Clubs C, Users U
+WHERE C.ValidityStatus = 'approved' AND C.CoordinatorID = U.UserID;
+
+
+CREATE VIEW IF NOT EXISTS AdminClubsView AS
+SELECT C.Name, U.Name || " " || U.Surname AS 'Coordinator Name', C.Description
+FROM Clubs C, Users U
+WHERE C.CoordinatorID = U.UserID;
+
+
+CREATE VIEW IF NOT EXISTS AdminClubMembershipView AS
+SELECT M.MembershipID, U.Name || " " || U.Surname AS 'User Name', C.Name AS 'Club Name', M.ApprovalStatus, M.CreatedTimestamp, M.UpdatedTimestamp
+FROM Clubs C, Users U, ClubMemberships M
+WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID
+ORDER BY M.CreatedTimestamp DESC;
+
+
+SELECT M.MembershipID, U.Name || " " || U.Surname AS 'User Name', M.ApprovalStatus, M.CreatedTimestamp, M.UpdatedTimestamp
+FROM Clubs C, Users U, ClubMemberships M
+WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID AND C.CoordinatorID = 2;
+
+SELECT M.MembershipID, U.Name || ' ' || U.Surname AS 'User Name', M.ApprovalStatus, M.CreatedTimestamp, M.UpdatedTimestamp 
+FROM Clubs C, Users U, ClubMemberships M 
+WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID AND C.CoordinatorID = 5 AND M.ApprovalStatus = 'pending' 
+ORDER BY M.CreatedTimestamp DESC
+-------------------------------------------
 /*Sample Queries*/
 INSERT INTO Users (Name, Surname, Email) VALUES ('Dawid', 'Jakubowski', 'dawijak@gmail.com'), ('James', 'Bond', 'jb.mi6@gmail.com'), ('Mike', 'Ryan', 'mryan@gmail.com'), ('Jacob', 'Stanely', 'jacobstan@gmail.com'), ('Adam', 'Murphy', 'smurf@gmail.com')
-UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 4
-UPDATE Users SET ApprovalStatus = 'approved'
+UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 6
+UPDATE Clubs SET ValidityStatus = 'approved'
 
 INSERT INTO Login (UserID, Username, Password) VALUES (1, 'dawijak', 'ISE123'), (2, 'Bond', 'moneypenny'), (3, 'Michael', 'Portlaoise04'), (4, 'JacStan20', 'Biscuits29'), (5, 'Murpher35', 'icecream82')
 
@@ -261,10 +290,13 @@ VALUES
  
  
  INSERT INTO Event_Registration (Event_id, User_id) VALUES (1, 8), (1, 11), (2, 5), (3, 9), (3, 6)
+ 
 
 
 SELECT * FROM Login
 SELECT * FROM Users 
 SELECT * FROM PhoneNumber
 
-SELECT * FROM Events
+SELECT * FROM Clubs 
+
+SELECT * FROM AdminClubsView
