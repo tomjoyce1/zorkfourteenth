@@ -8,12 +8,12 @@ cursor = conn.cursor()
 ######################################################################################################################################################################################
 #Login page
 ######################################################################################################################################################################################
-count = 0
+
 ######################################################################################################################################################################################
-#Insertions
+#Inserts
 
 
-
+count = 0
 #function to verify user credentials
 def validate_user(username, password):
     global name
@@ -132,13 +132,12 @@ def approve_user(UserID):
 ##########################################################################################################################
 #                                                    START OF PROGRAM                                                    #
 ##########################################################################################################################
+#INSERTS
 #Login
 #username = input("Enter username:")
 #password = input("Enter password:")
-
 #login(username, password)
-
-
+    
 #Signup
 #username = input("Enter username:")
 #password = input("Enter password:")
@@ -146,8 +145,36 @@ def approve_user(UserID):
 #surname = input("Enter surname:")
 #email = input("Enter email:")
 #phone = input("Enter phone:")
-
 #signup(username, password, name, surname, email, phone)
+
+
+
+#VIEW
+#Displays all user accounts
+#for record in admin_view_accounts():
+#    print (record)
+
+#Displays all pending accounts    
+#for record in admin_view_accounts_pending():
+#    print (record)
+
+#Displays the account of a specific user
+#UserID = 2 
+#print(admin_view_user(UserID))
+    
+
+
+#UPDATES
+#Approves user account   
+#UserID = 13
+#approve_user(UserID)
+
+
+
+
+
+
+
     
 
 #print(admin_view_user(2))    
