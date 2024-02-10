@@ -127,7 +127,19 @@ def admin_view_user(UserID):
 def approve_user(UserID):
     cursor.execute("UPDATE Users SET ApprovalStatus = 'approved' WHERE UserID =?", (UserID,))
     conn.commit()
-    print("User approved")      
+    print("User approved")  
+
+def deny_user(UserID):
+    cursor.execute("UPDATE Users SET ApprovalStatus = 'rejected' WHERE UserID =?", (UserID,))
+    conn.commit()
+    print("User denied")
+
+def promote_user(UserID):
+    approve_user(UserID)
+    cursor.execute("UPDATE Users SET Role = 'COORDINATOR' WHERE UserID =?", (UserID,))
+    conn.commit()
+    print("User promoted")   
+
 
 ##########################################################################################################################
 #                                                    START OF PROGRAM                                                    #
@@ -149,10 +161,14 @@ def approve_user(UserID):
 
 #signup(username, password, name, surname, email, phone)
     
+#viewer = admin_view_accounts()
+#for record in viewer:
+#    print(record)
 
 #print(admin_view_user(2))    
 #print((admin_view_accounts_pending())[0])
 #approve_user(12)
 
+#promote_user(8)
 
 conn.close()#closes connection to database
