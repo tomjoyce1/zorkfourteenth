@@ -65,10 +65,19 @@ def club_registration(UserID, ClubName):
 
 def user_view_clubs():
     cursor.execute("SELECT * FROM ClubsView")     
-    row = cursor.fetchall
-    for row in cursor.fetchall():
+    rows = cursor.fetchall()
+    result = [list(row) for row in rows]
+    
+    for row in result:
         print(row)
+    
+    return result
 
+def user_views_memberships(userID):
+    cursor.execute("SELECT M.MembershipID, U.Name ||'' || U.Surname AS 'User Name', M.ApprovalStatus, M.CreatedTimestamp, M.UpdatedTimestamp FROM Clubs C, Users U, ClubMemberships M WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID AND M.UserID =? ORDER BY M.CreatedTimestamp DESC", (userID,))
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row)
 
 def admin_view_clubs():
     cursor.execute("SELECT * FROM AdminClubsView")     
@@ -142,5 +151,6 @@ def approve_club_membership(membershipID, CoordinatorID):
         
 
 #user_view_clubs() #displays all the approved clubs
-        
-admin_view_clubs()    
+user_view_clubs()       
+viewer = user_view_clubs()    
+print(viewer[1][1])

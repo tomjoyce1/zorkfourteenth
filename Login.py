@@ -9,6 +9,10 @@ cursor = conn.cursor()
 #Login page
 ######################################################################################################################################################################################
 count = 0
+######################################################################################################################################################################################
+#Insertions
+
+
 
 #function to verify user credentials
 def validate_user(username, password):
@@ -94,25 +98,61 @@ def verify_role(user_id):
 
 
 
+######################################################################################################################################################################
+#Views
+def admin_view_accounts():
+    cursor.execute("SELECT * FROM AdminAccountView")
+    rows = cursor.fetchall()
+    result = [list(row) for row in rows]
+    return result
+
+def admin_view_accounts_pending():
+    cursor.execute("SELECT * FROM AdminAccountView WHERE ApprovalStatus = 'pending'")
+    rows = cursor.fetchall()
+    result = [list(row) for row in rows]
+    return result
+
+def admin_view_user(UserID):
+    cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp  FROM Users U, Login L, PhoneNumber P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
+    row = cursor.fetchone()
+    if row:
+        result = list(row)
+        return result
+    else:
+        return None
+
+
+######################################################################################################################################################################
+#Updates
+def approve_user(UserID):
+    cursor.execute("UPDATE Users SET ApprovalStatus = 'approved' WHERE UserID =?", (UserID,))
+    conn.commit()
+    print("User approved")      
 
 ##########################################################################################################################
 #                                                    START OF PROGRAM                                                    #
 ##########################################################################################################################
 #Login
-username = input("Enter username:")
-password = input("Enter password:")
+#username = input("Enter username:")
+#password = input("Enter password:")
 
-login(username, password)
+#login(username, password)
 
 
 #Signup
-username = input("Enter username:")
-password = input("Enter password:")
-name = input("Enter name:")
-surname = input("Enter surname:")
-email = input("Enter email:")
-phone = input("Enter phone:")
+#username = input("Enter username:")
+#password = input("Enter password:")
+#name = input("Enter name:")
+#surname = input("Enter surname:")
+#email = input("Enter email:")
+#phone = input("Enter phone:")
 
-signup(username, password, name, surname, email, phone)
+#signup(username, password, name, surname, email, phone)
+    
+
+#print(admin_view_user(2))    
+#print((admin_view_accounts_pending())[0])
+#approve_user(12)
+
 
 conn.close()#closes connection to database
