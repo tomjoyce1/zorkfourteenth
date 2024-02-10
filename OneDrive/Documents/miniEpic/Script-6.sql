@@ -236,6 +236,17 @@ END;
 
 ------------------------------------------
 /*Views*/
+CREATE VIEW IF NOT EXISTS AdminAccountView AS
+SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp 
+FROM Users U, Login L, PhoneNumber P
+WHERE U.UserID = L.UserID AND U.UserID = P.UserID
+
+CREATE VIEW IF NOT EXISTS AdminAccountViewPending AS
+SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp 
+FROM Users U, Login L, PhoneNumber P
+WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.ApprovalStatus = 'pending'
+
+
 CREATE VIEW IF NOT EXISTS ClubsView AS
 SELECT C.Name, U.Name || " " || U.Surname AS 'Coordinator Name', C.Description
 FROM Clubs C, Users U
@@ -300,3 +311,5 @@ SELECT * FROM PhoneNumber
 SELECT * FROM Clubs 
 
 SELECT * FROM AdminClubsView
+
+
