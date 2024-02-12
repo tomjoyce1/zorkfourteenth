@@ -47,7 +47,8 @@ def logout():
 
 @app.route("/clubs")
 def clubs():
-    return render_template("clubs.html")
+    Clubs.user_view_clubs
+    return render_template("clubs.html",clubList=Clubs.clubList)
 
 if __name__ == "__main__":
     app.run(debug=True)

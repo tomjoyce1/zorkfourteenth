@@ -3,6 +3,7 @@ import sqlite3
 #connecting to database
 conn = sqlite3.connect('MiniEpic.db')
 cursor = conn.cursor()
+clubList = []
 
 
 ######################################################################################################################################################################################
@@ -72,6 +73,7 @@ def user_view_clubs():
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
     
+    clubList.append(result)
     return result
 
 def user_views_memberships(userID):
