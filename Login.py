@@ -163,8 +163,8 @@ def promote_user(UserID):
 
 #VIEW
 #Displays all user accounts
-#for record in admin_view_accounts():
-#    print (record)
+for record in admin_view_accounts():
+    print (record)
 
 #Displays all pending accounts    
 #for record in admin_view_accounts_pending():
