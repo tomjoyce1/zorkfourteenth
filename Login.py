@@ -174,28 +174,21 @@ def promote_user(UserID):
 #UserID = 2 
 #print(admin_view_user(UserID))
     
+    
 
 
 #UPDATES
 #Approves user account   
 #UserID = 13
 #approve_user(UserID)
-
-
-
-
-
-
-
     
-#viewer = admin_view_accounts()
-#for record in viewer:
-#    print(record)
 
-#print(admin_view_user(2))    
-#print((admin_view_accounts_pending())[0])
-#approve_user(12)
 
-#promote_user(8)
+
+
+
+
+
+
 
 conn.close()#closes connection to database
