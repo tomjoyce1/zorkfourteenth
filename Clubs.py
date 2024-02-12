@@ -72,49 +72,52 @@ def user_view_clubs():
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
     
-    for row in result:
-        print(row)
-    
     return result
 
 def user_views_memberships(userID):
     cursor.execute("SELECT * FROM ViewClubMemberships WHERE UserID =?", (userID,))
     rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    result = [list(row) for row in rows]
+    
+    return result
 
 
 
 def coordinator_view_club_memberships(CoordinatorID):
     cursor.execute("SELECT * FROM ViewClubMemberships WHERE CoordinatorID = ?", (CoordinatorID,))
     rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    result = [list(row) for row in rows]
+    
+    return result
 
 def coordinator_view_club_pending_memberships(CoordinatorID):
     cursor.execute("SELECT * FROM ViewClubMemberships WHERE CoordinatorID = ? AND ApprovalStatus = 'pending'", (CoordinatorID,))
     rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    result = [list(row) for row in rows]
+    
+    return result
 
 
 def admin_view_clubs():
     cursor.execute("SELECT * FROM AdminClubsView")     
-    row = cursor.fetchall
-    for row in cursor.fetchall():
-        print(row)
+    rows = cursor.fetchall()
+    result = [list(row) for row in rows]
+    
+    return result
 
 def admin_view_clubs_pending():
     cursor.execute("SELECT * FROM AdminClubsView WHERE ValidityStatus = 'pending'")     
-    row = cursor.fetchall
-    for row in cursor.fetchall():
-        print(row)
+    rows = cursor.fetchall()
+    result = [list(row) for row in rows]
+    
+    return result
 
 def admin_view_club_memberships():
     cursor.execute("SELECT * FROM AdminClubMembershipView")
     rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    result = [list(row) for row in rows]
+    
+    return result
 
 ################################################################################################################################################################################################################
 #Updates
@@ -177,28 +180,35 @@ def approve_club(UserID, ClubID):
 
 #VIEWS
 #Displays all approved clubs
-#user_view_clubs()     
+#for record in user_view_clubs():
+#    print(record)     
 
 #Displaying all memberships of a specific user
 #UserID = 8
-#user_views_memberships(UserID)
+#for record in user_views_memberships(UserID):
+#    print(record)
         
 #Displaying all memberships of a specific club
 #CoordinatorID = 2
-#coordinator_view_club_memberships(CoordinatorID)
+#for record in coordinator_view_club_memberships(CoordinatorID):
+#    print(record)
 
 #Display all pending memberships of a specific club
 #CoordinatorID = 2
-#coordinator_view_club_pending_memberships(CoordinatorID)
+#for record in coordinator_view_club_pending_memberships(CoordinatorID):
+#    print(record)
 
 #Displays all clubs including not approved
-#admin_view_clubs()
+#for record in admin_view_clubs():
+#    print(record)
 
 #Displays only pending clubs
-#admin_view_clubs_pending()
+#for record in admin_view_clubs_pending():
+#    print(record)
         
 #Displays all memberships
-#admin_view_club_memberships()
+#for record in admin_view_club_memberships():
+#    print(record)
 
 
 
