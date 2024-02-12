@@ -155,6 +155,22 @@ def approve_club(UserID, ClubID):
     else:
         print("Access Denied")
 
+def reject_club(UserID, ClubID):
+    cursor.execute("SELECT Role FROM Users WHERE UserID = ?", (UserID,))
+    row = cursor.fetchone()
+    role = row[0]
+    if role == 'ADMIN':
+        cursor.execute("SELECT * FROM Clubs WHERE ClubID = ?", (ClubID,))
+        club_row = cursor.fetchone()
+        if club_row is not None:
+            cursor.execute("UPDATE Clubs SET ValidityStatus = 'rejected' WHERE ClubID = ?", (ClubID,))
+            conn.commit()
+            print("Club approved")
+
+        else:
+            print("Club not found")
+    else:
+        print("Access Denied")
 
 
 
@@ -221,7 +237,12 @@ def approve_club(UserID, ClubID):
 #Approves clubs
 #userID = 1 #Data from login
 #clubID = 5
-#approve_club(userID, clubID)  
+#approve_club(userID, clubID)
+
+#Rejects clubs
+#userID = 1 
+#clubID = 6
+#reject_club(userID, clubID) 
 
 
 

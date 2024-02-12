@@ -13,7 +13,3 @@ cursor = conn.cursor()
 #Registering for events
 
 #Adding new venues
-<<<<<<< HEAD
-
-=======
->>>>>>> 3700bcded1e65d59e07dce4f93759a18ef88f06f
