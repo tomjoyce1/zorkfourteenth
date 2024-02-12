@@ -119,6 +119,15 @@ def admin_view_club_memberships():
     
     return result
 
+def verify_club_membership(UserID, ClubID):
+    cursor.execute("SELECT * FROM ClubMemberships WHERE UserID =? AND ClubID =?", (UserID, ClubID))
+    row = cursor.fetchone()
+    membership = row[0]
+    if membership is not None:
+        return True
+    else:
+        return False
+
 ################################################################################################################################################################################################################
 #Update
 def approve_club_membership(membershipID, CoordinatorID):
@@ -225,6 +234,8 @@ def reject_club(UserID, ClubID):
 #Displays all memberships
 #for record in admin_view_club_memberships():
 #    print(record)
+        
+
 
 
 
