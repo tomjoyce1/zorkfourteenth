@@ -44,5 +44,9 @@ def logout():
     session.pop("email", None)
     return redirect(url_for("login"))
 
+@app.route("/clubs")
+def clubs():
+    return render_template("clubs.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
