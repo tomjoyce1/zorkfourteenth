@@ -183,6 +183,15 @@ def promote_user(UserID):
 #approve_user(UserID)
     
 
+#Rejects user account
+#UserID = 13
+#deny_user(UserID)
+
+#Promotes user account to coordinator
+#UserID = 5
+#promote_user(UserID)
+ 
+
 
 
 
