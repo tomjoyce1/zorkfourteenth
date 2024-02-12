@@ -174,8 +174,22 @@ def reject_club(UserID, ClubID):
 
 
 
+################################################################################################################################################################################################################
+#Deletes
+        
+def delete_club(ClubID):
+    cursor.execute("DELETE FROM ClubMemberships WHERE ClubID =?", (ClubID,))
+    cursor.execute("DELETE FROM Events WHERE Club_id =?", (ClubID,))
+    cursor.execute("DELETE FROM Event_Registration WHERE Event_id = (SELECT Event_id FROM Events WHERE Club_id = ?)", (ClubID,))
+    cursor.execute("DELETE FROM Clubs WHERE ClubID =?", (ClubID,))
+    conn.commit()
+    print("Club Deleted")
 
 
+def delete_membership(membershipID):
+    cursor.execute("DELETE FROM ClubMemberships WHERE MembershipID =?", (membershipID,))
+    conn.commit()
+    print("Membership Deleted")
 
 
 ################################################################################################################################
@@ -243,6 +257,18 @@ def reject_club(UserID, ClubID):
 #userID = 1 
 #clubID = 6
 #reject_club(userID, clubID) 
+    
+
+
+
+#DELETES
+#Deletes clubs
+#ClubID = 5
+#delete_club(ClubID)
+    
+#Deletes memberships
+#MembershipID = 2
+#delete_membership(MembershipID)
 
 
 
