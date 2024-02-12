@@ -255,12 +255,4 @@ def reject_club(UserID, ClubID):
 #clubID = 6
 #reject_club(userID, clubID) 
 
-
-
-
-
-      
-
-
-
 conn.close()#closes connection to database
