@@ -120,7 +120,7 @@ def admin_view_club_memberships():
     return result
 
 ################################################################################################################################################################################################################
-#Updates
+#Update
 def approve_club_membership(membershipID, CoordinatorID):
     cursor.execute("SELECT * FROM ClubMemberships WHERE MembershipID = ?", (membershipID,))
     membership_row = cursor.fetchone()
