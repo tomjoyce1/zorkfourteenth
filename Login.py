@@ -38,7 +38,9 @@ def login(username, password):
 
         print("Login successful")
         print("Welcome to ISEagles", name)
-        verify_role(user_id) #returns to verify role screen
+
+
+        return user_id
 
     else:
         print("Invalid username or password")
@@ -47,6 +49,11 @@ def login(username, password):
     
 
 def create_account(username, password, name, surname, email, phone):
+    cursor.execute("SELECT * FROM Users WHERE Email = ?", email)
+    row = cursor.fetchone()
+    if row is not None:
+        print("Email already exists")
+        return "Error"
     cursor.execute("INSERT INTO Users (Name, Surname, Email) VALUES (?,?,?)", (name, surname, email)) #creates new record in Users table with provided data
     conn.commit() #commits attributes to database
 
@@ -54,7 +61,7 @@ def create_account(username, password, name, surname, email, phone):
     row = cursor.fetchone() #returns first row of database
     user_id = int(row[0]) #gets user ID from database
 
-    cursor.execute("INSERT INTO Login (username, password) VALUES (?,?)", (username, password)) #creates new record in login table with provided username and password
+    cursor.execute("INSERT INTO Login (UserID, username, password) VALUES (?,?,?)", (user_id, username, password)) #creates new record in login table with provided username and password
     cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
     conn.commit() #commits attributes to database
 
@@ -85,13 +92,13 @@ def verify_role(user_id):
    
    
     if role == "ADMIN":
-        print("You are an Admin")######################################################Admin page
+        return "ADMIN"
 
     elif role == "COORDINATOR":
-        print("You are a Coordinator")######################################################Coordinator page
+        return "COORDINATOR"
     
     elif role == "STUDENT":
-        print("You are a Student")######################################################Student page
+        return "STUDENT"
     
     else:
         print("ERROR: Invalid role")
@@ -127,7 +134,31 @@ def admin_view_user(UserID):
 def approve_user(UserID):
     cursor.execute("UPDATE Users SET ApprovalStatus = 'approved' WHERE UserID =?", (UserID,))
     conn.commit()
-    print("User approved")      
+    print("User approved")  
+
+def deny_user(UserID):
+    cursor.execute("UPDATE Users SET ApprovalStatus = 'rejected' WHERE UserID =?", (UserID,))
+    conn.commit()
+    print("User denied")
+
+def promote_user(UserID):
+    approve_user(UserID)
+    cursor.execute("UPDATE Users SET Role = 'COORDINATOR' WHERE UserID =?", (UserID,))
+    conn.commit()
+    print("User promoted")   
+
+
+
+######################################################################################################################################################################
+#Deletes
+    
+def delete_account(UserID):
+    cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
+    cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
+    cursor.execute("DELETE FROM PhoneNumber WHERE UserID =?", (UserID,))
+    conn.commit()
+    print("Account deleted")
+    
 
 ##########################################################################################################################
 #                                                    START OF PROGRAM                                                    #
@@ -152,7 +183,7 @@ def approve_user(UserID):
 #VIEW
 #Displays all user accounts
 #for record in admin_view_accounts():
-#    print (record)
+#  print (record)
 
 #Displays all pending accounts    
 #for record in admin_view_accounts_pending():
@@ -169,9 +200,20 @@ def approve_user(UserID):
 #Approves user account   
 #UserID = 13
 #approve_user(UserID)
+    
 
+#Rejects user account
+#UserID = 19
+#deny_user(UserID)
 
+#Promotes user account to coordinator
+#UserID = 5
+#promote_user(UserID)
+    
 
+#DELETES
+#UserID = 19
+#delete_account(UserID)
 
 
 
