@@ -162,6 +162,7 @@ def approve_user(UserID):
 #UserID = 2 
 #print(admin_view_user(UserID))
     
+    
 
 
 #UPDATES
@@ -173,13 +174,6 @@ def approve_user(UserID):
 
 
 
-
-
-    
-
-#print(admin_view_user(2))    
-#print((admin_view_accounts_pending())[0])
-#approve_user(12)
 
 
 conn.close()#closes connection to database
