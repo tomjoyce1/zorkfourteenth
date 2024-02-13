@@ -43,8 +43,7 @@ def login(username, password):
         return user_id
 
     else:
-        print("Invalid username or password")
-        print("Please try again")
+        return "invalid"
 
     
 
@@ -213,7 +212,7 @@ login(username, password)
     
 
 #DELETES
-#UserID = 19
+#UserID = 24
 #delete_account(UserID)
 
 
