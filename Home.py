@@ -4,10 +4,10 @@ from flask import Flask, redirect, url_for, render_template, jsonify, request, s
 # importing real time to create permanent session for perios of time
 from datetime import timedelta
 app = Flask(__name__)
-miniwebsite_dir = r"C:\Users\JJ\MiniWebsite"
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Construct the path relative to the MiniWebsite directory
-database_path = os.path.join(miniwebsite_dir, 'MiniEpic.db')
+database_path = os.path.join(current_dir, 'MiniEpic.db')
 
 # Set the database path in your app config
 app.config['DATABASE'] = database_path
