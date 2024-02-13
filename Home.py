@@ -1,10 +1,17 @@
-import sqlite3
+import sqlite3, os
 
 from flask import Flask, redirect, url_for, render_template, jsonify, request, session, flash, g
 # importing real time to create permanent session for perios of time
 from datetime import timedelta
 app = Flask(__name__)
-app.config['DATABASE'] = r"C:\Users\JJ\MiniWebsite\MiniEpic.db"
+miniwebsite_dir = r"C:\Users\JJ\MiniWebsite"
+
+# Construct the path relative to the MiniWebsite directory
+database_path = os.path.join(miniwebsite_dir, 'MiniEpic.db')
+
+# Set the database path in your app config
+app.config['DATABASE'] = database_path
+
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
 validLogin = False
@@ -41,7 +48,7 @@ def login():
         if row is not None:
             validLogin = True
         if validLogin:
-            cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password)) #checks login table for provided username and password
+            cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Pass word=?", (username, password)) #checks login table for provided username and password
             row = cursor.fetchone() #returns first row of database
             user_id = int(row[0]) #gets user ID from database
             cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
