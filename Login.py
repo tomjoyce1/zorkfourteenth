@@ -213,7 +213,7 @@ def delete_account(UserID):
     
 
 #DELETES
-#UserID = 19
+#UserID = 24
 #delete_account(UserID)
 
 
