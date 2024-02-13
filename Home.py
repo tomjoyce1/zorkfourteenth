@@ -37,6 +37,7 @@ def home():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    global validLogin
     if request.method == "POST":
         session.permanent = True
         username = request.form["username"]
@@ -44,7 +45,7 @@ def login():
 
         conn = get_db()  # Open a database connection
         cursor = conn.cursor()
-        cursor.execute("SELECT UserID FROM Login WHERE username=? AND password=?", (username, password)) #checks login table for provided username and password
+        cursor.execute("SELECT UserID FROM Login WHERE Username=? AND \"Pass word\"=?", (username, password))
         row = cursor.fetchone() #returns first row of database
 
         if row is not None:
