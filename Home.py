@@ -7,6 +7,7 @@ app = Flask(__name__)
 app.config['DATABASE'] = r"C:\Users\JJ\MiniWebsite\MiniEpic.db"
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
+validLogin = False
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -27,11 +28,26 @@ def home():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    global isCoordinator, isAdmin  # Declare as global variables
     if request.method == "POST":
         session.permanent = True
-        user = request.form["username"]
-        session["user"] = user
+        username = request.form["username"]
+        password = request.form["password"]
+
+        conn = get_db()  # Open a database connection
+        cursor = conn.cursor()
+        cursor.execute("SELECT UserID FROM Login WHERE username=? AND password=?", (username, password)) #checks login table for provided username and password
+        row = cursor.fetchone() #returns first row of database
+
+        if row is not None:
+            validLogin = True
+        if validLogin:
+            cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password)) #checks login table for provided username and password
+            row = cursor.fetchone() #returns first row of database
+            user_id = int(row[0]) #gets user ID from database
+            cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
+            row = cursor.fetchone() #returns first row of database
+            username = row[0] #assigns name from database to name variable
+
         return redirect(url_for("home"))
     else:
         if "user" in session:
