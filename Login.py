@@ -1,4 +1,5 @@
 import sqlite3
+import Clubs
 
 #connecting to database
 conn = sqlite3.connect('MiniEpic.db')
@@ -137,6 +138,7 @@ def approve_user(UserID):
 
 def deny_user(UserID):
     cursor.execute("UPDATE Users SET ApprovalStatus = 'rejected' WHERE UserID =?", (UserID,))
+    delete_account(UserID)
     conn.commit()
     print("User denied")
 
@@ -145,6 +147,22 @@ def promote_user(UserID):
     cursor.execute("UPDATE Users SET Role = 'COORDINATOR' WHERE UserID =?", (UserID,))
     conn.commit()
     print("User promoted")   
+
+def update_number(UserID, PhoneNumber):
+    cursor.execute("UPDATE PhoneNumber SET PhoneNumber = ? WHERE UserID =?", (PhoneNumber, UserID,))
+    conn.commit()
+    print("Number updated")  
+
+def update_password(UserID, oldPassword, newPassword):
+    cursor.execute("SELECT * FROM Login WHERE UserID = ? AND Password = ?", (UserID, oldPassword,))
+    row = cursor.fetchone()
+    if row is not None: 
+        cursor.execute("UPDATE Login SET Password = ? WHERE UserID =?", (newPassword, UserID,))
+        conn.commit()
+        print("Password updated") 
+    else:
+        print("Incorrect password")
+        return "invalid"
 
 
 
@@ -155,6 +173,12 @@ def delete_account(UserID):
     cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
     cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
     cursor.execute("DELETE FROM PhoneNumber WHERE UserID =?", (UserID,))
+    cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,))
+    cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,))
+    row = cursor.fetchone()
+    if row is not None:
+        Clubs.delete_club(row[0])
+    
     conn.commit()
     print("Account deleted")
     
@@ -183,7 +207,7 @@ def delete_account(UserID):
 #VIEW
 #Displays all user accounts
 #for record in admin_view_accounts():
-#  print (record)
+# print (record)
 
 #Displays all pending accounts    
 #for record in admin_view_accounts_pending():
@@ -210,10 +234,26 @@ def delete_account(UserID):
 #UserID = 5
 #promote_user(UserID)
     
+#Updates phone number
+#UserID = 25
+#phone = "0874635162"
+#update_number(UserID, phone)
+
+#Updates password
+#UserID = 25
+#oldPassword = "lowerpark"
+#newPassword = "upperpark"
+#update_password(UserID, oldPassword, newPassword)
+    
+
+
 
 #DELETES
-#UserID = 24
+#Deletes account
+#UserID = 25
 #delete_account(UserID)
+    
+
 
 
 
