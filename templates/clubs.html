@@ -276,7 +276,7 @@
     {% for index, club in clubList|enumerate %}
     <div class="feature">
         <div class="feature-content">
-            <img src="static/{{club[1]}}.png" alt="Feature 1 Image">
+            <img src="static/{{club[1]}}.png" alt="Feature 1 Image" onerror="this.src='/static/default.png'">
             <div class="text-content {% if index % 2 == 0 %} custom-left {% else %} custom-right {% endif %}">
                 <h2 style="font-family: 'Bebas Neue Pro Bold Italic'"></h2style>{{club[1]}}</h2>
                 <p>{{club[3]}}</p>
