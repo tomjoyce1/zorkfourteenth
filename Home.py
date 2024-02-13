@@ -6,8 +6,10 @@ from datetime import timedelta
 app = Flask(__name__)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
+miniwebsite_dir = os.path.join(current_dir, '..')
+
 # Construct the path relative to the MiniWebsite directory
-database_path = os.path.join(current_dir, 'MiniEpic.db')
+database_path = os.path.join(miniwebsite_dir, 'MiniWebsite', 'MiniEpic.db')
 
 # Set the database path in your app config
 app.config['DATABASE'] = database_path
