@@ -204,9 +204,9 @@ def delete_membership(membershipID):
     
 #INSERTS
 #Creating a new club
-#ClubName = "Hockey" 
-#CoordinatorID = 8 #Data stored from login page
-#Description = "Fun on ice"
+#ClubName = "Basketball" 
+#CoordinatorID = 21 #Data stored from login page
+#Description = "Certain Victory"
 #creating_club(ClubName, CoordinatorID, Description)
 
 #Registering for a new club     
@@ -242,7 +242,7 @@ def delete_membership(membershipID):
 
 #Displays only pending clubs
 #for record in admin_view_clubs_pending():
- #   print(record)
+#   print(record)
         
 #Displays all memberships
 #for record in admin_view_club_memberships():
@@ -259,8 +259,8 @@ def delete_membership(membershipID):
 #approve_club_membership(MembershipID, CoordinatorID) 
 
 #Approves clubs
-#userID = 1 #Data from login
-#clubID = 5
+#userID = 21 #Data from login
+#clubID = 7
 #approve_club(userID, clubID)
 
 #Rejects clubs

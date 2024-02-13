@@ -189,9 +189,9 @@ def delete_account(UserID):
 ##########################################################################################################################
 #INSERTS
 #Login
-#username = input("Enter username:")
-#password = input("Enter password:")
-#login(username, password)
+username = input("Enter username:")
+password = input("Enter password:")
+login(username, password)
     
 #Signup
 #username = input("Enter username:")
@@ -222,7 +222,7 @@ def delete_account(UserID):
 
 #UPDATES
 #Approves user account   
-#UserID = 13
+#UserID = 21
 #approve_user(UserID)
     
 
@@ -231,7 +231,7 @@ def delete_account(UserID):
 #deny_user(UserID)
 
 #Promotes user account to coordinator
-#UserID = 5
+#UserID = 22
 #promote_user(UserID)
     
 #Updates phone number
