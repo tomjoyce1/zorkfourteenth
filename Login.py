@@ -43,8 +43,7 @@ def login(username, password):
         return user_id
 
     else:
-        print("Invalid username or password")
-        print("Please try again")
+        return "invalid"
 
     
 
