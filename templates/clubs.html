@@ -273,68 +273,20 @@
         <a href="#about-section">About</a>
         <a href="login">Login</a>
     </nav>
-        <div class="feature">
-            <div class="feature-content">
-                <img src="static/archery.png" alt="Feature 1 Image">
-                <div class="text-content custom-left">
-                    <h2>{{clubList}}</h2>
-                    <p>"Draw, Aim, Release: Excellence" </p>
-                    <button class="button">Register Now</button>
-                    <h2>Coordinator: </h2>
-                </div>
+    {% for index, club in clubList|enumerate %}
+    <div class="feature">
+        <div class="feature-content">
+            <img src="static/{{club[1]}}.png" alt="Feature 1 Image">
+            <div class="text-content {% if index % 2 == 0 %} custom-left {% else %} custom-right {% endif %}">
+                <h2>{{club[1]}}</h2>
+                <p>{{club[3]}}</p>
+                <button class="button">Register Now</button>
+                <h2>Coordinator: {{club[2]}}</h2>
             </div>
         </div>
-
-        <div class="feature">
-            <div class="feature-content">
-                <img src="static/swimming.png" alt="Feature 1 Image">
-                <div class="text-content">
-                    <h2>Swimming</h2>
-                    <p>"Dive Into The Deep End" </p>
-                    <button class="button">Register Now</button>
-                    <h2>Coordinator: </h2>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="feature">
-            <div class="feature-content">
-                <img src="static/tennis.png" alt="Feature 1 Image">
-                <div class="text-content custom-left">
-                    <h2>Tennis</h2>
-                    <p>"Rule The Court" </p>
-                    <button class="button">Register Now</button>
-                    <h2>Coordinator: </h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="feature">
-            <div class="feature-content">
-                <img src="static/soccer.png" alt="Feature 1 Image">
-                <div class="text-content">
-                    <h2>Soccer</h2>
-                    <p>"The Theatre Of Dreams"</p>
-                    <button class="button">Register Now</button>
-                    <h2>Coordinator: </h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="feature">
-            <div class="feature-content">
-                <img src="static/hockey.png" alt="Feature 1 Image">
-                <div class="text-content custom-left">
-                    <h2>Hockey</h2>
-                    <p>"Stick With It"</p>
-                    <button class="button">Register Now</button>
-                    <h2>Coordinator: </h2>
-                </div>
-            </div>
-        </div>
-    </section>
-        <footer>
+    </div>
+    {% endfor %}
+    <footer>
         <p>&copy; ClubHub | Tom, JJ, Dara, Dawid</p>
     </footer>
 

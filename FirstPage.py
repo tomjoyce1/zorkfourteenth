@@ -1,6 +1,4 @@
-# all imports
 from flask import Flask, redirect, url_for, render_template, request, session, flash
-import Clubs
 # importing real time to create permanent session for perios of time
 from datetime import timedelta 
 app = Flask(__name__)
@@ -47,8 +45,11 @@ def logout():
 
 @app.route("/clubs")
 def clubs():
-    Clubs.user_view_clubs
-    return render_template("clubs.html",clubList=Clubs.clubList)
+    return render_template("clubs.html",clubList=clubList)
+
+@app.route("/testing")
+def test():
+    return render_template("test.html",var=clubList)
 
 if __name__ == "__main__":
     app.run(debug=True)
