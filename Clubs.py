@@ -219,7 +219,7 @@ def delete_membership(membershipID):
 #VIEWS
 #Displays all approved clubs
 #for record in user_view_clubs():
-#    print(record)     
+#   print(record)     
 
 #Displaying all memberships of a specific user
 #UserID = 8
@@ -242,7 +242,7 @@ def delete_membership(membershipID):
 
 #Displays only pending clubs
 #for record in admin_view_clubs_pending():
-#    print(record)
+ #   print(record)
         
 #Displays all memberships
 #for record in admin_view_club_memberships():
