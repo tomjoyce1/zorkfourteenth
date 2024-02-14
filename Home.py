@@ -14,8 +14,6 @@ app.config['DATABASE'] = database_path
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
 validLogin = False
-isCoord = False
-isAdmin = False
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -54,22 +52,23 @@ def login():
             cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Pass word=?", (username, password)) #checks login table for provided username and password
             row = cursor.fetchone() #returns first row of database
             user_id = int(row[0]) #gets user ID from database
+            role = row
             cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
             row = cursor.fetchone() #returns first row of database
             if row is not None:
-                username = row[0]
-                role = row[1]
+                user_id,role = row
                 if role == "COORDINATOR":
                     isCoord = True
                 elif role == "ADMIN":
                     isAdmin = True
-        return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
+
+        return redirect(url_for("home",))
     else:
         if "user" in session:
-            return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
+            return redirect(url_for("home",))
 
-        return render_template("login.html", isCoord=isCoord, isAdmin=isAdmin)
-    
+        return render_template("login.html",)
+
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if request.method == "POST":

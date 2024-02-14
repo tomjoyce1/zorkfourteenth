@@ -267,12 +267,12 @@
             <a href="clubs">Clubs</a>
             <a href="events">Events</a>
             <a href="memberships">Your Memberships</a>
-            {% if isCoord %}
+            {% if role == 'COORDINATOR' %}
                 <a href="yourclub">Your Club</a>
             {% endif %}
-            {% if isAdmin %}
-            <a href="users">Users</a>
-            <a href="coordinators">Coordinators</a>
+            {% if role == 'ADMIN' %}
+                <a href="users">Users</a>
+                <a href="coordinators">Coordinators</a>
             {% endif %}
         {% endif %}
         <a href="login">Login</a>
