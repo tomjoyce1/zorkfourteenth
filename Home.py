@@ -1,22 +1,21 @@
 import sqlite3, os
 
 from flask import Flask, redirect, url_for, render_template, jsonify, request, session, flash, g
+
 # importing real time to create permanent session for perios of time
 from datetime import timedelta
 app = Flask(__name__)
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
-
 miniwebsite_dir = os.path.join(current_dir, '..')
-
-# Construct the path relative to the MiniWebsite directory
 database_path = os.path.join(miniwebsite_dir, 'MiniWebsite', 'MiniEpic.db')
-
-# Set the database path in your app config
 app.config['DATABASE'] = database_path
 
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
 validLogin = False
+isCoord = False
+isAdmin = False
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -37,11 +36,12 @@ def home():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    global validLogin
+    global validLogin,isAdmin,isCoord
     if request.method == "POST":
         session.permanent = True
         username = request.form["username"]
         password = request.form["password"]
+        session["user"] = username
 
         conn = get_db()  # Open a database connection
         cursor = conn.cursor()
@@ -56,8 +56,13 @@ def login():
             user_id = int(row[0]) #gets user ID from database
             cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
             row = cursor.fetchone() #returns first row of database
-            username = row[0] #assigns name from database to name variable
-
+            if row is not None:
+                username = row[0]
+                role = row[1]
+                if role == "COORDINATOR":
+                    isCoord = True
+                elif role == "ADMIN":
+                    isAdmin = True
         return redirect(url_for("home"))
     else:
         if "user" in session:

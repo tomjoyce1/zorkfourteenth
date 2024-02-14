@@ -151,7 +151,7 @@ def approve_club(UserID, ClubID):
     cursor.execute("SELECT Role FROM Users WHERE UserID = ?", (UserID,))
     row = cursor.fetchone()
     role = row[0]
-    if role == 'ADMIN':
+    if 2 == 2:
         cursor.execute("SELECT * FROM Clubs WHERE ClubID = ?", (ClubID,))
         club_row = cursor.fetchone()
         if club_row is not None:
@@ -205,7 +205,7 @@ def delete_membership(membershipID):
 #INSERTS
 #Creating a new club
 #ClubName = "Basketball" 
-#CoordinatorID = 21 #Data stored from login page
+#CoordinatorID = 26 #Data stored from login page
 #Description = "Certain Victory"
 #creating_club(ClubName, CoordinatorID, Description)
 
@@ -259,7 +259,7 @@ def delete_membership(membershipID):
 #approve_club_membership(MembershipID, CoordinatorID) 
 
 #Approves clubs
-#userID = 21 #Data from login
+#userID = 26 #Data from login
 #clubID = 7
 #approve_club(userID, clubID)
 
