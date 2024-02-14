@@ -14,6 +14,8 @@ app.config['DATABASE'] = database_path
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
 validLogin = False
+isAdmin = False
+isCoord = False
 
 def get_db():
     db = getattr(g, '_database', None)
