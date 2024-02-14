@@ -266,10 +266,9 @@
             <a href="clubs">Clubs</a>
             <a href="events">Events</a>
             <a href="memberships">Your Memberships</a>
-            {% if role == 'COORDINATOR' %}
+            {% if val1 == True %}
                 <a href="yourclub">Your Club</a>
-            {% endif %}
-            {% if role == 'ADMIN' %}
+            {% elif val2 == True %}
                 <a href="users">Users</a>
                 <a href="coordinators">Coordinators</a>
             {% endif %}

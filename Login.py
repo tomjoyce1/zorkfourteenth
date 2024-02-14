@@ -82,7 +82,7 @@ def signup(username, password, name, surname, email, phone):
   
 
 def verify_role(user_id):
-    cursor.execute("SELECT Role, ApprovalStatus FROM Users WHERE UserID=?", (user_id,)) #checks role of user from Users table
+    cursor.execute("SELECT Role, ApprovalStatus FROM Users WHERE UserID=?", (user_id)) #checks role of user from Users table
     row = cursor.fetchone() #returns first row of database
     role = row[0]
     approval_status = row[1]
@@ -181,8 +181,6 @@ def delete_account(UserID):
     
     conn.commit()
     print("Account deleted")
-    
-
 
 ##########################################################################################################################
 #                                                    START OF PROGRAM                                                    #

@@ -13,9 +13,6 @@ app.config['DATABASE'] = database_path
 
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
-validLogin = False
-isAdmin = False
-isCoord = False
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -37,6 +34,9 @@ def home():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     global validLogin,isAdmin,isCoord
+    validLogin = False
+    isAdmin = False
+    isCoord = False
     if request.method == "POST":
         session.permanent = True
         username = request.form["username"]
@@ -45,31 +45,30 @@ def login():
 
         conn = get_db()  # Open a database connection
         cursor = conn.cursor()
-        cursor.execute("SELECT UserID FROM Login WHERE Username=? AND \"Pass word\"=?", (username, password))
+        cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password))
         row = cursor.fetchone() #returns first row of database
+        user_id=row
 
         if row is not None:
             validLogin = True
         if validLogin:
-            cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Pass word=?", (username, password)) #checks login table for provided username and password
+            cursor.execute("SELECT Role FROM Users WHERE UserID=?", (user_id))
             row = cursor.fetchone() #returns first row of database
-            user_id = int(row[0]) #gets user ID from database
-            role = row
-            cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
-            row = cursor.fetchone() #returns first row of database
-            if row is not None:
-                user_id,role = row
+            if row:
+                role = str(row[0])  # Access the first element of the tuple
+                print("Role:", role, "Type:", type(role))
                 if role == "COORDINATOR":
                     isCoord = True
-                elif role == "ADMIN":
+                if role == "ADMIN":
                     isAdmin = True
 
-        return redirect(url_for("home",))
+
+        return redirect(url_for("home",val1=isCoord,val2=isAdmin))
     else:
         if "user" in session:
-            return redirect(url_for("home",))
+            return redirect(url_for("home",val1=isCoord,val2=isAdmin))
 
-        return render_template("login.html",)
+        return render_template("login.html",val1=isCoord,val2=isAdmin)
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
