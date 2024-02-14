@@ -63,12 +63,12 @@ def login():
                     isCoord = True
                 elif role == "ADMIN":
                     isAdmin = True
-        return redirect(url_for("home"))
+        return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
     else:
         if "user" in session:
-            return redirect(url_for("home"))
+            return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
 
-        return render_template("login.html")
+        return render_template("login.html", isCoord=isCoord, isAdmin=isAdmin)
     
 @app.route("/register", methods=["POST", "GET"])
 def register():
