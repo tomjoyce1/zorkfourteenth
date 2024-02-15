@@ -220,7 +220,10 @@ def update_password(UserID, oldPassword, newPassword):
 #Deletes
     
 def delete_account(UserID):
+<<<<<<< HEAD
     #prevents admin account from being deleted
+=======
+>>>>>>> 207a097f6b399721f348147fc705374bc858a6a1
     if UserID == 1:
         print("Cannot delete admin account")
         return "invalid"
