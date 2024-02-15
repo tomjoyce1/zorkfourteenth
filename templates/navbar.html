@@ -264,7 +264,8 @@
             <a href="memberships">Your Memberships</a>
             {% if isCoord %}
                 <a href="yourclub">Your Club</a>
-            {% elif isAdmin %}
+            {% endif %}
+            {% if isAdmin %}
                 <a href="users">Users</a>
                 <a href="coordinators">Coordinators</a>
             {% endif %}

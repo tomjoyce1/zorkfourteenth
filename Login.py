@@ -50,9 +50,10 @@ def login(username, password):
     print("Role:", role)
     if role == "COORDINATOR":
         isCoord = True
+        isAdmin = False
     if role == "ADMIN":
         isAdmin = True
-
+        isCoord = False
 
     return isCoord,isAdmin
     
