@@ -68,7 +68,7 @@ def create_account(username, password, name, surname, email, phone):
     user_id = int(row[0]) #gets user ID from database
 
     cursor.execute("INSERT INTO Login (UserID, username, password) VALUES (?,?,?)", (user_id, username, password)) #creates new record in login table with provided username and password
-    cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
+    cursor.execute("INSERT INTO Phone_Number (UserID, Phone_Number) VALUES (?,?)", (user_id, phone)) #creates new record in Phone_Number table with user ID and provided phone number
     conn.commit() #commits attributes to database
     print("Registration Succesful")
 
@@ -136,7 +136,7 @@ def admin_view_accounts_pending():
 def admin_view_user(UserID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp  FROM Users U, Login L, PhoneNumber P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
+    cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.Phone_Number, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp  FROM Users U, Login L, Phone_Number P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
     row = cursor.fetchone()
     if row:
         result = list(row)
@@ -170,10 +170,10 @@ def promote_user(UserID):
     conn.commit()
     print("User promoted")   
 
-def update_number(UserID, PhoneNumber):
+def update_number(UserID, Phone_Number):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("UPDATE PhoneNumber SET PhoneNumber = ? WHERE UserID =?", (PhoneNumber, UserID,))
+    cursor.execute("UPDATE Phone_Number SET Phone_Number = ? WHERE UserID =?", (Phone_Number, UserID,))
     conn.commit()
     print("Number updated")  
 
@@ -200,7 +200,7 @@ def delete_account(UserID):
     cursor = conn.cursor()
     cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
     cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
-    cursor.execute("DELETE FROM PhoneNumber WHERE UserID =?", (UserID,))
+    cursor.execute("DELETE FROM Phone_Number WHERE UserID =?", (UserID,))
     cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,))
     cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,))
     row = cursor.fetchone()
