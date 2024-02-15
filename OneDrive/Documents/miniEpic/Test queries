@@ -1,8 +1,29 @@
+/*Users*/
 INSERT INTO Users (Name, Surname, Email) VALUES ('Dawid', 'Jakubowski', 'dawijak@gmail.com'), ('James', 'Bond', 'jb.mi6@gmail.com'), ('Mike', 'Ryan', 'mryan@gmail.com'), ('Jacob', 'Stanely', 'jacobstan@gmail.com'), ('Adam', 'Murphy', 'smurf@gmail.com')
+UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 2
+UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 3
+UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 4
+UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 5
 UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 6
+UPDATE Users SET Role = 'COORDINATOR' WHERE UserID = 8
+
+SELECT * FROM Users 
+
+/*Login*/
+INSERT INTO Login (UserID, Username, Password) VALUES (1, 'dawijak', 'ISE123'), (2, 'Bond', 'moneypenny'), (3, 'Michael', 'Portlaoise04'), (4, 'JacStan20', 'Biscuits29'), (5, 'Murpher35', 'icecream82')
+
+SELECT * FROM Login
+
+
+/*PhoneNumber*/
+INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (1, '0872838474'), (2, '0864240572'), (3, '0892849291'), (4, '0892936471'), (5, '0862846208')
+
+SELECT * FROM PhoneNumber
+
+
 UPDATE Clubs SET ValidityStatus = 'approved'
 
-INSERT INTO Login (UserID, Username, Password) VALUES (1, 'dawijak', 'ISE123'), (2, 'Bond', 'moneypenny'), (3, 'Michael', 'Portlaoise04'), (4, 'JacStan20', 'Biscuits29'), (5, 'Murpher35', 'icecream82')
+
 
 INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (1, '0872838474'), (2, '0864240572'), (3, '0892849291'), (4, '0892936471'), (5, '0862846208')
 
@@ -27,7 +48,7 @@ VALUES
 
 
 SELECT * FROM Login
-SELECT * FROM Users 
+
 SELECT * FROM PhoneNumber
 
 SELECT * FROM Clubs 
