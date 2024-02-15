@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import sqlite3, os,Login,Clubs
+=======
+import sqlite3, os, Login
+>>>>>>> a5326cb00186111f05dc29db864d88b39407e4c2
 
 from flask import Flask, redirect, url_for, render_template, jsonify, request, session, flash, g
 
