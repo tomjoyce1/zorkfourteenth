@@ -1,0 +1,100 @@
+{% extends "navbar.html" %}
+
+{% block title %}Memberships{% endblock %}
+
+{% block style %}
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('static/arena.png'); /* Replace 'your_image.jpg' with the path to your custom background image */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #fff; /* Change text color if needed */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* Add opacity to the background color */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #fff; /* Change text color if needed */
+        }
+        .event-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .event {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8); /* Add opacity to the event background color */
+            border-radius: 5px;
+        }
+        .event h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #000; /* Change text color to black */
+        }
+        .event p {
+            margin: 5px 0;
+            color: #000; /* Change text color to black */
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Upcoming Events</h1>
+        
+        <!-- List of upcoming events -->
+        <div class="event">
+            <h2>Archery</h2>
+            <p>Training Session</p>
+            <p>Date: January 15, 2025</p>
+            <p>Time: 9:00 AM - 11:00 AM</p>
+        </div>
+        
+        <div class="event">
+            <h2>Swimming</h2>
+            <p>Match against Rival Team</p>
+            <p>Date: January 20, 2025</p>
+            <p>Time: 2:00 PM - 4:00 PM</p>
+        </div>
+        
+        <div class="event">
+            <h2>Football</h2>
+            <p>Friendly Match</p>
+            <p>Date: January 22, 2025</p>
+            <p>Time: 3:00 PM - 5:00 PM</p>
+        </div>
+        
+        <div class="event">
+            <h2>Soccer</h2>
+            <p>Training Session</p>
+            <p>Date: January 25, 2025</p>
+            <p>Time: 10:00 AM - 12:00 PM</p>
+        </div>
+        
+        <div class="event">
+            <h2>Basketball</h2>
+            <p>Match against City Team</p>
+            <p>Date: January 27, 2025</p>
+            <p>Time: 6:00 PM - 8:00 PM</p>
+        </div>
+        
+        <div class="event">
+            <h2>Rugby</h2>
+            <p>Tournament</p>
+            <p>Date: January 30, 2025</p>
+            <p>Time: 12:00 PM - 4:00 PM</p>
+        </div>
+    </div>
+{% endblock %}
