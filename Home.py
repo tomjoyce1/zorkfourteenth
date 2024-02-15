@@ -13,15 +13,13 @@ app.config['DATABASE'] = database_path
 
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
-isCoord = False 
-isAdmin = False
+roleCheck = 0
 
 @app.route("/")
 @app.route("/home")
 def home():
-    isCoord = request.args.get('isCoord', False)
-    isAdmin = request.args.get('isAdmin', False)
-    return render_template("home.html", isCoord=isCoord, isAdmin=isAdmin)
+    roleCheck = request.args.get('roleCheck', None)
+    return render_template("home.html", roleCheck=roleCheck)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -33,19 +31,15 @@ def login():
         session["user"] = username 
 
         if Login.validate_user(username, password):
-            isCoord, isAdmin = Login.login(username, password)
-            if isCoord:
-                isAdmin = False
-            elif isAdmin:
-                isCoord = False
-            return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
+            roleCheck = Login.login(username, password)
+            return redirect(url_for("home", roleCheck=roleCheck))
         else:
             error_message = "Invalid username or password. Please try again."
             session.pop("user", None)
             session.pop("email", None)
     else:
         if "user" in session:
-            return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
+            return redirect(url_for("home", roleCheck=roleCheck))
 
     return render_template("login.html", error_message=error_message)
 
@@ -63,14 +57,14 @@ def register():
 
         if Login.validate_reg(email):
             Login.create_account(username,password,name,surname,email,phone)
-            return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
+            return redirect(url_for("home", roleCheck=roleCheck))
         else:
              error_message2 = "Email Taken"
     else:
         if "user" in session:
             return redirect(url_for("home")) 
             
-    return render_template("register.html",error_message2=error_message2, isCoord=isCoord, isAdmin=isAdmin)
+    return render_template("register.html",error_message2=error_message2, roleCheck=roleCheck)
 
 @app.route("/logout")
 def logout():
@@ -79,7 +73,7 @@ def logout():
         flash(f"You have been logged out, {user}", "info")
     session.pop("user", None)
     session.pop("email", None)
-    return redirect(url_for("login", isCoord=isCoord, isAdmin=isAdmin))
+    return redirect(url_for("login", roleCheck=roleCheck))
 
 @app.route("/clubs")
 def clubs():

@@ -36,8 +36,7 @@ def validate_reg(email):
         return False
     
 def login(username, password):
-    isCoord = False
-    isAdmin = False
+    roleCheck = 0
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
 
@@ -49,14 +48,11 @@ def login(username, password):
     role = row[0] #assigns role from database to name variable
     print("Role:", role)
     if role == "COORDINATOR":
-        isCoord = True
-        isAdmin = False
+        roleCheck = 1
     if role == "ADMIN":
-        isAdmin = True
-        isCoord = False
+        roleCheck = 2
 
-    return isCoord,isAdmin
-    
+    return roleCheck
 
 def create_account(username, password, name, surname, email, phone):
     conn = sqlite3.connect('MiniEpic.db')
