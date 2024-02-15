@@ -1,6 +1,6 @@
 import sqlite3, os,Login,Clubs
 
-from flask import Flask, redirect, url_for, render_template, jsonify, request, session, flash, g
+from flask import Flask, redirect, url_for, render_template, request, session, flash, g
 
 # importing real time to create permanent session for perios of time
 from datetime import timedelta
@@ -36,6 +36,8 @@ def login():
             return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
         else:
             error_message = "Invalid username or password. Please try again."
+            session.pop("user", None)
+            session.pop("email", None)
     else:
         if "user" in session:
             return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
@@ -45,6 +47,7 @@ def login():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
+    error_message2 = None
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -52,14 +55,17 @@ def register():
         surname = request.form["surname"]
         email = request.form["email"]
         phone = request.form["phone"]
-        Login.create_account(username,password,name,surname,email,phone)
 
-        return redirect(url_for("home"))
+        if Login.validate_reg(email):
+            Login.create_account(username,password,name,surname,email,phone)
+            return redirect(url_for("home"))
+        else:
+             error_message2 = "Email Taken"
     else:
         if "user" in session:
             return redirect(url_for("home")) 
             
-        return render_template("register.html")
+    return render_template("register.html",error_message2=error_message2)
 
 @app.route("/logout")
 def logout():
@@ -77,6 +83,7 @@ def clubs():
         clubList.append(item)
     return render_template("clubs.html",clubList=clubList)
 
+#allows me to go through clubList
 @app.template_filter('enumerate')
 def jinja2_enumerate(iterable):
     return enumerate(iterable)

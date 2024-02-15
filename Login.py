@@ -23,6 +23,18 @@ def validate_user(username, password):
     else:
         return False
     
+def validate_reg(email):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+    global name
+    cursor.execute("SELECT Email FROM Users WHERE Email=?", (email,)) #checks User table for email
+    row = cursor.fetchone() #returns first row of database
+
+    if row is None:
+        return True
+    else:
+        return False
+    
 def login(username, password):
     isCoord = False
     isAdmin = False
@@ -48,11 +60,6 @@ def login(username, password):
 def create_account(username, password, name, surname, email, phone):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Users WHERE Email=?", (email,))
-    row = cursor.fetchone()
-    if row is not None:
-        print("Email already exists")
-        return "Error"
     cursor.execute("INSERT INTO Users (Name, Surname, Email) VALUES (?,?,?)", (name, surname, email)) #creates new record in Users table with provided data
     conn.commit() #commits attributes to database
 

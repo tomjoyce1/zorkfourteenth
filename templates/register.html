@@ -67,6 +67,9 @@
             <input type="email" id="email" name="email" placeholder="Enter Email" required>
             <input type="text" id="phone" name="phone" placeholder="Phone Number" required>
             <input type="submit" value="Register">
+            {% if error_message2 %}
+                <p style="color: red;">{{ error_message2 }}</p>
+            {% endif %}
         </form>
         
     </div>
