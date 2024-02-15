@@ -50,11 +50,11 @@ def verify_clubs_joined(UserID):
     clubs_joined = row[0]
     return clubs_joined
 
-def club_registration(UserID, ClubName):
+def club_registration(UserID, ClubID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     if verify_clubs_joined(UserID) < 3:
-        cursor.execute("SELECT ClubID FROM Clubs WHERE Name=?", (ClubName,))
+        cursor.execute("SELECT * FROM Clubs WHERE ClubID=?", (ClubID,))
         row = cursor.fetchone()
 
         if row is None:
