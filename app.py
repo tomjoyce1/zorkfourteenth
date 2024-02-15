@@ -83,6 +83,14 @@ def clubs():
         clubList.append(item)
     return render_template("clubs.html",clubList=clubList,roleCheck=roleCheck)
 
+@app.route("/events")
+def events():
+        return render_template("events.html",roleCheck=roleCheck)
+
+@app.route("/memberships")
+def events():
+        return render_template("memberships.html",roleCheck=roleCheck)
+
 #allows me to go through clubList
 @app.template_filter('enumerate')
 def jinja2_enumerate(iterable):
