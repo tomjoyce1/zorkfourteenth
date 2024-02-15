@@ -77,13 +77,9 @@ def create_account(username, password, name, surname, email, phone):
 
     #inserts new record into login table
     cursor.execute("INSERT INTO Login (UserID, username, password) VALUES (?,?,?)", (user_id, username, password)) #creates new record in login table with provided username and password
-<<<<<<< HEAD
-    cursor.execute("INSERT INTO Phone_Number (UserID, Phone_Number) VALUES (?,?)", (user_id, phone)) #creates new record in Phone_Number table with user ID and provided phone number
-=======
    
     #inserts new record into PhoneNumber table
     cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
->>>>>>> 41aee321a9e08023186887e0abc5f6a608b53934
     conn.commit() #commits attributes to database
     print("Registration Succesful")
 
@@ -201,16 +197,6 @@ def update_password(UserID, oldPassword, newPassword):
 #Deletes
     
 def delete_account(UserID):
-<<<<<<< HEAD
-    conn = sqlite3.connect('MiniEpic.db')
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
-    cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
-    cursor.execute("DELETE FROM Phone_Number WHERE UserID =?", (UserID,))
-    cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,))
-    cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,))
-    row = cursor.fetchone()
-=======
     if UserID == 1:
         print("Cannot delete admin account")
         return "invalid"
@@ -223,7 +209,6 @@ def delete_account(UserID):
         cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,))
         cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,))
         row = cursor.fetchone()
->>>>>>> 41aee321a9e08023186887e0abc5f6a608b53934
     if row is not None:
         Clubs.delete_club(row[0])
     
