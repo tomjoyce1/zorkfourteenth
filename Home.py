@@ -1,4 +1,4 @@
-import sqlite3, os
+import sqlite3, os,Login,Clubs
 
 from flask import Flask, redirect, url_for, render_template, jsonify, request, session, flash, g
 
@@ -14,61 +14,34 @@ app.config['DATABASE'] = database_path
 app.secret_key = "hello"
 app.permanent_session_lifetime = timedelta(days=5)
 
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = sqlite3.connect(app.config['DATABASE'])
-    return db
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-
 @app.route("/")
 @app.route("/home")
 def home():
+
     return render_template("home.html")
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    global validLogin,isAdmin,isCoord
-    validLogin = False
+    error_message = None
+    isCoord = False 
     isAdmin = False
-    isCoord = False
     if request.method == "POST":
         session.permanent = True
         username = request.form["username"]
         password = request.form["password"]
-        session["user"] = username
+        session["user"] = username 
 
-        conn = get_db()  # Open a database connection
-        cursor = conn.cursor()
-        cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password))
-        row = cursor.fetchone() #returns first row of database
-        user_id=row
-
-        if row is not None:
-            validLogin = True
-        if validLogin:
-            cursor.execute("SELECT Role FROM Users WHERE UserID=?", (user_id))
-            row = cursor.fetchone() #returns first row of database
-            if row:
-                role = str(row[0])  # Access the first element of the tuple
-                print("Role:", role, "Type:", type(role))
-                if role == "COORDINATOR":
-                    isCoord = True
-                if role == "ADMIN":
-                    isAdmin = True
-
-
-        return redirect(url_for("home",val1=isCoord,val2=isAdmin))
+        if Login.validate_user(username, password):
+            isCoord, isAdmin = Login.login(username, password)
+            return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
+        else:
+            error_message = "Invalid username or password. Please try again."
     else:
         if "user" in session:
-            return redirect(url_for("home",val1=isCoord,val2=isAdmin))
+            return redirect(url_for("home", isCoord=isCoord, isAdmin=isAdmin))
 
-        return render_template("login.html",val1=isCoord,val2=isAdmin)
+    return render_template("login.html", isCoord=isCoord, isAdmin=isAdmin, error_message=error_message)
+
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
@@ -79,28 +52,7 @@ def register():
         surname = request.form["surname"]
         email = request.form["email"]
         phone = request.form["phone"]
-
-        conn = get_db()  # Open a database connection
-        cursor = conn.cursor()
-        
-        cursor.execute("SELECT * FROM Users WHERE Email = ?", (email,))
-        row = cursor.fetchone()
-        if row is not None:
-            print("Email already exists")
-            conn.close()  # Close the connection
-            return "Error"
-        
-        cursor.execute("INSERT INTO Users (Name, Surname, Email) VALUES (?,?,?)", (name, surname, email)) #creates new record in Users table with provided data
-        conn.commit() #commits attributes to database
-
-        cursor.execute("SELECT UserID FROM Users WHERE Name=? AND Surname=? AND Email=?", (name, surname, email)) #checks Users table for provided name, surname and email
-        row = cursor.fetchone() #returns first row of database
-        user_id = int(row[0]) #gets user ID from database
-
-        cursor.execute("INSERT INTO Login (UserID, username, password) VALUES (?,?,?)", (user_id, username, password)) #creates new record in login table with provided username and password
-        cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
-        conn.commit() #commits attributes to database
-        conn.close()
+        Login.create_account(username,password,name,surname,email,phone)
 
         return redirect(url_for("home"))
     else:
@@ -120,12 +72,9 @@ def logout():
 
 @app.route("/clubs")
 def clubs():
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM ClubsView")
-    rows = cursor.fetchall()
-    clubList = [list(row) for row in rows]
-    conn.close()
+    clubList = []
+    for item in Clubs.user_view_clubs():
+        clubList.append(item)
     return render_template("clubs.html",clubList=clubList)
 
 @app.template_filter('enumerate')

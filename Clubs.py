@@ -1,8 +1,6 @@
 import sqlite3
 
 #connecting to database
-conn = sqlite3.connect('MiniEpic.db')
-cursor = conn.cursor()
 
 ######################################################################################################################################################################################
 #Club Management
@@ -12,6 +10,8 @@ cursor = conn.cursor()
 #Inserts
 #Verifying if club creator is a coordinator
 def verify_role(UserID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT Role, ApprovalStatus FROM Users WHERE UserID=?", (UserID,)) #checks role of user from Users table
     row = cursor.fetchone() #returns first row of database
     role = row[0]
@@ -25,6 +25,8 @@ def verify_role(UserID):
     
 
 def verify_clubs_coordinated(UserID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM Clubs WHERE CoordinatorID=?", (UserID,))
     row = cursor.fetchone()
     clubs_coordinated = row[0]
@@ -33,6 +35,8 @@ def verify_clubs_coordinated(UserID):
 
 #Creating a new club
 def creating_club(Name, CoordinatorID, Description): 
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     if verify_role(CoordinatorID) and verify_clubs_coordinated(CoordinatorID): 
         cursor.execute("INSERT INTO Clubs (Name, CoordinatorID, Description) VALUES (?,?,?)", (Name, CoordinatorID, Description))
         conn.commit()
@@ -42,12 +46,16 @@ def creating_club(Name, CoordinatorID, Description):
 
 
 def verify_clubs_joined(UserID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM ClubMemberships WHERE UserID=?", (UserID,))
     row = cursor.fetchone()
     clubs_joined = row[0]
     return clubs_joined
 
 def club_registration(UserID, ClubName):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     if verify_clubs_joined(UserID) < 3:
         cursor.execute("SELECT ClubID FROM Clubs WHERE Name=?", (ClubName,))
         row = cursor.fetchone()
@@ -67,6 +75,8 @@ def club_registration(UserID, ClubName):
 ################################################################################################################################################################################################################
 #Views
 def user_view_clubs():
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM ClubsView")     
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
@@ -75,6 +85,8 @@ def user_view_clubs():
 
 
 def user_views_memberships(userID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM ViewClubMemberships WHERE UserID =?", (userID,))
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
@@ -84,6 +96,8 @@ def user_views_memberships(userID):
 
 
 def coordinator_view_club_memberships(CoordinatorID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM ViewClubMemberships WHERE CoordinatorID = ?", (CoordinatorID,))
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
@@ -91,6 +105,8 @@ def coordinator_view_club_memberships(CoordinatorID):
     return result
 
 def coordinator_view_club_pending_memberships(CoordinatorID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM ViewClubMemberships WHERE CoordinatorID = ? AND ApprovalStatus = 'pending'", (CoordinatorID,))
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
@@ -99,6 +115,8 @@ def coordinator_view_club_pending_memberships(CoordinatorID):
 
 
 def admin_view_clubs():
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM AdminClubsView")     
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
@@ -106,6 +124,8 @@ def admin_view_clubs():
     return result
 
 def admin_view_clubs_pending():
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM AdminClubsView WHERE ValidityStatus = 'pending'")     
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
@@ -113,6 +133,8 @@ def admin_view_clubs_pending():
     return result
 
 def admin_view_club_memberships():
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM AdminClubMembershipView")
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
@@ -120,6 +142,8 @@ def admin_view_club_memberships():
     return result
 
 def verify_club_membership(UserID, ClubID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM ClubMemberships WHERE UserID =? AND ClubID =?", (UserID, ClubID))
     row = cursor.fetchone()
     membership = row[0]
@@ -131,6 +155,8 @@ def verify_club_membership(UserID, ClubID):
 ################################################################################################################################################################################################################
 #Update
 def approve_club_membership(membershipID, CoordinatorID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM ClubMemberships WHERE MembershipID = ?", (membershipID,))
     membership_row = cursor.fetchone()
 
@@ -148,6 +174,8 @@ def approve_club_membership(membershipID, CoordinatorID):
         print("Membership not found")
 
 def approve_club(UserID, ClubID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT Role FROM Users WHERE UserID = ?", (UserID,))
     row = cursor.fetchone()
     role = row[0]
@@ -165,6 +193,8 @@ def approve_club(UserID, ClubID):
         print("Access Denied")
 
 def reject_club(UserID, ClubID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT Role FROM Users WHERE UserID = ?", (UserID,))
     row = cursor.fetchone()
     role = row[0]
@@ -187,6 +217,8 @@ def reject_club(UserID, ClubID):
 #Deletes
         
 def delete_club(ClubID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("DELETE FROM ClubMemberships WHERE ClubID =?", (ClubID,))
     cursor.execute("DELETE FROM Events WHERE Club_id =?", (ClubID,))
     cursor.execute("DELETE FROM Event_Registration WHERE Event_id = (SELECT Event_id FROM Events WHERE Club_id = ?)", (ClubID,))
@@ -196,6 +228,8 @@ def delete_club(ClubID):
 
 
 def delete_membership(membershipID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("DELETE FROM ClubMemberships WHERE MembershipID =?", (membershipID,))
     conn.commit()
     print("Membership Deleted")
@@ -279,5 +313,3 @@ def delete_membership(membershipID):
 #Deletes memberships
 #MembershipID = 2
 #delete_membership(MembershipID)
-
-conn.close()#closes connection to database

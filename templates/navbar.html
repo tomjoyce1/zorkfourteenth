@@ -212,16 +212,16 @@
 
 
         footer {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: black;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            color: rgb(66, 66, 66);
-            padding: 10px;
-        }
+        position: relative; /* Change from fixed to relative */
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgb(66, 66, 66);
+        padding: 10px;
+    }
+
 
 
          @font-face {
@@ -266,9 +266,9 @@
             <a href="clubs">Clubs</a>
             <a href="events">Events</a>
             <a href="memberships">Your Memberships</a>
-            {% if val1 == True %}
+            {% if isCoord %}
                 <a href="yourclub">Your Club</a>
-            {% elif val2 == True %}
+            {% elif isAdmin %}
                 <a href="users">Users</a>
                 <a href="coordinators">Coordinators</a>
             {% endif %}

@@ -2,9 +2,6 @@ import sqlite3
 import Clubs
 
 #connecting to database
-conn = sqlite3.connect('MiniEpic.db')
-cursor = conn.cursor()
-
 
 ######################################################################################################################################################################################
 #Login page
@@ -17,6 +14,8 @@ cursor = conn.cursor()
 count = 0
 #function to verify user credentials
 def validate_user(username, password):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     global name
     cursor.execute("SELECT UserID FROM Login WHERE username=? AND password=?", (username, password)) #checks login table for provided username and password
     row = cursor.fetchone() #returns first row of database
@@ -27,29 +26,31 @@ def validate_user(username, password):
         return False
     
 def login(username, password):
+    isCoord = False
+    isAdmin = False
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
 
-    if validate_user(username, password): #checks if username and password are valid
+    cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password)) #checks login table for provided username and password
+    row = cursor.fetchone() #returns first row of database
+    user_id = int(row[0]) #gets user ID from database
+    cursor.execute("SELECT Role FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
+    row = cursor.fetchone() #returns first row of database
+    role = row[0] #assigns role from database to name variable
+    print("Role:", role)
+    if role == "COORDINATOR":
+        isCoord = True
+    if role == "ADMIN":
+        isAdmin = True
 
-        cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password)) #checks login table for provided username and password
-        row = cursor.fetchone() #returns first row of database
-        user_id = int(row[0]) #gets user ID from database
-        cursor.execute("SELECT Name FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
-        row = cursor.fetchone() #returns first row of database
-        name = row[0] #assigns name from database to name variable
 
-        print("Login successful")
-        print("Welcome to ISEagles", name)
-
-
-        return user_id
-
-    else:
-        return "invalid"
-
+    return isCoord,isAdmin
     
 
 def create_account(username, password, name, surname, email, phone):
-    cursor.execute("SELECT * FROM Users WHERE Email = ?", email)
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Users WHERE Email=?", (email,))
     row = cursor.fetchone()
     if row is not None:
         print("Email already exists")
@@ -64,10 +65,12 @@ def create_account(username, password, name, surname, email, phone):
     cursor.execute("INSERT INTO Login (UserID, username, password) VALUES (?,?,?)", (user_id, username, password)) #creates new record in login table with provided username and password
     cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
     conn.commit() #commits attributes to database
+    print("Registration Succesful")
 
 
 def signup(username, password, name, surname, email, phone):
-
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     confirmation = input("Please confirm your details(Confirm(C)/Deny(D)): ") #prompts user to confirm details++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     if confirmation == "C":
         create_account(username, password, name, surname, email, phone)
@@ -82,6 +85,8 @@ def signup(username, password, name, surname, email, phone):
   
 
 def verify_role(user_id):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT Role, ApprovalStatus FROM Users WHERE UserID=?", (user_id)) #checks role of user from Users table
     row = cursor.fetchone() #returns first row of database
     role = row[0]
@@ -108,18 +113,24 @@ def verify_role(user_id):
 ######################################################################################################################################################################
 #Views
 def admin_view_accounts():
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM AdminAccountView")
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
     return result
 
 def admin_view_accounts_pending():
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM AdminAccountView WHERE ApprovalStatus = 'pending'")
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
     return result
 
 def admin_view_user(UserID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp  FROM Users U, Login L, PhoneNumber P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
     row = cursor.fetchone()
     if row:
@@ -132,28 +143,38 @@ def admin_view_user(UserID):
 ######################################################################################################################################################################
 #Updates
 def approve_user(UserID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("UPDATE Users SET ApprovalStatus = 'approved' WHERE UserID =?", (UserID,))
     conn.commit()
     print("User approved")  
 
 def deny_user(UserID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("UPDATE Users SET ApprovalStatus = 'rejected' WHERE UserID =?", (UserID,))
     delete_account(UserID)
     conn.commit()
     print("User denied")
 
 def promote_user(UserID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     approve_user(UserID)
     cursor.execute("UPDATE Users SET Role = 'COORDINATOR' WHERE UserID =?", (UserID,))
     conn.commit()
     print("User promoted")   
 
 def update_number(UserID, PhoneNumber):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("UPDATE PhoneNumber SET PhoneNumber = ? WHERE UserID =?", (PhoneNumber, UserID,))
     conn.commit()
     print("Number updated")  
 
 def update_password(UserID, oldPassword, newPassword):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM Login WHERE UserID = ? AND Password = ?", (UserID, oldPassword,))
     row = cursor.fetchone()
     if row is not None: 
@@ -170,6 +191,8 @@ def update_password(UserID, oldPassword, newPassword):
 #Deletes
     
 def delete_account(UserID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
     cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
     cursor.execute("DELETE FROM PhoneNumber WHERE UserID =?", (UserID,))
@@ -251,9 +274,3 @@ def delete_account(UserID):
 #UserID = 25
 #delete_account(UserID)
     
-
-
-
-
-
-conn.close()#closes connection to database

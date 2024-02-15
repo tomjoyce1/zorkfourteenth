@@ -57,6 +57,9 @@
                 <input type="text" id="username" name="username" placeholder="Username" required>
                 <input type="password" id="password" name="password" placeholder="Password" required>
                 <input type="submit" value="Login">
+                {% if error_message %}
+                <p style="color: red;">{{ error_message }}</p>
+                {% endif %}
             </form>
             <div class="register-link">
                 <a href="/register">Register</a>
