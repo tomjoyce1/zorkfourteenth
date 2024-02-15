@@ -265,15 +265,6 @@ FROM Clubs C, Users U, ClubMemberships M
 WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID
 ORDER BY M.CreatedTimestamp DESC;
 
-
-SELECT M.MembershipID, U.Name || " " || U.Surname AS 'User Name', M.ApprovalStatus, M.CreatedTimestamp, M.UpdatedTimestamp
-FROM Clubs C, Users U, ClubMemberships M
-WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID AND C.CoordinatorID = 2;
-
-SELECT M.MembershipID, U.Name || ' ' || U.Surname AS 'User Name', M.ApprovalStatus, M.CreatedTimestamp, M.UpdatedTimestamp 
-FROM Clubs C, Users U, ClubMemberships M 
-WHERE M.UserID = U.UserID AND M.ClubID = C.ClubID AND C.CoordinatorID = 5 AND M.ApprovalStatus = 'pending' 
-ORDER BY M.CreatedTimestamp DESC
 -------------------------------------------
 /*Sample Queries*/
 INSERT INTO Users (Name, Surname, Email) VALUES ('Dawid', 'Jakubowski', 'dawijak@gmail.com'), ('James', 'Bond', 'jb.mi6@gmail.com'), ('Mike', 'Ryan', 'mryan@gmail.com'), ('Jacob', 'Stanely', 'jacobstan@gmail.com'), ('Adam', 'Murphy', 'smurf@gmail.com')
