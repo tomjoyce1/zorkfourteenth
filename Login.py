@@ -77,13 +77,9 @@ def create_account(username, password, name, surname, email, phone):
 
     #inserts new record into login table
     cursor.execute("INSERT INTO Login (UserID, username, password) VALUES (?,?,?)", (user_id, username, password)) #creates new record in login table with provided username and password
-<<<<<<< HEAD
-    cursor.execute("INSERT INTO Phone_Number (UserID, Phone_Number) VALUES (?,?)", (user_id, phone)) #creates new record in Phone_Number table with user ID and provided phone number
-=======
    
     #inserts new record into PhoneNumber table
     cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
->>>>>>> 41aee321a9e08023186887e0abc5f6a608b53934
     conn.commit() #commits attributes to database
     print("Registration Succesful")
 
@@ -125,22 +121,28 @@ def admin_view_accounts():
     #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+
+    #gets all records from AdminAccountView
     cursor.execute("SELECT * FROM AdminAccountView")
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
     return result
 
 def admin_view_accounts_pending():
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+    #gets all records from AdminAccountView with pending approval status
     cursor.execute("SELECT * FROM AdminAccountView WHERE ApprovalStatus = 'pending'")
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
     return result
 
 def admin_view_user(UserID):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+    #gets records of specific user
     cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.Phone_Number, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp  FROM Users U, Login L, Phone_Number P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
     row = cursor.fetchone()
     if row:
@@ -152,42 +154,59 @@ def admin_view_user(UserID):
 
 ######################################################################################################################################################################
 #Updates
+#approves user account
 def approve_user(UserID):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+    #updates approval status of user to approved
     cursor.execute("UPDATE Users SET ApprovalStatus = 'approved' WHERE UserID =?", (UserID,))
     conn.commit()
     print("User approved")  
 
 def deny_user(UserID):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+    #updates approval status of user to rejected
     cursor.execute("UPDATE Users SET ApprovalStatus = 'rejected' WHERE UserID =?", (UserID,))
     delete_account(UserID)
     conn.commit()
     print("User denied")
 
 def promote_user(UserID):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+
+    #approves user account
     approve_user(UserID)
+
+    #updates role of user to coordinator
     cursor.execute("UPDATE Users SET Role = 'COORDINATOR' WHERE UserID =?", (UserID,))
     conn.commit()
     print("User promoted")   
 
 def update_number(UserID, Phone_Number):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+
+    #updates phone number of user
     cursor.execute("UPDATE Phone_Number SET Phone_Number = ? WHERE UserID =?", (Phone_Number, UserID,))
     conn.commit()
     print("Number updated")  
 
 def update_password(UserID, oldPassword, newPassword):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+
+    #verifies if old password is correct
     cursor.execute("SELECT * FROM Login WHERE UserID = ? AND Password = ?", (UserID, oldPassword,))
     row = cursor.fetchone()
     if row is not None: 
+        #updates password of user
         cursor.execute("UPDATE Login SET Password = ? WHERE UserID =?", (newPassword, UserID,))
         conn.commit()
         print("Password updated") 
@@ -201,31 +220,24 @@ def update_password(UserID, oldPassword, newPassword):
 #Deletes
     
 def delete_account(UserID):
-<<<<<<< HEAD
-    conn = sqlite3.connect('MiniEpic.db')
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
-    cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
-    cursor.execute("DELETE FROM Phone_Number WHERE UserID =?", (UserID,))
-    cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,))
-    cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,))
-    row = cursor.fetchone()
-=======
+    #prevents admin account from being deleted
     if UserID == 1:
         print("Cannot delete admin account")
         return "invalid"
     else: 
+        #connection to database
         conn = sqlite3.connect('MiniEpic.db')
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
-        cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
-        cursor.execute("DELETE FROM PhoneNumber WHERE UserID =?", (UserID,))
-        cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,))
-        cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,))
+
+        #deletes all records of user from database
+        cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,)) #deletes user from Users table
+        cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,)) #deletes user from Login table
+        cursor.execute("DELETE FROM PhoneNumber WHERE UserID =?", (UserID,)) #deletes user from PhoneNumber table
+        cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,)) #deletes user from ClubMemberships table
+        cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,)) #checks if user is coordinator of any clubs
         row = cursor.fetchone()
->>>>>>> 41aee321a9e08023186887e0abc5f6a608b53934
     if row is not None:
-        Clubs.delete_club(row[0])
+        Clubs.delete_club(row[0]) #deletes club if user is coordinator
     
     conn.commit()
     print("Account deleted")
