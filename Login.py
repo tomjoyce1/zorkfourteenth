@@ -193,14 +193,18 @@ def update_password(UserID, oldPassword, newPassword):
 #Deletes
     
 def delete_account(UserID):
-    conn = sqlite3.connect('MiniEpic.db')
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
-    cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
-    cursor.execute("DELETE FROM PhoneNumber WHERE UserID =?", (UserID,))
-    cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,))
-    cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,))
-    row = cursor.fetchone()
+    if UserID == 1:
+        print("Cannot delete admin account")
+        return "invalid"
+    else: 
+        conn = sqlite3.connect('MiniEpic.db')
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM Users WHERE UserID =?", (UserID,))
+        cursor.execute("DELETE FROM Login WHERE UserID = ?", (UserID,))
+        cursor.execute("DELETE FROM PhoneNumber WHERE UserID =?", (UserID,))
+        cursor.execute("DELETE FROM ClubMemberships WHERE UserID =?", (UserID,))
+        cursor.execute("SELECT ClubID FROM Clubs WHERE CoordinatorID = ?", (UserID,))
+        row = cursor.fetchone()
     if row is not None:
         Clubs.delete_club(row[0])
     
