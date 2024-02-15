@@ -12,21 +12,24 @@ import Clubs
 
 #function to verify user credentials
 def validate_user(username, password):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    global name
-    cursor.execute("SELECT UserID FROM Login WHERE username=? AND password=?", (username, password)) #checks login table for provided username and password
+    #checks if record with username and password exists in database
+    cursor.execute("SELECT * FROM Login WHERE username=? AND password=?", (username, password)) #checks login table for provided username and password
     row = cursor.fetchone() #returns first row of database
-
+    #if exists returns true
     if row is not None:
         return True
     else:
+        #if not returns false
         return False
     
 def validate_reg(email):
+     #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    global name
+    #checks if record with email exists in database
     cursor.execute("SELECT Email FROM Users WHERE Email=?", (email,)) #checks User table for email
     row = cursor.fetchone() #returns first row of database
 
@@ -37,9 +40,11 @@ def validate_reg(email):
     
 def login(username, password):
     roleCheck = 0
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
 
+    #gets user ID from database
     cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password)) #checks login table for provided username and password
     row = cursor.fetchone() #returns first row of database
     user_id = int(row[0]) #gets user ID from database
@@ -55,45 +60,40 @@ def login(username, password):
     return roleCheck
 
 def create_account(username, password, name, surname, email, phone):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+    #inserts new record into users table
     cursor.execute("INSERT INTO Users (Name, Surname, Email) VALUES (?,?,?)", (name, surname, email)) #creates new record in Users table with provided data
     conn.commit() #commits attributes to database
 
+    #gets auto generated user ID from Users table
     cursor.execute("SELECT UserID FROM Users WHERE Name=? AND Surname=? AND Email=?", (name, surname, email)) #checks Users table for provided name, surname and email
     row = cursor.fetchone() #returns first row of database
     user_id = int(row[0]) #gets user ID from database
 
+    #inserts new record into login table
     cursor.execute("INSERT INTO Login (UserID, username, password) VALUES (?,?,?)", (user_id, username, password)) #creates new record in login table with provided username and password
+   
+    #inserts new record into PhoneNumber table
     cursor.execute("INSERT INTO PhoneNumber (UserID, PhoneNumber) VALUES (?,?)", (user_id, phone)) #creates new record in PhoneNumber table with user ID and provided phone number
     conn.commit() #commits attributes to database
     print("Registration Succesful")
 
 
-def signup(username, password, name, surname, email, phone):
-    conn = sqlite3.connect('MiniEpic.db')
-    cursor = conn.cursor()
-    confirmation = input("Please confirm your details(Confirm(C)/Deny(D)): ") #prompts user to confirm details++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    if confirmation == "C":
-        create_account(username, password, name, surname, email, phone)
-    elif confirmation == "D":
-        signup()
-    else:
-        print("Invalid option")
-        signup()
-
-    print("Signup successful")
-    print("Please Login", name)
   
 
 def verify_role(user_id):
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
+    #gets role of user from Users table
     cursor.execute("SELECT Role, ApprovalStatus FROM Users WHERE UserID=?", (user_id)) #checks role of user from Users table
     row = cursor.fetchone() #returns first row of database
     role = row[0]
     approval_status = row[1]
 
+    #checks what role is and returns it
     if approval_status != "approved":
         print("You're approval status is", approval_status)
    
@@ -115,6 +115,7 @@ def verify_role(user_id):
 ######################################################################################################################################################################
 #Views
 def admin_view_accounts():
+    #connection to database
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM AdminAccountView")
@@ -227,7 +228,7 @@ def delete_account(UserID):
 #surname = input("Enter surname:")
 #email = input("Enter email:")
 #phone = input("Enter phone:")
-#signup(username, password, name, surname, email, phone)
+#create_account(username, password, name, surname, email, phone)
 
 
 
