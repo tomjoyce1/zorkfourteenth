@@ -18,11 +18,13 @@ roleCheck = 0
 @app.route("/")
 @app.route("/home")
 def home():
+    global roleCheck
     roleCheck = request.args.get('roleCheck', None)
     return render_template("home.html", roleCheck=roleCheck)
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    global roleCheck
     error_message = None
     if request.method == "POST":
         session.permanent = True
@@ -37,15 +39,12 @@ def login():
             error_message = "Invalid username or password. Please try again."
             session.pop("user", None)
             session.pop("email", None)
-    else:
-        if "user" in session:
-            return redirect(url_for("home", roleCheck=roleCheck))
-
     return render_template("login.html", error_message=error_message)
 
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
+    global roleCheck
     error_message2 = None
     if request.method == "POST":
         username = request.form["username"]
@@ -62,12 +61,13 @@ def register():
              error_message2 = "Email Taken"
     else:
         if "user" in session:
-            return redirect(url_for("home")) 
+            return redirect(url_for("home", roleCheck=roleCheck)) 
             
     return render_template("register.html",error_message2=error_message2, roleCheck=roleCheck)
 
 @app.route("/logout")
 def logout():
+    global roleCheck
     if "user" in session:
         user = session["user"]
         flash(f"You have been logged out, {user}", "info")
@@ -77,10 +77,11 @@ def logout():
 
 @app.route("/clubs")
 def clubs():
+    global roleCheck
     clubList = []
     for item in Clubs.user_view_clubs():
         clubList.append(item)
-    return render_template("clubs.html",clubList=clubList)
+    return render_template("clubs.html",clubList=clubList,roleCheck=roleCheck)
 
 #allows me to go through clubList
 @app.template_filter('enumerate')

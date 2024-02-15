@@ -1,7 +1,8 @@
 import sqlite3
 import Clubs
 
-
+conn = sqlite3.connect('MiniEpic.db')
+cursor = conn.cursor()
 ######################################################################################################################################################################################
 #Login page
 ######################################################################################################################################################################################
@@ -51,6 +52,8 @@ def login(username, password):
         roleCheck = 1
     if role == "ADMIN":
         roleCheck = 2
+    if role == "STUDENT":
+        roleCheck = 3
 
     return roleCheck
 
@@ -250,7 +253,7 @@ def delete_account(UserID):
     
 
 #Rejects user account
-#UserID = 19
+#UserID = 28
 #deny_user(UserID)
 
 #Promotes user account to coordinator
