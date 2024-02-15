@@ -258,18 +258,20 @@
     <nav>
         <img src="/static/clubhub_white.png" alt="Tiny Logo">
         <a href="/">Home</a>
-        {% if 'user' in session %}
+            {% if roleCheck == "0" %}
             <a href="clubs">Clubs</a>
             <a href="events">Events</a>
             <a href="memberships">Your Memberships</a>
-            {% if roleCheck == "1" %}
+            {% elif roleCheck == "1" %}
+                <a href="clubs">Clubs</a>
+                <a href="events">Events</a>
                 <a href="yourclub">Your Club</a>
-            {% endif %}
-            {% if roleCheck == "2" %}
+            {% elif roleCheck == "2" %}
+            <a href="clubs">Clubs</a>
+                <a href="events">Events</a>
                 <a href="users">Users</a>
                 <a href="coordinators">Coordinators</a>
             {% endif %}
-        {% endif %}
         <a href="login">Login</a>
     </nav>
     {% block content %}{% endblock %}
