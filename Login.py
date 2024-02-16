@@ -114,6 +114,23 @@ def verify_role(user_id):
         print("ERROR: Invalid role")
 
 
+def verify_username(username):
+    #connection to database
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM Login WHERE Username=?", (username,)) #checks if username exists in Login table
+    row = cursor.fetchone() #returns first row of database
+    if row is not None:
+        return False
+    else:
+        return True
+    
+
+def verify_phone(phone):
+    return len(phone) == 10
+
+
 
 ######################################################################################################################################################################
 #Views
