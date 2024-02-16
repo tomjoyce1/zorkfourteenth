@@ -1,5 +1,6 @@
 import sqlite3
 import Clubs
+import re
 
 conn = sqlite3.connect('MiniEpic.db')
 cursor = conn.cursor()
@@ -129,6 +130,25 @@ def verify_username(username):
 
 def verify_phone(phone):
     return len(phone) == 10
+
+def verify_approval_status(user_id):
+    #connection to database
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+    #gets approval status of user from Users table
+    cursor.execute("SELECT * FROM Users WHERE UserID=? AND WHERE ApprovalStatus='approved'", (user_id,)) #checks approval status of user from Users table
+    row = cursor.fetchone() #returns first row of database
+    if row is not None:
+        return True
+    else:
+        return False
+    
+
+def is_valid_email(email):
+    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    return bool(re.match(pattern, email))
+
+
 
 
 
@@ -298,7 +318,7 @@ def delete_account(UserID):
 
 #UPDATES
 #Approves user account   
-#UserID = 31
+#UserID = 32
 #approve_user(UserID)
     
 
