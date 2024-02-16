@@ -107,26 +107,26 @@ END;
 
 ----------------------------
 
-CREATE TABLE PhoneNumber (
+CREATE TABLE Phone_Number (
     UserID INTEGER PRIMARY KEY,
-    PhoneNumber TEXT NOT NULL UNIQUE,
+    Phone_Number TEXT NOT NULL UNIQUE,
     CreatedTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     UpdatedTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
 CREATE TRIGGER IF NOT EXISTS phonenumber_insert_trigger
-AFTER INSERT ON PhoneNumber
+AFTER INSERT ON Phone_Number
 FOR EACH ROW
 BEGIN
-    UPDATE PhoneNumber SET CreatedTimestamp = NEW.CreatedTimestamp WHERE UserID = NEW.UserID;
+    UPDATE Phone_Number SET CreatedTimestamp = NEW.CreatedTimestamp WHERE UserID = NEW.UserID;
 END;
 
 CREATE TRIGGER IF NOT EXISTS phonenumber_update_trigger
-AFTER UPDATE ON PhoneNumber
+AFTER UPDATE ON Phone_Number
 FOR EACH ROW
 BEGIN
-    UPDATE PhoneNumber SET UpdatedTimestamp = CURRENT_TIMESTAMP WHERE UserID = NEW.UserID;
+    UPDATE Phone_Number SET UpdatedTimestamp = CURRENT_TIMESTAMP WHERE UserID = NEW.UserID;
 END;
 
 ----------------------
@@ -237,13 +237,13 @@ END;
 ------------------------------------------
 /*Views*/
 CREATE VIEW IF NOT EXISTS AdminAccountView AS
-SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp 
-FROM Users U, Login L, PhoneNumber P
+SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.Phone_Number, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp 
+FROM Users U, Login L, Phone_Number P
 WHERE U.UserID = L.UserID AND U.UserID = P.UserID
 
 CREATE VIEW IF NOT EXISTS AdminAccountViewPending AS
-SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp 
-FROM Users U, Login L, PhoneNumber P
+SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.Phone_Number, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp 
+FROM Users U, Login L, Phone_Number P
 WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.ApprovalStatus = 'pending'
 
 
