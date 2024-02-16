@@ -235,9 +235,9 @@ def delete_membership(membershipID):
     
 #INSERTS
 #Creating a new club
-#ClubName = "Basketball" 
-#CoordinatorID = 26 #Data stored from login page
-#Description = "Certain Victory"
+#ClubName = "Chess Club" 
+#CoordinatorID = 31 #Data stored from login page
+#Description = "Check mate"
 #creating_club(ClubName, CoordinatorID, Description)
 
 #Registering for a new club     
@@ -290,8 +290,8 @@ def delete_membership(membershipID):
 #approve_club_membership(MembershipID, CoordinatorID) 
 
 #Approves clubs
-#userID = 26 #Data from login
-#clubID = 7
+#userID = 1 #Data from login
+#clubID = 8
 #approve_club(userID, clubID)
 
 #Rejects clubs
