@@ -267,7 +267,7 @@ def update_number(UserID, Phone_Number):
     cursor = conn.cursor()
 
     #updates phone number of user
-    cursor.execute("UPDATE Phone_Number SET Phone_Number = ? WHERE UserID =?", (Phone_Number, UserID,))
+    cursor.execute("UPDATE PhoneNumber SET PhoneNumber = ? WHERE UserID =?", (Phone_Number, UserID,))
     conn.commit()
     print("Number updated")  
 
@@ -324,7 +324,7 @@ def view_passwords(Username):
         row = cursor.fetchone()
         print(row)
 
-Username = "dawijak"
+Username = "Kami"
 view_passwords(Username)
 
 ##########################################################################################################################
