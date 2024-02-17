@@ -40,8 +40,6 @@ def create_event(club_id, title, description, date_, time_, venue_id):
     conn.commit()
    
     print("Event Created")
-    else:
-        print("Event Creation Denied")
     conn.close()
 
 
@@ -127,35 +125,6 @@ def verify_event_registration(UserID, EventID):
     row = cursor.fetchone()
     conn.close()
     return row is not None
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #updates     #######################################
     
