@@ -134,6 +134,15 @@ def admin_view_accounts_pending():
     result = [list(row) for row in rows]
     return result
 
+def get_user_id(Username):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT UserID FROM Login WHERE Username=?",(Username,))
+    row = cursor.fetchone()
+    user_id = row[0]
+    return user_id
+    
+
 def admin_view_user(UserID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
@@ -186,9 +195,8 @@ def update_password(UserID, oldPassword, newPassword):
     if row is not None: 
         cursor.execute("UPDATE Login SET Password = ? WHERE UserID =?", (newPassword, UserID,))
         conn.commit()
-        print("Password updated") 
+        return "valid" 
     else:
-        print("Incorrect password")
         return "invalid"
 
 
