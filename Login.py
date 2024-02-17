@@ -49,7 +49,7 @@ def login(username, password):
     #gets user ID from database
     cursor.execute("SELECT UserID FROM Login WHERE Username=? AND Password=?", (username, password)) #checks login table for provided username and password
     row = cursor.fetchone() #returns first row of database
-    user_id = int(row[0]) #gets user ID from database
+    user_id = row[0] #gets user ID from database
     cursor.execute("SELECT Role FROM Users WHERE UserID=?", (user_id,)) #checks Users table for UserID
     row = cursor.fetchone() #returns first row of database
     role = row[0] #assigns role from database to name variable
@@ -189,7 +189,7 @@ def admin_view_user(UserID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     #gets records of specific user
-    cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.Phone_Number, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp  FROM Users U, Login L, Phone_Number P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
+    cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp  FROM Users U, Login L, PhoneNumber P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
     row = cursor.fetchone()
     if row:
         result = list(row)
@@ -197,6 +197,24 @@ def admin_view_user(UserID):
     else:
         return None
     
+def display_user_details(UserID):
+    user_list = []
+    item = admin_view_user(UserID)
+    id = "User ID:",item[0]
+    fullname = "Full Name:",item[1]
+    username = "Username:",item[2]
+    email = "Email:",item[3]
+    phone = "Phone Number:",item[4]
+    role = "Role:",item[5]
+    user_list.append(id)
+    user_list.append(fullname)
+    user_list.append(username)
+    user_list.append(email)
+    user_list.append(phone)
+    user_list.append(role)
+
+    return user_list
+
 def view_coordinators():
     #connection to database
     conn = sqlite3.connect('MiniEpic.db')
@@ -298,6 +316,17 @@ def delete_account(UserID):
     conn.commit()
     print("Account deleted")
 
+def view_passwords(Username):
+        conn = sqlite3.connect('MiniEpic.db')
+        cursor = conn.cursor()
+
+        cursor.execute("Select Password FROM Login WHERE Username =?", (Username,))
+        row = cursor.fetchone()
+        print(row)
+
+Username = "dawijak"
+view_passwords(Username)
+
 ##########################################################################################################################
 #                                                    START OF PROGRAM                                                    #
 ##########################################################################################################################
@@ -328,9 +357,12 @@ def delete_account(UserID):
 #    print (record)
 
 #Displays the account of a specific user
-#UserID = 2 
+#UserID = 7 
 #print(admin_view_user(UserID))
-    
+
+#UserID = 7 
+#print(display_user_details(UserID))
+        
 #Displays all coordinators
 #for record in view_coordinators():
 #    print (record)

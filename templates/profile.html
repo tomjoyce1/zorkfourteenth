@@ -40,28 +40,35 @@
             box-sizing: border-box;
         }
         
-    .container {
-        width: 300px;
-        margin-right: 50px;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-top: 50px;
-    }
-    .container2 {
-        width: 300px;
-        margin-left: 50px;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-top: 100px;
-    }
+        .container,
+        .container2 {
+            position: absolute;
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            top: 370px;
+            right: calc(50% - 750px); /* Adjust the value to align with your design */
+        }
+
+        .container2 {
+            top: 100px;
+            right: calc(50% - 750px); /* Adjust the value to align with your design */
+        }
     </style>
 {% endblock %}
 
 {% block content %}
+<div class="text-content custom-left">
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'"></h2style>Personal Details</h2>
+    {% for key, value in user_details %}
+        <p>{{ key }} {{ value }}</p>
+    {% endfor %}
+</div>
 <div class="top-right-button">
     <a href="/logout" class="button">Logout</a>
 </div>

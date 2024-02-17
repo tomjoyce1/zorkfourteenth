@@ -29,12 +29,12 @@ def login():
         session.permanent = True
         username = request.form["username"]
         password = request.form["password"]
-
-        roleCheck = Login.login(username, password)
-        if roleCheck is not None:
-            session["username"] = username
-            session["roleCheck"] = roleCheck
-            return redirect(url_for("home"))
+        if Login.validate_user(username, password):
+            roleCheck = Login.login(username, password)
+            if roleCheck is not None:
+                session["username"] = username
+                session["roleCheck"] = roleCheck
+                return redirect(url_for("home"))
         else:
             error_message = "Invalid username or password. Please try again."
     return render_template("login.html", error_message=error_message)
@@ -98,6 +98,9 @@ def memberships():
 def profile():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
+    user_id = Login.get_user_id(username)
+    user_details = []
+    user_details = Login.display_user_details(user_id)
     update_message = None
     update_message2 = None
     error_message = None
@@ -105,7 +108,6 @@ def profile():
     if request.method == "POST":
         if "phone" in request.form:
             phone = request.form["phone"]
-            user_id = Login.get_user_id(username)
             Login.update_number(user_id, phone)
             update_message = "Phone Number Updated"
 
@@ -119,7 +121,7 @@ def profile():
             elif result == "invalid":
                 error_message = "Invalid Password"
 
-    return render_template("profile.html", roleCheck=roleCheck, username=username,update_message2=update_message2, update_message=update_message, error_message=error_message)
+    return render_template("profile.html", roleCheck=roleCheck, username=username,update_message2=update_message2, update_message=update_message, error_message=error_message,user_details=user_details)
 
 #allows me to go through clubList
 @app.template_filter('enumerate')
