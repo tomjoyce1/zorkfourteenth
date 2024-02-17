@@ -187,6 +187,16 @@ def admin_view_user(UserID):
         return result
     else:
         return None
+    
+def view_coordinators():
+    #connection to database
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+    #gets all records from Users table with role of coordinator
+    cursor.execute("SELECT * FROM ViewClubCoordinators")
+    rows = cursor.fetchall()
+    result = [list(row) for row in rows]
+    return result
 
 
 ######################################################################################################################################################################
@@ -312,6 +322,10 @@ def delete_account(UserID):
 #Displays the account of a specific user
 #UserID = 2 
 #print(admin_view_user(UserID))
+    
+#Displays all coordinators
+#for record in view_coordinators():
+#    print (record)
     
     
 
