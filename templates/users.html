@@ -5,8 +5,7 @@
 {% block style %}
     <style>
         body {
-            background-image: url('static/pbg.jpg');
-            background-size: cover;
+            background-color: rgb(180, 180, 180);
             margin: 0;
             padding: 0;
         }
@@ -24,20 +23,20 @@
         }
         .container {
             width: calc(50% - 120px);
-            margin: 20px; 
+            margin: 35px; 
             padding: 20px;
-            background-color: rgb(67, 211, 0);
+            background-color: rgb(0, 0, 0);
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: inline-block; 
             vertical-align: top;
         }
 
-        @media screen and (max-width: 768px) {
-            .container {
-                width: calc(100% - 40px);
-            }
+        @media screen and (min-height: 1000px) {
+        body {
+            background-position-y: 100%;
         }
+    }
     footer {
             position: fixed;
             right: 0;
@@ -55,17 +54,18 @@
 {% block content %}
 {% for index, user in user_list|enumerate %}
 <div class="container">
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'">ID: {{user[0]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'">Full Name: {{user[1]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'">Username: {{user[2]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'">Email: {{user[3]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'">Phone Number: {{user[4]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'">Role: {{user[5]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'">Account Status: {{user[6]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'">Account Created: {{user[7]}}</h2>
-</div>
-<div class="user-button">
-    <a class="button">Set as Coordinator</a>
+    <div class="centre-button">
+        <a class="button">Set as Coordinator</a>
+    </div>
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">ID: {{user[0]}}</h2>
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Full Name: {{user[1]}}</h2>
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Username: {{user[2]}}</h2>
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Email: {{user[3]}}</h2>
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Phone Number: {{user[4]}}</h2>
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Role: {{user[5]}}</h2>
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Status: {{user[6]}}</h2>
+    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Created: {{user[7]}}</h2>
+    
 </div>
 {% endfor %}
 {% endblock %}
