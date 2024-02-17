@@ -123,6 +123,15 @@ def profile():
 
     return render_template("profile.html", roleCheck=roleCheck, username=username,update_message2=update_message2, update_message=update_message, error_message=error_message,user_details=user_details)
 
+@app.route("/users")
+def users():
+    user_list = []
+    for item in Login.admin_view_accounts():
+        user_list.append(item)
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    return render_template("users.html", user_list=user_list, roleCheck=roleCheck, username=username)
+
 #allows me to go through clubList
 @app.template_filter('enumerate')
 def jinja2_enumerate(iterable):
