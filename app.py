@@ -51,13 +51,19 @@ def register():
         email = request.form["email"]
         phone = request.form["phone"]
 
-        if Login.validate_reg(email):
-            roleCheck = Login.create_account(username, password, name, surname, email, phone)
+        if Login.verify_username(username) == False:
+            error_message2 = "Username Taken"
+        elif Login.validate_reg(email) == False:
+          error_message2 = "Email Taken"
+        elif Login.is_valid_email(email) == False:
+            error_message2 = "Email invalid"
+        elif Login.verify_phone(phone) == False:
+            error_message2 = "Phone Number invalid"
+        else:
+            roleCheck = Login.create_account(username,password,name,surname,email,phone)
             session["username"] = username
             session["roleCheck"] = roleCheck
             return redirect(url_for("home"))
-        else:
-            error_message2 = "Email Taken"
     return render_template("register.html", error_message2=error_message2)
 
 
