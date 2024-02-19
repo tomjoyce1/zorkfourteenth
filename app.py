@@ -169,7 +169,7 @@ def coordinators():
         coord_list.append(item)
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    return render_template("users.html",coord_list=coord_list, roleCheck=roleCheck, username=username)
+    return render_template("coordinators.html",coord_list=coord_list, roleCheck=roleCheck, username=username)
 
 #allows me to go through clubList
 @app.template_filter('enumerate')
