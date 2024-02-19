@@ -361,8 +361,8 @@ def view_passwords(Username):
 #print(display_user_details(UserID))
         
 #Displays all coordinators
-for record in view_coordinators():
-   print (record)
+#for record in view_coordinators():
+#   print (record)
     
     
 
