@@ -50,11 +50,11 @@ def verify_clubs_joined(UserID):
     clubs_joined = row[0]
     return clubs_joined
 
-def club_registration(UserID, ClubName):
+def club_registration(UserID, ClubID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     if verify_clubs_joined(UserID) < 3:
-        cursor.execute("SELECT ClubID FROM Clubs WHERE Name=?", (ClubName,))
+        cursor.execute("SELECT * FROM Clubs WHERE ClubID=?", (ClubID,))
         row = cursor.fetchone()
 
         if row is None:
@@ -235,9 +235,9 @@ def delete_membership(membershipID):
     
 #INSERTS
 #Creating a new club
-#ClubName = "Basketball" 
-#CoordinatorID = 26 #Data stored from login page
-#Description = "Certain Victory"
+#ClubName = "Chess Club" 
+#CoordinatorID = 31 #Data stored from login page
+#Description = "Check mate"
 #creating_club(ClubName, CoordinatorID, Description)
 
 #Registering for a new club     
@@ -290,8 +290,8 @@ def delete_membership(membershipID):
 #approve_club_membership(MembershipID, CoordinatorID) 
 
 #Approves clubs
-#userID = 26 #Data from login
-#clubID = 7
+#userID = 1 #Data from login
+#clubID = 8
 #approve_club(userID, clubID)
 
 #Rejects clubs
