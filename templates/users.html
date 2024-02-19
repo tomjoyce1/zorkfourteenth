@@ -53,19 +53,29 @@
 
 {% block content %}
 {% for index, user in user_list|enumerate %}
-<div class="container">
-    <div class="centre-button">
-        <a class="button">Set as Coordinator</a>
+    {% if user[5] == "STUDENT" %}
+        <div class="container">
+            <form method="POST" action="/delete_account/{{ user[0] }}">
+                <div class="button-container">
+                    {% if user[6] == "approved" %}
+                        <button type="submit" class="button">Delete Account</button>
+                        <button type="submit" formaction="/promote_user/{{ user[0] }}" class="button">Set as Coordinator</button>
+                    {% elif user[6] == "pending" %}
+                        <button type="submit" class="button">Reject Account</button>
+                        <button type="submit" formaction="/approve_user/{{ user[0] }}" class="button">Approve User</button>
+    {% endif %}
     </div>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">ID: {{user[0]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Full Name: {{user[1]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Username: {{user[2]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Email: {{user[3]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Phone Number: {{user[4]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Role: {{user[5]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Status: {{user[6]}}</h2>
-    <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Created: {{user[7]}}</h2>
-    
-</div>
-{% endfor %}
+        </form>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">ID: {{ user[0] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Full Name: {{ user[1] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Username: {{ user[2] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Email: {{ user[3] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Phone Number: {{ user[4] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Role: {{ user[5] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Status: {{ user[6] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Created: {{ user[7] }}</h2>
+        </form>
+    </div>
+    {% endif %}
+    {% endfor %}
 {% endblock %}

@@ -132,6 +132,36 @@ def users():
     username = session.get("username", "base")
     return render_template("users.html", user_list=user_list, roleCheck=roleCheck, username=username)
 
+@app.route("/promote_user/<int:user_id>", methods=["POST"])
+def promote_user(user_id):
+    if request.method == "POST":
+        Login.promote_user(user_id)
+        flash("User promoted successfully", "success")
+        return redirect(url_for("users"))
+    else:
+        flash("Invalid request method", "error")
+        return redirect(url_for("users"))
+    
+@app.route("/approve_user/<int:user_id>", methods=["POST"])
+def approve_user(user_id):
+    if request.method == "POST":
+        Login.approve_user(user_id)
+        flash("User approved", "success")
+        return redirect(url_for("users"))
+    else:
+        flash("Invalid", "error")
+        return redirect(url_for("users"))
+
+@app.route("/delete_account/<int:user_id>", methods=["POST"])
+def delete_account(user_id):
+    if request.method == "POST":
+        Login.delete_account(user_id)
+        flash("User approved", "success")
+        return redirect(url_for("users"))
+    else:
+        flash("Invalid", "error")
+        return redirect(url_for("users"))
+
 #allows me to go through clubList
 @app.template_filter('enumerate')
 def jinja2_enumerate(iterable):
