@@ -1,6 +1,6 @@
 import sqlite3
 
-# Function to make a connection with the database, Dawid needs this to avoid the duplicate code
+
 def connect_to_database():
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
@@ -215,7 +215,8 @@ def update_venue(venue_id, venue_name):
 
 #deletes ##############################################
 
-
+def two_weeks_after_event():
+    return datetime.
 
 # Function to delete an event from the database
 def delete_event(event_id):
@@ -223,6 +224,8 @@ def delete_event(event_id):
     cursor.execute("DELETE FROM Events WHERE Event_id=?", (event_id,))
     conn.commit()
     conn.close()
+
+
 
 
 
