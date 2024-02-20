@@ -6,7 +6,6 @@
     <style>
         /* Add your CSS styles here */
         body {
-            background-image: url('static/place.jpg');
             background-color: #000000;
             margin: 0;
             padding: 0;
@@ -68,32 +67,37 @@
 
 {% block content %}
 <div class="sport-container">
-    <div class="sport-card">
+    <div class="club-card">
         <h3>Archery</h3>
         <p>Experience precision and focus in archery. Join now to hone your skills and meet fellow enthusiasts.</p>
         <button class="join-button" onclick="redirectToMembershipDetails('Archery')">Join Now</button>
     </div>
-    <div class="sport-card">
+    <div class="club-card">
         <h3>Swimming</h3>
         <p>Dive into the water and stay fit with swimming. Join now for a refreshing and rewarding experience.</p>
         <button class="join-button" onclick="redirectToMembershipDetails('Swimming')">Join Now</button>
     </div>
-    <div class="sport-card">
-        <h3>Football</h3>
-        <p>Embrace teamwork and passion in football. Join now to kick off a journey of camaraderie and competition.</p>
-        <button class="join-button" onclick="redirectToMembershipDetails('Football')">Join Now</button>
+    <div class="club-card">
+        <h3>Volleyball</h3>
+        <p>Enjoy a fast-paced game of volleyball. Join now to spike, block, and dig your way to victory.</p>
+        <button class="join-button" onclick="redirectToMembershipDetails('Volleyball')" data-club-id="1">Join Now</button>
     </div>
-    <div class="sport-card">
-        <h3>Soccer</h3>
-        <p>Feel the thrill of the game in soccer. Join now to score goals and make lasting memories on the field.</p>
-        <button class="join-button" onclick="redirectToMembershipDetails('Soccer')">Join Now</button>
+    <div class="club-card">
+        <h3>Tennis</h3>
+        <p>Hit the court and play tennis. Join now to improve your serve, volley, and backhand skills.</p>
+        <button class="join-button" onclick="redirectToMembershipDetails('Tennis')">Join Now</button>
     </div>
-    <div class="sport-card">
+    <div class="club-card">
+        <h3>Hockey</h3>
+        <p>Skate, pass, and score in hockey. Join now to experience the excitement of this fast-paced sport.</p>
+        <button class="join-button" onclick="redirectToMembershipDetails('Hockey')">Join Now</button>
+    </div>
+    <div class="club-card">
         <h3>Running</h3>
         <p>Challenge yourself and conquer distances with running. Join now to improve endurance and achieve goals.</p>
         <button class="join-button" onclick="redirectToMembershipDetails('Running')">Join Now</button>
     </div>
-    <div class="sport-card">
+    <div class="club-card">
         <h3>Basketball</h3>
         <p>Shoot hoops and elevate your game in basketball. Join now to dribble, dunk, and dominate the court.</p>
         <button class="join-button" onclick="redirectToMembershipDetails('Basketball')">Join Now</button>

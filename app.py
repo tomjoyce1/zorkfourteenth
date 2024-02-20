@@ -128,12 +128,13 @@ def create_event():
     username = session.get("username", "base")
     return render_template('coordinator_page.html', roleCheck=roleCheck, username=username)
 
-@app.route('/coordinator_view_club_memberships/<CoordinatorID>')
-def view_club_pending_memberships(CoordinatorID):
+@app.route('/coordinator_view_club_memberships')
+def coordinator_view_club_memberships():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    pending_memberships = Clubs.coordinator_view_club_memberships(CoordinatorID)
-    return render_template('club_pending_memberships.html', pending_memberships=pending_memberships, roleCheck=roleCheck, username=username)
+    userID = Login.get_user_id(username)
+    pending_memberships = Clubs.coordinator_view_club_memberships(userID)
+    return render_template('club_memberships.html', pending_memberships=pending_memberships, roleCheck=roleCheck, username=username)
 
 
 @app.route('/coordinator_view')
