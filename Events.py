@@ -202,7 +202,6 @@ def update_venue(venue_id, venue_name):
     conn.close()
 
 #deletes ##############################################
-d
 # Function to delete an event from the database
 def delete_event(event_id):
     conn, cursor = connect_to_database()
