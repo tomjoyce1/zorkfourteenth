@@ -55,12 +55,7 @@ def register_for_event(event_id, user_id):
     cursor = conn.cursor()
     cursor.execute("INSERT INTO Event_Registration (Event_id, User_id) VALUES (?, ?)", (event_id, user_id))
     conn.commit()
-<<<<<<< HEAD
-    cursor.close()
-    conn.close()  
-=======
         
->>>>>>> f6299f04ae50f29c549146a8621e4deb1a3a92af
 
 #views              #######################################
     
@@ -70,7 +65,7 @@ def view_events():
     events = cursor.fetchall()
     conn.close()
     return events
-    
+
 # Function to retrieve details of events user is registered for
 def fetch_event_registrations(userID):
     conn = sqlite3.connect('MiniEpic.db')
@@ -115,10 +110,9 @@ def admin_view_events():
 def admin_view_events_pending():
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Events WHERE ApprovalStatus = 'pending'")
+    cursor.execute("SELECT * FROM Event_Registration WHERE ApprovalStatus = 'pending'")
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
-    conn.close()
     return result
 
 # Function to verify if a user is registered for a specific event

@@ -1,4 +1,4 @@
-import sqlite3, os,Login,Clubs
+import sqlite3, os,Login,Clubs,Events
 
 from flask import Flask, redirect, url_for, render_template, request, session, flash, g
 from Events import fetch_event_registrations, view_events
@@ -221,7 +221,16 @@ def coordinators():
 def view_event_registrations():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    return render_template("view_event_registrations.html", roleCheck=roleCheck, username=username) 
+    return render_template("view_event_registrations.html", roleCheck=roleCheck, username=username)
+
+@app.route("/adminevents")
+def adminevents():
+    eventslist = []
+    for item in Events.admin_view_events_pending():
+        eventslist.append(item)
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    return render_template("admninevents.html",eventslist=eventslist, roleCheck=roleCheck, username=username)
 
 #allows me to go through clubList
 @app.template_filter('enumerate')
