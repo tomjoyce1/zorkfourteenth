@@ -1,7 +1,7 @@
 import sqlite3, os,Login,Clubs
 
 from flask import Flask, redirect, url_for, render_template, request, session, flash, g
-from Events import view_events
+from Events import fetch_event_registrations, view_events
 from Events import register_for_event
 
 # importing real time to create permanent session for perios of time
@@ -102,12 +102,14 @@ def view_events_route():
     events = view_events()
     return render_template('view_events.html', events=events, roleCheck=roleCheck, username=username)
 
+
 @app.route('/user_views_event_registrations')
-def user_views_event_registrations(userID):
+def user_views_event_registrations():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    registered_events = user_views_event_registrations(userID)
-    return registered_events
+    userID = session.get('userID')
+    registered_events = fetch_event_registrations(userID)
+    return render_template('view_event_registrations.html', event_registrations=registered_events, roleCheck=roleCheck, username=username)
 
 @app.route('/register_event', methods=['POST'])
 def register_event():
@@ -120,6 +122,12 @@ def register_event():
         register_for_event(event_id, user_id)
     
         return render_template('successful_registration.html', roleCheck=roleCheck, username=username)
+    
+@app.route('/create_event')
+def create_event():
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    return render_template('create_event.html', roleCheck=roleCheck, username=username)
 
 @app.route("/memberships")
 def memberships():
