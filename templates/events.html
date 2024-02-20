@@ -1,100 +1,82 @@
 {% extends "navbar.html" %}
 
-{% block title %}Memberships{% endblock %}
+{% block title %}Events{% endblock %}
 
 {% block style %}
     <style>
-        /* Add your CSS styles here */
         body {
             font-family: Arial, sans-serif;
-            background-image: url('static/arena.png'); /* Replace 'your_image.jpg' with the path to your custom background image */
+            background-image: url('static/arena.png'); 
             background-size: cover;
             background-position: center;
             margin: 0;
             padding: 0;
-            color: #fff; /* Change text color if needed */
+            color: #fff;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
         }
         .container {
             max-width: 800px;
-            margin: 20px auto;
+            width: 100%;
+            margin: auto;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.8); /* Add opacity to the background color */
+            background-color: rgba(0, 0, 0, 0.8); 
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            flex-grow: 1; /* Allow container to grow and fill remaining space */
+            padding-left: 20px; /* Add padding to the left */
         }
         h1 {
             text-align: center;
             margin-bottom: 20px;
             font-size: 28px;
-            color: #fff; /* Change text color if needed */
+            color: #fff; 
         }
-        .event-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .event {
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.8); /* Add opacity to the event background color */
+        .button {
+            display: block;
+            width: calc(100% - 40px); /* Adjust button width */
+            padding: 15px; /* Reduce padding to make buttons smaller */
+            margin-bottom: 15px; /* Increase margin to add more spacing between buttons */
+            font-size: 16px; /* Reduce font size to make buttons smaller */
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8); 
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+            color: #000;
+            text-decoration: none;
         }
-        .event h2 {
-            margin: 0;
-            font-size: 24px;
-            color: #000; /* Change text color to black */
+        .button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
         }
-        .event p {
-            margin: 5px 0;
-            color: #000; /* Change text color to black */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
         }
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Upcoming Events</h1>
+        <h1>Events</h1>
         
-        <!-- List of upcoming events -->
-        <div class="event">
-            <h2>Archery</h2>
-            <p>Training Session</p>
-            <p>Date: January 15, 2025</p>
-            <p>Time: 9:00 AM - 11:00 AM</p>
-        </div>
-        
-        <div class="event">
-            <h2>Swimming</h2>
-            <p>Match against Rival Team</p>
-            <p>Date: January 20, 2025</p>
-            <p>Time: 2:00 PM - 4:00 PM</p>
-        </div>
-        
-        <div class="event">
-            <h2>Football</h2>
-            <p>Friendly Match</p>
-            <p>Date: January 22, 2025</p>
-            <p>Time: 3:00 PM - 5:00 PM</p>
-        </div>
-        
-        <div class="event">
-            <h2>Soccer</h2>
-            <p>Training Session</p>
-            <p>Date: January 25, 2025</p>
-            <p>Time: 10:00 AM - 12:00 PM</p>
-        </div>
-        
-        <div class="event">
-            <h2>Basketball</h2>
-            <p>Match against City Team</p>
-            <p>Date: January 27, 2025</p>
-            <p>Time: 6:00 PM - 8:00 PM</p>
-        </div>
-        
-        <div class="event">
-            <h2>Rugby</h2>
-            <p>Tournament</p>
-            <p>Date: January 30, 2025</p>
-            <p>Time: 12:00 PM - 4:00 PM</p>
+        <a href="/view_events" class="button">View All Events</a>
+        <a href="/view_event_registrations" class="button">View Event Registrations</a>
+
+        <!-- Include the option to register for an event below the other buttons -->
+        <div style="text-align: center; margin-top: 85px;"> <!-- Center the content and add some space -->
+            <h2 style="margin-bottom: 20px;">Register for an Event</h2> <!-- Make it slightly lower -->
+            <form action="/register_event" method="POST">
+                <label for="event_id">Event ID:</label>
+                <input type="text" id="event_id" name="event_id" required><br><br>
+                <label for="user_id">User ID:</label>
+                <input type="text" id="user_id" name="user_id" required><br><br>
+                <button type="submit" class="button">Register</button>
+            </form>
         </div>
     </div>
 {% endblock %}
