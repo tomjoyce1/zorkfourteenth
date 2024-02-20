@@ -9,38 +9,46 @@
         background-color: #000;
         color: #fff;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
         margin: 0;
     }
-    .container {
-        text-align: center;
-    }
     .message {
         margin-bottom: 20px;
+        text-align: center;
     }
     .button {
         display: inline-block;
         padding: 10px 20px;
         font-size: 16px;
-        background-color: #fff;
+        background-color: #00FF00; /* Green color for the button */
         color: #000;
         text-decoration: none;
         border-radius: 5px;
         transition: background-color 0.3s ease;
     }
     .button:hover {
-        background-color: #ddd;
+        background-color: #008000; /* Darker green color on hover */
     }
+    footer {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(66, 66, 66);
+            padding: 10px;
+        }
 </style>
-</head>
-<body>
-<div class="container">
-    <div class="message">
-        <h1>You have successfully registered for this event</h1>
-    </div>
-    <a href="/events" class="button">Return to Events</a>
+{% endblock %}
+
+{% block body %}
+<div class="message">
+    <h1>You have successfully registered for this event!</h1>
 </div>
-</body>
+<a href="/events" class="button">Return to Events</a>
 {% endblock %}

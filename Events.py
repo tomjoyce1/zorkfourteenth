@@ -51,11 +51,11 @@ def create_event(club_id, title, description, date_, time_, venue_id):
 
 # Function to register a user for a specific event
 def register_for_event(event_id, user_id):
-    with sqlite3.connect('MiniEpic.db') as conn:
-        cursor = conn.cursor()
-        cursor.execute("INSERT INTO Event_Registration (Event_id, User_id) VALUES (?, ?)", (event_id, user_id))
-        conn.commit()
-
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO Event_Registration (Event_id, User_id) VALUES (?, ?)", (event_id, user_id))
+    conn.commit()
+        
 
 #views              #######################################
     
