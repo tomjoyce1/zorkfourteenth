@@ -1,8 +1,7 @@
 import sqlite3, os,Login,Clubs
+from Events import fetch_event_registrations, register_for_event, view_events
 
 from flask import Flask, redirect, url_for, render_template, request, session, flash, g
-from Events import fetch_event_registrations, view_events
-from Events import register_for_event
 
 # importing real time to create permanent session for perios of time
 from datetime import timedelta
@@ -123,11 +122,25 @@ def register_event():
     
         return render_template('successful_registration.html', roleCheck=roleCheck, username=username)
     
-@app.route('/create_event')
+@app.route('/coordinator_page')
 def create_event():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    return render_template('create_event.html', roleCheck=roleCheck, username=username)
+    return render_template('coordinator_page.html', roleCheck=roleCheck, username=username)
+
+@app.route('/coordinator_view_club_memberships/<CoordinatorID>')
+def view_club_pending_memberships(CoordinatorID):
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    pending_memberships = Clubs.coordinator_view_club_memberships(CoordinatorID)
+    return render_template('club_pending_memberships.html', pending_memberships=pending_memberships, roleCheck=roleCheck, username=username)
+
+
+@app.route('/coordinator_view')
+def coordinator_view():
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    return render_template('coordinators.html', roleCheck=roleCheck, username=username)
 
 @app.route("/memberships")
 def memberships():

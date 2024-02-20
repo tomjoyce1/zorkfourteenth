@@ -62,47 +62,58 @@
             z-index: 9999;
             transition: border-color 8.9s ease;
         }
+        footer {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(66, 66, 66);
+            padding: 10px;
+        }
     </style>
 {% endblock %}
 
 {% block content %}
+
+<p>Welcome to the Club Coordinator page. Here you can view, edit and manage your ISEagles club!</p>
+
 <div class="sport-container">
-    <div class="sport-card">
-        <h3>Create Event</h3>
+    <div class="coordinator-card">
+        <h3>View Club Members</h3>
         <button class="view-club-button" onclick="redirectToMembershipDetails('club')">View Your Club</button>
     </div>
-    <div class="sport-card">
+    <div class="coordinator-card">
         <h3>View Your Club's Upcoming Events</h3>
         <button class="view-events-button" onclick="redirectToMembershipDetails('events')">View Club Events</button>
     </div>
-    <div class="sport-card">
+    <div class="coordinator-card">
         <h3>View Current Event Registrations</h3>
         <button class="club-button" onclick="redirectToMembershipDetails('Football')">View Registered Users</button>
     </div>
-    <div class="sport-card">
+    <div class="coordinator-card">
         <h3>View Pending Registrations</h3>
-        <button class="join-button" onclick="redirectToMembershipDetails('Soccer')">View Pending Registrations</button>
+        <button class="join-button" onclick="redirectToPendingRegistrations('/view_club_pending_memberships/<CoordinatorID>')">View Pending Registrations</button>
     </div>
-    <div class="sport-card">
-        <h3>Running</h3>
-        <p>Challenge yourself and conquer distances with running. Join now to improve endurance and achieve goals.</p>
-        <button class="join-button" onclick="redirectToMembershipDetails('Running')">Join Now</button>
-    </div>
-    <div class="sport-card">
-        <h3>Basketball</h3>
-        <p>Shoot hoops and elevate your game in basketball. Join now to dribble, dunk, and dominate the court.</p>
-        <button class="join-button" onclick="redirectToMembershipDetails('Basketball')">Join Now</button>
+    <div class="coordinator-card">
+        <h3>Create Event</h3>
+        <button class="join-button" onclick="redirectToMembershipDetails('Running')">Create Now</button>
     </div>
     <!-- Add more sport cards as needed -->
 </div>
-
-    <p>Joining our sports clubs offers fitness, teamwork, competition, and a vibrant community. Don't miss out – join today!</p>
 
     <!-- Circle around mouse cursor -->
     <div id="circle" class="circle"></div>
     <script>
         function redirectToMembershipDetails(sportName) {
             window.location.href = 'membership_details.html?sport=' + sportName;
+        }
+    </script>
+    <script>
+        function redirectToPendingRegistrations(url) {
+            window.location.href = url;
         }
     </script>
     <script>
