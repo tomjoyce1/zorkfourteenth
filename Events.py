@@ -55,13 +55,6 @@ def register_for_event(event_id, user_id):
     cursor = conn.cursor()
     cursor.execute("INSERT INTO Event_Registration (Event_id, User_id) VALUES (?, ?)", (event_id, user_id))
     conn.commit()
-<<<<<<< HEAD
-    
-    cursor.close()
-    conn.close()  
-
-=======
->>>>>>> 2f19cbbbd870f939d656ce007f985c283db2be67
 
 #views              #######################################
     
