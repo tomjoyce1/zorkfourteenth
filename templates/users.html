@@ -1,0 +1,81 @@
+{% extends "navbar.html" %}
+
+{% block title %}Users{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            background-color: rgb(180, 180, 180);
+            margin: 0;
+            padding: 0;
+        }
+
+    footer {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(66, 66, 66);
+            padding: 10px;
+        }
+        .container {
+            width: calc(50% - 120px);
+            margin: 35px; 
+            padding: 20px;
+            background-color: rgb(0, 0, 0);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block; 
+            vertical-align: top;
+        }
+
+        @media screen and (min-height: 1000px) {
+        body {
+            background-position-y: 100%;
+        }
+    }
+    footer {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            color: rgb(66, 66, 66);
+            padding: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+{% for index, user in user_list|enumerate %}
+    {% if user[5] == "STUDENT" %}
+        <div class="container">
+            <form method="POST" action="/delete_account/{{ user[0] }}">
+                <div class="button-container">
+                    {% if user[6] == "approved" %}
+                        <button type="submit" class="button">Delete Account</button>
+                        <button type="submit" formaction="/promote_user/{{ user[0] }}" class="button">Set as Coordinator</button>
+                    {% elif user[6] == "pending" %}
+                        <button type="submit" class="button">Reject Account</button>
+                        <button type="submit" formaction="/approve_user/{{ user[0] }}" class="button">Approve User</button>
+    {% endif %}
+    </div>
+        </form>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">ID: {{ user[0] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Full Name: {{ user[1] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Username: {{ user[2] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Email: {{ user[3] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Phone Number: {{ user[4] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Role: {{ user[5] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Status: {{ user[6] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Created: {{ user[7] }}</h2>
+        </form>
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endblock %}

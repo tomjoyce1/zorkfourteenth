@@ -6,7 +6,6 @@
     <style>
         /* Add your CSS styles here */
         body {
-            background-image: url('static/place.jpg');
             background-color: #000000;
             margin: 0;
             padding: 0;
@@ -35,8 +34,8 @@
         .sport-card p {
             margin-bottom: 20px;
         }
-        .join-button {
-            background-color: #4CAF50;
+        button {
+            background-color: #007bff; /* Blue color */
             color: white;
             padding: 10px 20px;
             border: none;
@@ -44,8 +43,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        .join-button:hover {
-            background-color: #45a049;
+        button:hover {
+            background-color: #0056b3; /* Darker shade of blue */
         }
         p {
             text-align: center;
@@ -69,24 +68,20 @@
 {% block content %}
 <div class="sport-container">
     <div class="sport-card">
-        <h3>Archery</h3>
-        <p>Experience precision and focus in archery. Join now to hone your skills and meet fellow enthusiasts.</p>
-        <button class="join-button" onclick="redirectToMembershipDetails('Archery')">Join Now</button>
+        <h3>Create Event</h3>
+        <button class="view-club-button" onclick="redirectToMembershipDetails('club')">View Your Club</button>
     </div>
     <div class="sport-card">
-        <h3>Swimming</h3>
-        <p>Dive into the water and stay fit with swimming. Join now for a refreshing and rewarding experience.</p>
-        <button class="join-button" onclick="redirectToMembershipDetails('Swimming')">Join Now</button>
+        <h3>View Your Club's Upcoming Events</h3>
+        <button class="view-events-button" onclick="redirectToMembershipDetails('events')">View Club Events</button>
     </div>
     <div class="sport-card">
-        <h3>Football</h3>
-        <p>Embrace teamwork and passion in football. Join now to kick off a journey of camaraderie and competition.</p>
-        <button class="join-button" onclick="redirectToMembershipDetails('Football')">Join Now</button>
+        <h3>View Current Event Registrations</h3>
+        <button class="club-button" onclick="redirectToMembershipDetails('Football')">View Registered Users</button>
     </div>
     <div class="sport-card">
-        <h3>Soccer</h3>
-        <p>Feel the thrill of the game in soccer. Join now to score goals and make lasting memories on the field.</p>
-        <button class="join-button" onclick="redirectToMembershipDetails('Soccer')">Join Now</button>
+        <h3>View Pending Registrations</h3>
+        <button class="join-button" onclick="redirectToMembershipDetails('Soccer')">View Pending Registrations</button>
     </div>
     <div class="sport-card">
         <h3>Running</h3>

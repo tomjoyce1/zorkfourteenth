@@ -7,13 +7,19 @@ def connect_to_database():
     return conn, cursor
 
 
-
-
+# temp function to verify whether someone is a coordinator
+def is_coordinator(user_id):
+    conn, cursor = connect_to_database()
+    cursor.execute("SELECT Role FROM Users WHERE UserID=?", (user_id,))
+    role = cursor.fetchone()[0]
+    conn.close()
+    return role == "COORDINATOR"
 
 
 #Verifying if event creator is a coordinator (same as dawid's function)
 def verify_role(UserID):
-    conn, cursor = connect_to_database()
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT Role, ApprovalStatus FROM Users WHERE UserID=?", (UserID,)) #checks role of user from Users table
     row = cursor.fetchone() #returns first row of database
     role = row[0]
@@ -34,7 +40,8 @@ def verify_role(UserID):
 
 # Function to create a new event in the database
 def create_event(club_id, title, description, date_, time_, venue_id):
-    conn, cursor = connect_to_database()
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("INSERT INTO Events (Club_id, Title, Description, Date_, Time_, Venue_id) VALUES (?, ?, ?, ?, ?, ?)",
                    (club_id, title, description, date_, time_, venue_id))
     conn.commit()
@@ -42,40 +49,37 @@ def create_event(club_id, title, description, date_, time_, venue_id):
     print("Event Created")
     conn.close()
 
-
-
 # Function to register a user for a specific event
 def register_for_event(event_id, user_id):
-    conn, cursor = connect_to_database()
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("INSERT INTO Event_Registration (Event_id, User_id) VALUES (?, ?)", (event_id, user_id))
     conn.commit()
-    conn.close()
-
-
+<<<<<<< HEAD
+    cursor.close()
+    conn.close()  
+=======
+        
+>>>>>>> f6299f04ae50f29c549146a8621e4deb1a3a92af
 
 #views              #######################################
     
-
-
-
-def user_view_events():
-    conn = sqlite3.connect('MiniEpic.db')
-    cursor = conn.cursor()
+def view_events():
+    conn, cursor = connect_to_database()
     cursor.execute("SELECT * FROM Events")
-    rows = cursor.fetchall()
-    result = [list(row) for row in rows]
+    events = cursor.fetchall()
     conn.close()
-    return result
-
+    return events
+    
 # Function to retrieve details of events user is registered for
-def user_views_event_registrations(userID):
+def fetch_event_registrations(userID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Event_Registration WHERE User_id = ?", (userID,))
     rows = cursor.fetchall()
-    result = [list(row) for row in rows]
+    registered_events = [list(row) for row in rows]
     conn.close()
-    return result
+    return registered_events
 
 # Function to retrieve events coordinated by a specific user
 def coordinator_view_events(CoordinatorID):
@@ -118,10 +122,10 @@ def admin_view_events_pending():
     return result
 
 # Function to verify if a user is registered for a specific event
-def verify_event_registration(UserID, EventID):
+def verify_event_registration(user_id, EventID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Event_Registration WHERE User_id = ? AND Event_id = ?", (UserID, EventID))
+    cursor.execute("SELECT * FROM Event_Registration WHERE User_id = ? AND Event_id = ?", (user_id, EventID))
     row = cursor.fetchone()
     conn.close()
     return row is not None
@@ -161,20 +165,12 @@ def update_event(event_id, title=None, description=None, date_=None, time_=None,
     conn.commit()
     conn.close()
 
-    
-
-
-
-
-    
-# Function to cancel a user's registration for an event
+    # Function to cancel a user's registration for an event
 def cancel_event_registration(registration_id):
     conn, cursor = connect_to_database()
     cursor.execute("DELETE FROM Event_Registration WHERE Registration_id=?", (registration_id,))
     conn.commit()
     conn.close()
-
-
 
 # Function to approve a user's registration for an event
 def approve_registration(registration_id):
@@ -211,12 +207,9 @@ def update_venue(venue_id, venue_name):
     conn.commit()
     conn.close()
 
-
-
 #deletes ##############################################
 
-def two_weeks_after_event():
-    return datetime.
+
 
 # Function to delete an event from the database
 def delete_event(event_id):
@@ -224,13 +217,6 @@ def delete_event(event_id):
     cursor.execute("DELETE FROM Events WHERE Event_id=?", (event_id,))
     conn.commit()
     conn.close()
-
-
-
-
-
-
-
 
 # Function to retrieve details of a specific event
 def get_event_details(event_id):
@@ -240,14 +226,6 @@ def get_event_details(event_id):
     conn.close()
     return event_details
 
-# Function to retrieve all events stored in the database
-def get_all_events():
-    conn, cursor = connect_to_database()
-    cursor.execute("SELECT * FROM Events")
-    all_events = cursor.fetchall()
-    conn.close()
-    return all_events
-
 # Function to retrieve all events a user is registered for
 def get_registered_events_for_user(user_id):
     conn, cursor = connect_to_database()
@@ -255,11 +233,6 @@ def get_registered_events_for_user(user_id):
     registered_events = cursor.fetchall()
     conn.close()
     return registered_events
-
-
-
-
-
 
 # Function to retrieve details of a specific venue
 def get_venue_details(venue_id):
