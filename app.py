@@ -1,6 +1,8 @@
 import sqlite3, os,Login,Clubs
 
 from flask import Flask, redirect, url_for, render_template, request, session, flash, g
+from Events import view_events
+from Events import register_for_event
 
 # importing real time to create permanent session for perios of time
 from datetime import timedelta
@@ -88,17 +90,43 @@ def clubs():
 
 
 @app.route("/events")
-def events():
+def display_events_page():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     return render_template("events.html", roleCheck=roleCheck, username=username)
 
+@app.route('/view_events')
+def view_events_route():
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    events = view_events()
+    return render_template('view_events.html', events=events, roleCheck=roleCheck, username=username)
+
+@app.route('/user_views_event_registrations')
+def user_views_event_registrations(userID):
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    registered_events = user_views_event_registrations(userID)
+    return registered_events
+
+@app.route('/register_event', methods=['POST'])
+def register_event():
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    if request.method == 'POST':
+        event_id = request.form['event_id']
+        user_id = request.form['user_id']
+        
+        register_for_event(event_id, user_id)
+    
+        return render_template('successful_registration.html', roleCheck=roleCheck, username=username)
 
 @app.route("/memberships")
 def memberships():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     return render_template("memberships.html", roleCheck=roleCheck, username=username)
+
 
 @app.route("/profile", methods=["POST", "GET"])
 def profile():
@@ -176,6 +204,13 @@ def coordinators():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     return render_template("coordinators.html",coord_list=coord_list, roleCheck=roleCheck, username=username)
+    
+
+@app.route('/view_event_registrations', methods=['GET'])
+def view_event_registrations():
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    return render_template("view_event_registrations.html", roleCheck=roleCheck, username=username) 
 
 #allows me to go through clubList
 @app.template_filter('enumerate')

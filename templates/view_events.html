@@ -1,0 +1,74 @@
+{% extends "navbar.html" %}
+
+{% block title %}View Events{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        .event-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .event-table th,
+        .event-table td {
+            border: 1px solid #fff;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .event-table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .event-table tbody tr:nth-child(even) {
+            background-color: #222;
+        }
+
+        .event-table tbody tr:hover {
+            background-color: #444;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>All Events</h1>
+        <table class="event-table">
+            <thead>
+                <tr>
+                    <th>Event ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Venue ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td>{{ event[1] }}</td> <!-- Event ID -->
+                    <td>{{ event[2] }}</td> <!-- Title -->
+                    <td>{{ event[3] }}</td> <!-- Description -->
+                    <td>{{ event[4] }}</td> <!-- Date -->
+                    <td>{{ event[5] }}</td> <!-- Time -->
+                    <td>{{ event[0] }}</td> <!-- Venue ID-->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
