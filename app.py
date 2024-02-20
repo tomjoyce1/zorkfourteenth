@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import sqlite3, os,Login,Clubs
-from Events import fetch_event_registrations, register_for_event, view_events
-=======
 import sqlite3, os,Login,Clubs,Events
->>>>>>> Admin_users
 
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 
@@ -102,7 +97,7 @@ def display_events_page():
 def view_events_route():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    events = view_events()
+    events = Events.view_events()
     return render_template('view_events.html', events=events, roleCheck=roleCheck, username=username)
 
 
@@ -111,7 +106,7 @@ def user_views_event_registrations():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     userID = Login.get_user_id(username)
-    registered_events = fetch_event_registrations(userID)
+    registered_events = Events.fetch_event_registrations(userID)
     return render_template('view_event_registrations.html', event_registrations=registered_events, userID=userID, roleCheck=roleCheck, username=username)
 
 @app.route('/register_event', methods=['POST'])
@@ -122,7 +117,7 @@ def register_event():
         event_id = request.form['event_id']
         user_id = request.form['user_id']
         
-        register_for_event(event_id, user_id)
+        Events.register_for_event(event_id, user_id)
     
         return render_template('successful_registration.html', roleCheck=roleCheck, username=username)
     
