@@ -58,7 +58,7 @@ def register_for_event(event_id, user_id):
 
 #views              #######################################
     
-def view_events():
+def view_events(): #CHANGE THIS TO A VIEW AS APPOSE TO JUST SELECTING DATA FROM THE TABLE. ALSO DONT SHOW THE ID OF THE VENUE, JUST SHOW THE NAME OF IT (JOIN TABLES OR USE A SUB QUERY)
     conn, cursor = connect_to_database()
     cursor.execute("SELECT * FROM Events")
     events = cursor.fetchall()
@@ -66,7 +66,7 @@ def view_events():
     return events
 
 # Function to retrieve details of events user is registered for
-def fetch_event_registrations(userID):
+def fetch_event_registrations(userID): #CHANGE THIS TO A VIEW AND ONLY SELECT THE RELEVANT DATA. AVOID SHOWING THE ID OF THE VENUE OR EVENT, SHOW THE NAME OF IT BY JOINING TABLES OR USING A SUB QUERY
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Event_Registration WHERE User_id = ?", (userID,))
@@ -76,7 +76,7 @@ def fetch_event_registrations(userID):
     return registered_events
 
 # Function to retrieve events coordinated by a specific user
-def coordinator_view_events(CoordinatorID):
+def coordinator_view_events(CoordinatorID): #AGAIN, USE THE VIEW FROM THE VIEW_EVENTS() FUNCTION AND JUST ADD A WHERE CONDITION TO SELECT THE RECORD WITH THE CORRECT COORDINATOR ID
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Events WHERE Club_id IN (SELECT Club_id FROM Clubs WHERE CoordinatorID = ?)", (CoordinatorID,))
@@ -86,7 +86,7 @@ def coordinator_view_events(CoordinatorID):
     return result
 
 # Function to retrieve events coordinated by a specific user with pending approvals
-def coordinator_view_events_pending(CoordinatorID):
+def coordinator_view_events_pending(CoordinatorID):#USE THE VIEW FROM THE ABOVE FUNCTION AND JUST ADD "APPROVALSTATUS = 'PENDING'" TO THE WHERE CONDITION"
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Events WHERE Club_id IN (SELECT Club_id FROM Clubs WHERE CoordinatorID = ?) AND ApprovalStatus = 'pending'", (CoordinatorID,))
@@ -96,7 +96,7 @@ def coordinator_view_events_pending(CoordinatorID):
     return result
 
 # Function to retrieve all events for admin view
-def admin_view_events():
+def admin_view_events(): #CREATE A VIEW FOR THIS OR ATLEAST CHANGE IT SO THAT RELEVANT DATA IS DISPLAYED (I.E. DONT SHOW THE ID OF THE VENUE OR EVENT, SHOW THE NAME OF IT)
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Events")
@@ -106,7 +106,7 @@ def admin_view_events():
     return result
 
 # Function to retrieve events with pending approvals for admin view
-def admin_view_events_pending():
+def admin_view_events_pending():#TRY USING THE SAME VIEW FOR THE ADMIN AND COORDINATOR FUNCTIONS BUT DISTINGUISHED BETWEEN THEM BY USING THE WHERE CONDITION
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Event_Registration WHERE ApprovalStatus = 'pending'")
@@ -115,7 +115,7 @@ def admin_view_events_pending():
     return result
 
 # Function to verify if a user is registered for a specific event
-def verify_event_registration(user_id, EventID):
+def verify_event_registration(user_id, EventID): 
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Event_Registration WHERE User_id = ? AND Event_id = ?", (user_id, EventID))
@@ -126,7 +126,7 @@ def verify_event_registration(user_id, EventID):
 #updates     #######################################
     
     # Function to update details of an existing event
-def update_event(event_id, title=None, description=None, date_=None, time_=None, venue_id=None):
+def update_event(event_id, title=None, description=None, date_=None, time_=None, venue_id=None): #DO WE NEED SUCH A COMPLEX FUNCTION?
     conn, cursor = connect_to_database()
     update_query = "UPDATE Events SET"
     if title:
@@ -173,7 +173,7 @@ def approve_registration(registration_id):
     conn.close()
 
 # Function to reject a user's registration for an event
-def reject_registration(registration_id):
+def reject_registration(registration_id):#ONCE A REGISRTRATION IS REJECTED, IT SHOULD BE DELETED SO USE THE CANCEL_EVENT_REGISTRATION FUNCTION INTO THIS
     conn, cursor = connect_to_database()
     cursor.execute("UPDATE Event_Registration SET ApprovalStatus='rejected' WHERE Registration_id=?", (registration_id,))
     conn.commit()
@@ -209,7 +209,7 @@ def delete_event(event_id):
     conn.close()
 
 # Function to retrieve details of a specific event
-def get_event_details(event_id):
+def get_event_details(event_id): 
     conn, cursor = connect_to_database()
     cursor.execute("SELECT * FROM Events WHERE Event_id=?", (event_id,))
     event_details = cursor.fetchone()
@@ -217,7 +217,7 @@ def get_event_details(event_id):
     return event_details
 
 # Function to retrieve all events a user is registered for
-def get_registered_events_for_user(user_id):
+def get_registered_events_for_user(user_id): #CHANGE THIS TO A VIEW AND DISPLAY ONLY RELEVANT DATA (E.G. SHOW VENUE NAME NOT ID)
     conn, cursor = connect_to_database()
     cursor.execute("SELECT * FROM Event_Registration WHERE User_id=?", (user_id,))
     registered_events = cursor.fetchall()
