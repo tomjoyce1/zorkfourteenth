@@ -40,7 +40,8 @@
         }
         
         .container,
-        .container2 {
+        .container2,
+        .container3 {
             position: absolute;
             width: 300px;
             padding: 20px;
@@ -58,16 +59,21 @@
             top: 100px;
             right: calc(50% - 750px); /* Adjust the value to align with your design */
         }
+        .container3 {
+            top: 120px;
+            left: calc(50% - 750px); /* Adjust the value to align with your design */
+        }
     </style>
 {% endblock %}
 
 {% block content %}
-<div class="text-content custom-left">
+<div class="container3">
     <h2 style="font-family: 'Bebas Neue Pro Bold Italic'"></h2style>Personal Details</h2>
     {% for key, value in user_details %}
-        <p>{{ key }} {{ value }}</p>
+        <p style="font-family: 'Sequel Sans Medium Head', Rockwell;">{{ key }} {{ value }}</p>
     {% endfor %}
 </div>
+
 <div class="top-right-button">
     <a href="/logout" class="button">Logout</a>
 </div>
