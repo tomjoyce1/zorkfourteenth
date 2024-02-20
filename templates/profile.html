@@ -69,8 +69,8 @@
 {% block content %}
 <div class="container3">
     <h2 style="font-family: 'Bebas Neue Pro Bold Italic'"></h2style>Personal Details</h2>
-    {% for key, value in user_details %}
-        <p style="font-family: 'Sequel Sans Medium Head', Rockwell;">{{ key }} {{ value }}</p>
+    {% for index, user in user_details|enumerate %}
+        <p style="font-family: 'Sequel Sans Medium Head', Rockwell;">{{user}}</p>
     {% endfor %}
 </div>
 

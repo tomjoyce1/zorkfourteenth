@@ -133,8 +133,11 @@ def profile():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     user_id = Login.get_user_id(username)
-    user_details = []
-    user_details = Login.display_user_details(user_id)
+    temp_list = ["User ID: ", "Full Name: ", "Username: ", "Email: ", "Phone Number: ", "Role: ", "Account Created: "]
+    temp_list2 = []
+    for item in Login.admin_view_user(user_id):
+        temp_list2.append(item)
+    user_details = [item1 + str(item2) for item1, item2 in zip(temp_list, temp_list2)]
     update_message = None
     update_message2 = None
     error_message = None

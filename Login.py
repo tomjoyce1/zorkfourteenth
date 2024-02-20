@@ -179,7 +179,7 @@ def get_user_id(Username):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     cursor.execute("SELECT UserID FROM Login WHERE Username=?",(Username,))
-    row = cursor.fetchone()
+    row = cursor.fetchone ()
     user_id = row[0]
     return user_id
     
@@ -189,31 +189,13 @@ def admin_view_user(UserID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
     #gets records of specific user
-    cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.ApprovalStatus, U.CreatedTimestamp, U.UpdatedTimestamp  FROM Users U, Login L, PhoneNumber P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
+    cursor.execute("SELECT U.UserID, U.Name || ' ' || U.Surname AS 'Name', L.Username, U.Email, P.PhoneNumber, U.Role, U.CreatedTimestamp  FROM Users U, Login L, PhoneNumber P WHERE U.UserID = L.UserID AND U.UserID = P.UserID AND U.UserID = ?", (UserID,))
     row = cursor.fetchone()
     if row:
         result = list(row)
         return result
     else:
         return None
-    
-def display_user_details(UserID):
-    user_list = []
-    item = admin_view_user(UserID)
-    id = "User ID:",item[0]
-    fullname = "Full Name:",item[1]
-    username = "Username:",item[2]
-    email = "Email:",item[3]
-    phone = "Phone Number:",item[4]
-    role = "Role:",item[5]
-    user_list.append(id)
-    user_list.append(fullname)
-    user_list.append(username)
-    user_list.append(email)
-    user_list.append(phone)
-    user_list.append(role)
-
-    return user_list
 
 def view_coordinators():
     #connection to database
