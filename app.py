@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import sqlite3, os,Login,Clubs
 from Events import fetch_event_registrations, register_for_event, view_events
+=======
+import sqlite3, os,Login,Clubs,Events
+>>>>>>> Admin_users
 
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 
@@ -234,7 +238,26 @@ def coordinators():
 def view_event_registrations():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    return render_template("view_event_registrations.html", roleCheck=roleCheck, username=username) 
+    return render_template("view_event_registrations.html", roleCheck=roleCheck, username=username)
+
+@app.route("/advent")
+def adminevent():
+    events_list = []
+    for item in Events.admin_view_events_pending():
+        events_list.append(item)
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    return render_template("advent.html",events_list=events_list, roleCheck=roleCheck, username=username)
+
+@app.route("/approve_registration/<int:registration_id>", methods=["POST"])
+def approve_registration(registration_id):
+    if request.method == "POST":
+        Events.approve_registration(registration_id)
+        flash("Event approved", "success")
+        return redirect(url_for("adminevent"))
+    else:
+        flash("Invalid", "error")
+        return redirect(url_for("adminevent"))
 
 #allows me to go through clubList
 @app.template_filter('enumerate')
