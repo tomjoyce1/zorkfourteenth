@@ -133,7 +133,7 @@ def profile():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     user_id = Login.get_user_id(username)
-    temp_list = ["User ID: ", "Full Name: ", "Username: ", "Email: ", "Phone Number: ", "Role: ", "Account Created: "]
+    temp_list = ["User ID: ", "Full Name: ", "Username: ", "Email: ", "Phone Number: ", "Role: ","Approval Status: ", "Account Created: "]
     temp_list2 = []
     for item in Login.admin_view_user(user_id):
         temp_list2.append(item)
