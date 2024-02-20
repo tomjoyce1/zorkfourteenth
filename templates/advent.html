@@ -1,6 +1,6 @@
 {% extends "navbar.html" %}
 
-{% block title %}Users{% endblock %}
+{% block title %}Events{% endblock %}
 
 {% block style %}
     <style>
@@ -22,7 +22,7 @@
             padding: 10px;
         }
         .container {
-            width: calc(50% - 120px);
+            width: calc(50% - 380px);
             margin: 35px; 
             padding: 20px;
             background-color: rgb(0, 0, 0);
@@ -54,11 +54,16 @@
 {% block content %}
 {% for index, event in events_list|enumerate %}
     <div class="container">
-        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">ID: {{ event[0] }}</h2>
-        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Full Name: {{ event[1] }}</h2>
-        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Club: {{ event[2] }}</h2>
-        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Club ID: {{ event[3] }}</h2>
-        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Account Created: {{ event[6] }}</h2>
+        <form method="POST" action="/approve_registration/{{ event[0] }}">
+            <div class="button-container">
+                <button type="submit" class="button">Approve</button>
+            </div>
+        </form>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Registration ID: {{ event[0] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Event ID: {{ event[1] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">User ID: {{ event[2] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Approval Status: {{ event[3] }}</h2>
+        <h2 style="font-family: 'Bebas Neue Pro Bold Italic'; color: white;">Request Created: {{ event[4] }}</h2>
     </div>
 {% endfor %}
 {% endblock %}

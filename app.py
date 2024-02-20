@@ -225,12 +225,22 @@ def view_event_registrations():
 
 @app.route("/advent")
 def adminevent():
-    eventslist = []
+    events_list = []
     for item in Events.admin_view_events_pending():
-        eventslist.append(item)
+        events_list.append(item)
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    return render_template("advent.html",eventslist=eventslist, roleCheck=roleCheck, username=username)
+    return render_template("advent.html",events_list=events_list, roleCheck=roleCheck, username=username)
+
+@app.route("/approve_registration/<int:registration_id>", methods=["POST"])
+def approve_registration(registration_id):
+    if request.method == "POST":
+        Events.approve_registration(registration_id)
+        flash("Event approved", "success")
+        return redirect(url_for("adminevent"))
+    else:
+        flash("Invalid", "error")
+        return redirect(url_for("adminevent"))
 
 #allows me to go through clubList
 @app.template_filter('enumerate')
