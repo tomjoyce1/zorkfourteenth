@@ -5,7 +5,9 @@
 {% block style %}
     <style>
         body {
-            background-color: #000;
+            background-image: url('static/events.png'); 
+            background-size: cover;
+            background-position: center;
             color: #fff;
         }
 
@@ -15,10 +17,15 @@
             padding: 40px;
         }
 
+        .event-heading {
+            font-family: Arial, sans-serif; /* Change the font family here */
+        }
+
         .event-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* Solid black background with some transparency */
         }
 
         .event-table th,
@@ -47,16 +54,22 @@
             width: 100%;
             background-color: black;
             text-align: center;
+<<<<<<< HEAD
+            font-family: 'Arial', Helvetica, 'sans-serif';
+            color: rgb(66, 66, 66);
+            padding: 10px;
+=======
             font-family: Arial, Helvetica, sans-serif;
             color: rgb(66, 66, 66);
             padding: 10px; /* Adjust padding as needed */
+>>>>>>> bfa1adbb7c9655c7c3b106bc91f9adb9c54484b2
         }
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>All Events</h1>
+        <h1 class="event-heading">All Events</h1> <!-- Apply the class to change the font -->
         <table class="event-table">
             <thead>
                 <tr>
