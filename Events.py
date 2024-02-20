@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3,Login
 
 # Function to make a connection with the database, Dawid needs this to avoid the duplicate code
 def connect_to_database():
@@ -55,6 +55,11 @@ def register_for_event(event_id, user_id):
     cursor = conn.cursor()
     cursor.execute("INSERT INTO Event_Registration (Event_id, User_id) VALUES (?, ?)", (event_id, user_id))
     conn.commit()
+<<<<<<< HEAD
+=======
+    cursor.close()
+    conn.close()  
+>>>>>>> 1c58cd40de2d6b31fd2c05e7dd55102cd08c3531
 
 #views              #######################################
     
@@ -66,13 +71,14 @@ def view_events():
     return events
     
 # Function to retrieve details of events user is registered for
-def user_views_event_registrations(userID):
-    conn, cursor = connect_to_database()
+def fetch_event_registrations(userID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
     cursor.execute("SELECT * FROM Event_Registration WHERE User_id = ?", (userID,))
     rows = cursor.fetchall()
-    result = [list(row) for row in rows]
+    registered_events = [list(row) for row in rows]
     conn.close()
-    return result
+    return registered_events
 
 # Function to retrieve events coordinated by a specific user
 def coordinator_view_events(CoordinatorID):
@@ -115,10 +121,10 @@ def admin_view_events_pending():
     return result
 
 # Function to verify if a user is registered for a specific event
-def verify_event_registration(UserID, EventID):
+def verify_event_registration(user_id, EventID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM Event_Registration WHERE User_id = ? AND Event_id = ?", (UserID, EventID))
+    cursor.execute("SELECT * FROM Event_Registration WHERE User_id = ? AND Event_id = ?", (user_id, EventID))
     row = cursor.fetchone()
     conn.close()
     return row is not None
@@ -239,4 +245,3 @@ def get_all_venues():
     cursor.execute("SELECT * FROM Venues")
     all_venues = cursor.fetchall()
     conn.close()
-    return all_venues

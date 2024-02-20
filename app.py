@@ -1,8 +1,7 @@
 import sqlite3, os,Login,Clubs
+from Events import fetch_event_registrations, register_for_event, view_events
 
-from flask import Flask, redirect, url_for, render_template, request, session, flash, g
-from Events import view_events
-from Events import register_for_event
+from flask import Flask, redirect, url_for, render_template, request, session, flash
 
 # importing real time to create permanent session for perios of time
 from datetime import timedelta
@@ -102,12 +101,14 @@ def view_events_route():
     events = view_events()
     return render_template('view_events.html', events=events, roleCheck=roleCheck, username=username)
 
+
 @app.route('/user_views_event_registrations')
-def user_views_event_registrations(userID):
+def user_views_event_registrations():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    registered_events = user_views_event_registrations(userID)
-    return registered_events
+    userID = Login.get_user_id(username)
+    registered_events = fetch_event_registrations(userID)
+    return render_template('view_event_registrations.html', event_registrations=registered_events, userID=userID, roleCheck=roleCheck, username=username)
 
 @app.route('/register_event', methods=['POST'])
 def register_event():
@@ -120,6 +121,26 @@ def register_event():
         register_for_event(event_id, user_id)
     
         return render_template('successful_registration.html', roleCheck=roleCheck, username=username)
+    
+@app.route('/coordinator_page')
+def create_event():
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    return render_template('coordinator_page.html', roleCheck=roleCheck, username=username)
+
+@app.route('/coordinator_view_club_memberships/<CoordinatorID>')
+def view_club_pending_memberships(CoordinatorID):
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    pending_memberships = Clubs.coordinator_view_club_memberships(CoordinatorID)
+    return render_template('club_pending_memberships.html', pending_memberships=pending_memberships, roleCheck=roleCheck, username=username)
+
+
+@app.route('/coordinator_view')
+def coordinator_view():
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    return render_template('coordinators.html', roleCheck=roleCheck, username=username)
 
 @app.route("/memberships")
 def memberships():
@@ -133,8 +154,11 @@ def profile():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     user_id = Login.get_user_id(username)
-    user_details = []
-    user_details = Login.display_user_details(user_id)
+    temp_list = ["User ID: ", "Full Name: ", "Username: ", "Email: ", "Phone Number: ", "Role: ","Approval Status: ", "Account Created: "]
+    temp_list2 = []
+    for item in Login.admin_view_user(user_id):
+        temp_list2.append(item)
+    user_details = [item1 + str(item2) for item1, item2 in zip(temp_list, temp_list2)]
     update_message = None
     update_message2 = None
     error_message = None

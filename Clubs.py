@@ -104,11 +104,16 @@ def coordinator_view_club_memberships(CoordinatorID):
 def coordinator_view_club_pending_memberships(CoordinatorID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM ViewClubMemberships WHERE CoordinatorID = ? AND ApprovalStatus = 'pending'", (CoordinatorID,))
+    cursor.execute("SELECT 'User Name', 'userID' FROM ViewClubMemberships WHERE CoordinatorID = ? AND ApprovalStatus = 'pending'", (CoordinatorID,))
     rows = cursor.fetchall()
     result = [list(row) for row in rows]
     
     return result
+
+def coordinator_club_view(CoordinatorID):
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM CLUBS")
 
 
 def admin_view_clubs():
