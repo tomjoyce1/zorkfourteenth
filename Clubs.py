@@ -97,9 +97,9 @@ def coordinator_view_club_memberships(CoordinatorID):
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM ViewClubMemberships WHERE CoordinatorID = ?", (CoordinatorID,))
     rows = cursor.fetchall()
-    result = [list(row) for row in rows]
-    
-    return result
+    conn.close()
+    club_members = [list(row) for row in rows]
+    return club_members
 
 def coordinator_view_club_pending_memberships(CoordinatorID):
     conn = sqlite3.connect('MiniEpic.db')
