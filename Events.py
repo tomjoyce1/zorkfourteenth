@@ -16,7 +16,7 @@ def is_coordinator(user_id):
     return role == "COORDINATOR"
 
 
-#Verifying if event creator is a coordinator (same as dawid's function)
+#Verifying if event creator is a coordinator 
 def verify_role(UserID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
@@ -31,11 +31,6 @@ def verify_role(UserID):
         print("Role Denied")
         return False
     
-
-#took out the count clubs coordinated bit, as unnecessary
-
-
-
 
 
 # Function to create a new event in the database
@@ -56,14 +51,18 @@ def register_for_event(event_id, user_id):
     cursor.execute("INSERT INTO Event_Registration (Event_id, User_id) VALUES (?, ?)", (event_id, user_id))
     conn.commit()
 
-#views              #######################################
+#views             
     
-def view_events(): #CHANGE THIS TO A VIEW AS APPOSE TO JUST SELECTING DATA FROM THE TABLE. ALSO DONT SHOW THE ID OF THE VENUE, JUST SHOW THE NAME OF IT (JOIN TABLES OR USE A SUB QUERY)
+def view_events(): 
     conn, cursor = connect_to_database()
-    cursor.execute("SELECT * FROM Events")
+    cursor.execute("SELECT * FROM View_Events")
     events = cursor.fetchall()
-    conn.close()
+    result = [list(row) for row in events]
     return events
+    conn.close()
+
+
+
 
 # Function to retrieve details of events user is registered for
 def fetch_event_registrations(userID): #CHANGE THIS TO A VIEW AND ONLY SELECT THE RELEVANT DATA. AVOID SHOWING THE ID OF THE VENUE OR EVENT, SHOW THE NAME OF IT BY JOINING TABLES OR USING A SUB QUERY
