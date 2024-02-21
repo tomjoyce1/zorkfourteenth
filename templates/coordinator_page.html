@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}Coordinator Page{% endblock %}
+
+{% block style %}
+    <style>
+        /* Add your CSS styles here */
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+        .sport-container {
+            margin-top: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly; /* Change justify-content to space-evenly */
+        }
+        .coordinator-card {
+            flex: 1 0 300px; /* Set flex-grow to 1 to allow flex items to grow, and fix flex-basis to 300px */
+            margin: 20px;
+            padding: 20px;
+            background-color: #333333;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0.5, 0.5);
+            text-align: center;
+        }
+        .coordinator-card h3 {
+            margin-top: 0;
+            font-size: 24px;
+        }
+        .coordinator-card p {
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #007bff; /* Blue color */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker shade of blue */
+        }
+        p {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 16px;
+        }
+        /* Additional CSS styles */
+        .circle {
+            position: fixed;
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 9999;
+            transition: border-color 8.9s ease;
+        }
+        footer {
+    position: static; /* Change position to static */
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(66, 66, 66);
+    padding: 5px; /* Adjust padding as needed */
+}
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<p>Welcome to the Club Coordinator page. Here you can view, edit and manage your ISEagles club!</p>
+
+<div class="coordinator-container">
+    <div class="coordinator-card">
+        <h3>View Club Members</h3>
+        <button class="join-button" onclick="redirectToRegistrations('/coordinator_view_club_memberships')">View Registered Users</button>
+    </div>
+    <div class="coordinator-card">
+        <h3>View Your Club's Upcoming Events</h3>
+        <button class="view-events-button" onclick="redirectToEvents('/coordinator_view_club_events')">View Club Events</button>
+    </div>
+    <div class="coordinator-card">
+        <h3>View Current Event Registrations</h3>
+        <button class="club-button" onclick="redirectToMembershipDetails('Football')">View Registered Users</button>
+    </div>
+    <div class="coordinator-card">
+        <h3>View Pending Registrations</h3>
+        <button class="join-button" onclick="redirectToPendingRegistrations('/coordinator_view_club_pending_memberships')">View Pending Registrations</button>
+    </div>
+    <div class="coordinator-card">
+        <h3>Create Event</h3>
+        <button class="join-button" onclick="redirectToMembershipDetails('Running')">Create Now</button>
+    </div>
+    <!-- Add more sport cards as needed -->
+</div>
+
+    <!-- Circle around mouse cursor -->
+    <div id="circle" class="circle"></div>
+    <script>
+        function redirectToRegistrations(url) {
+            window.location.href = url;
+        }
+    </script>
+    <script>
+        function redirectToPendingRegistrations(url) {
+            window.location.href = url;
+        }
+    </script>
+    <script>
+        function redirectToEvents(url) {
+            window.location.href = url;
+        }
+    </script>
+    <script>
+        // JavaScript to track mouse movement and update circle position
+        window.addEventListener('mousemove', function (e) {
+            var circle = document.getElementById('circle');
+            circle.style.top = e.clientY - (circle.offsetHeight / 2) + 'px';
+            circle.style.left = e.clientX - (circle.offsetWidth / 2) + 'px';
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Clubs{% endblock %}
+
+{% block style %}
+    <style>
+        /* Add your CSS styles here */
+        body {
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+{% endblock %}          
+
+{% block content %}
+    {% for index, club in clubList|enumerate %}
+    <div class="feature">
+        <div class="feature-content">
+            <img src="static/{{club[1]}}.png" alt="Feature 1 Image" onerror="this.src='/static/default.png'">
+            <div class="text-content {% if index % 2 == 0 %} custom-left {% else %} custom-right {% endif %}">
+                <h2 style="font-family: 'Bebas Neue Pro Bold Italic'"></h2style>{{club[1]}}</h2>
+                <p>{{club[3]}}</p>
+                <h2 style="font-family: 'Sequel Sans Medium Head', Rockwell;"></h2style>Coordinator: {{club[2]}}</h2>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Circle around mouse cursor -->
+    <div id="circle" class="circle"></div>
+    <script>
+        // JavaScript to track mouse movement and update circle position
+        window.addEventListener('mousemove', function (e) {
+            var circle = document.getElementById('circle');
+            circle.style.top = e.clientY - (circle.offsetHeight / 2) + 'px';
+            circle.style.left = e.clientX - (circle.offsetWidth / 2) + 'px';
+        });
+    </script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the "About" link element
+        var aboutLink = document.querySelector('a[href="#about-section"]');
+
+        // Add click event listener to the "About" link
+        aboutLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default behavior of the link
+            var aboutSection = document.getElementById('about-section');
+            aboutSection.scrollIntoView({ behavior: 'smooth' }); // Scroll to the about section smoothly
+        });
+    });
+</script>
+{% endblock %}

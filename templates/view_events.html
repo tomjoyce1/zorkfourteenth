@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}View Events{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            background-image: url('static/events.png'); 
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        .event-heading {
+            font-family: 'Bebas Neue Pro Bold Italic', sans-serif; /* Change the font family here */
+        }
+
+        .event-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* Solid black background with some transparency */
+        }
+
+        .event-table th,
+        .event-table td {
+            border: 1px solid #fff;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .event-table th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .event-table tbody tr:nth-child(even) {
+            background-color: #222;
+        }
+
+        .event-table tbody tr:hover {
+            background-color: #444;
+        }
+        footer {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            text-align: center;
+            font-family: 'Arial', Helvetica, 'sans-serif';
+            color: rgb(66, 66, 66);
+            padding: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="event-heading">All Events</h1> <!-- Apply the class to change the font -->
+        <table class="event-table">
+            <thead>
+                <tr>
+                    <th>Event ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Venue ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                <tr>
+                    <td>{{ event[1] }}</td> <!-- Event ID -->
+                    <td>{{ event[2] }}</td> <!-- Title -->
+                    <td>{{ event[3] }}</td> <!-- Description -->
+                    <td>{{ event[4] }}</td> <!-- Date -->
+                    <td>{{ event[5] }}</td> <!-- Time -->
+                    <td>{{ event[0] }}</td> <!-- Venue ID-->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
