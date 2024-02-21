@@ -40,3 +40,8 @@ SELECT U.UserID, U.Name || " " || U.Surname, C.Name, C.ClubID, (SELECT COUNT(*) 
 FROM Users U, Clubs C
 WHERE U.UserID = C.CoordinatorID AND U.Role = 'COORDINATOR'
 ORDER BY C.CreatedTimestamp DESC
+
+CREATE VIEW View_Events AS
+SELECT EVENTS.Title, EVENTS.Description, EVENTS.Date_, EVENTS.Time_, EVENTS.created_timestamp, EVENTS.updated_timestamp, Venues.venue_name
+FROM Events
+INNER JOIN Venues ON Events.venue_id = Venues.venue_id
