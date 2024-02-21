@@ -68,7 +68,7 @@ def view_events():
 def fetch_event_registrations(userID): 
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM View_Event_Registration WHERE User_id = ?", (userID,))
+    cursor.execute("SELECT * FROM EventRegistration WHERE UserID = ?", (userID,))
     rows = cursor.fetchall()
     registered_events = [list(row) for row in rows]
     conn.close()
@@ -78,22 +78,21 @@ def fetch_event_registrations(userID):
 
 
 # Function to retrieve events coordinated by a specific user
-def coordinator_view_events(CoordinatorID): 
-    conn, cursor = connect_to_database()
-    cursor.execute("SELECT * FROM View_Events WHERE CoordinatorID = ?", (CoordinatorID,))
+def coordinator_view_events(UserID): 
+    conn = sqlite3.connect('MiniEpic.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT Events.* FROM ViewClubCoordinators JOIN Events on ViewClubCoordinators.ClubID = Events.ClubID WHERE ViewClubCoordinators.UserID = ?", (UserID,))
     events = cursor.fetchall()
     result = [list(row) for row in events]
-    
     conn.close()
     return result
 
 # Function to retrieve events coordinated by a specific user with pending approvals
-def coordinator_view_events_pending(CoordinatorID):
+def coordinator_view_events_pending(UserID):
     conn, cursor = connect_to_database()
-    cursor.execute("SELECT * FROM View_Events WHERE CoordinatorID = ? AND ApprovalStatus = 'Pending'", (CoordinatorID,))
+    cursor.execute("SELECT Events.* FROM ViewClubCoordinators JOIN Events on ViewClubCoordinators.ClubID = Events.ClubID WHERE ViewClubCoordinators.UserID = ?", (UserID,))
     events = cursor.fetchall()
     result = [list(row) for row in events]
-    
     conn.close()
     return result
 
@@ -110,7 +109,7 @@ def admin_view_events():
 # Function to retrieve events with pending approvals for admin view
 def admin_view_events_pending():
     conn, cursor = connect_to_database()
-    cursor.execute("SELECT * FROM View_Events WHERE ApprovalStatus = 'Pending'")
+    cursor.execute("SELECT * FROM View_Events WHERE ApprovalStatus = 'pending'")
     events = cursor.fetchall()
     result = [list(row) for row in events]
     

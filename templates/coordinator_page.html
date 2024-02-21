@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Memberships{% endblock %}
+{% block title %}Coordinator Page{% endblock %}
 
 {% block style %}
     <style>
@@ -16,10 +16,10 @@
             margin-top: 50px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-evenly; /* Change justify-content to space-evenly */
         }
-        .sport-card {
-            width: 300px;
+        .coordinator-card {
+            flex: 1 0 300px; /* Set flex-grow to 1 to allow flex items to grow, and fix flex-basis to 300px */
             margin: 20px;
             padding: 20px;
             background-color: #333333;
@@ -27,11 +27,11 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0.5, 0.5);
             text-align: center;
         }
-        .sport-card h3 {
+        .coordinator-card h3 {
             margin-top: 0;
             font-size: 24px;
         }
-        .sport-card p {
+        .coordinator-card p {
             margin-bottom: 20px;
         }
         button {
@@ -63,16 +63,15 @@
             transition: border-color 8.9s ease;
         }
         footer {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: black;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            color: rgb(66, 66, 66);
-            padding: 10px;
-        }
+    position: static; /* Change position to static */
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(66, 66, 66);
+    padding: 5px; /* Adjust padding as needed */
+}
+
     </style>
 {% endblock %}
 
@@ -80,14 +79,14 @@
 
 <p>Welcome to the Club Coordinator page. Here you can view, edit and manage your ISEagles club!</p>
 
-<div class="sport-container">
+<div class="coordinator-container">
     <div class="coordinator-card">
         <h3>View Club Members</h3>
-        <button class="view-club-button" onclick="redirectToMembershipDetails('club')">View Your Club</button>
+        <button class="join-button" onclick="redirectToRegistrations('/coordinator_view_club_memberships')">View Registered Users</button>
     </div>
     <div class="coordinator-card">
         <h3>View Your Club's Upcoming Events</h3>
-        <button class="view-events-button" onclick="redirectToMembershipDetails('events')">View Club Events</button>
+        <button class="view-events-button" onclick="redirectToEvents('/coordinator_view_club_events')">View Club Events</button>
     </div>
     <div class="coordinator-card">
         <h3>View Current Event Registrations</h3>
@@ -95,7 +94,7 @@
     </div>
     <div class="coordinator-card">
         <h3>View Pending Registrations</h3>
-        <button class="join-button" onclick="redirectToPendingRegistrations('/coordinator_view_club_memberships')">View Pending Registrations</button>
+        <button class="join-button" onclick="redirectToPendingRegistrations('/coordinator_view_club_pending_memberships')">View Pending Registrations</button>
     </div>
     <div class="coordinator-card">
         <h3>Create Event</h3>
@@ -107,12 +106,17 @@
     <!-- Circle around mouse cursor -->
     <div id="circle" class="circle"></div>
     <script>
-        function redirectToMembershipDetails(sportName) {
-            window.location.href = 'membership_details.html?sport=' + sportName;
+        function redirectToRegistrations(url) {
+            window.location.href = url;
         }
     </script>
     <script>
         function redirectToPendingRegistrations(url) {
+            window.location.href = url;
+        }
+    </script>
+    <script>
+        function redirectToEvents(url) {
             window.location.href = url;
         }
     </script>

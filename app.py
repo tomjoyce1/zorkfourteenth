@@ -121,8 +121,8 @@ def register_event():
     
         return render_template('successful_registration.html', roleCheck=roleCheck, username=username)
     
-@app.route('/coordinator_page')
-def create_event():
+@app.route('/your_club')
+def your_club():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     return render_template('coordinator_page.html', roleCheck=roleCheck, username=username)
@@ -132,21 +132,37 @@ def coordinator_view_club_memberships():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
     userID = Login.get_user_id(username)
-    pending_memberships = Clubs.coordinator_view_club_memberships(userID)
-    return render_template('club_memberships.html', pending_memberships=pending_memberships, roleCheck=roleCheck, username=username)
+    memberships = []
+    for item in Clubs.coordinator_view_club_memberships(userID):
+        memberships.append(item)
+    return render_template('club_memberships.html', memberships=memberships, roleCheck=roleCheck, username=username)
 
-
-@app.route('/coordinator_view')
-def coordinator_view():
+@app.route('/coordinator_view_club_pending_memberships')
+def coordinator_view_club_pending_memberships():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    return render_template('coordinators.html', roleCheck=roleCheck, username=username)
+    userID = Login.get_user_id(username)
+    pending_memberships = []
+    for item in Clubs.coordinator_view_club_pending_memberships(userID):
+        pending_memberships.append(item)
+    return render_template('pending_members.html', pending_memberships=pending_memberships, roleCheck=roleCheck, username=username)
+
+
+@app.route('/coordinator_view_club_events')
+def coordinator_view_club_events():
+    roleCheck = session.get("roleCheck", 0)
+    username = session.get("username", "base")
+    UserID = Login.get_user_id(username)
+    club_events = []
+    for item in Events.coordinator_view_events(UserID):
+        club_events.append(item)
+    return render_template('view_club_events.html', club_events=club_events, UserID=UserID, roleCheck=roleCheck, username=username)
 
 @app.route("/memberships")
 def memberships():
     roleCheck = session.get("roleCheck", 0)
     username = session.get("username", "base")
-    return render_template("memberships.html", roleCheck=roleCheck, username=username)
+    return render_template("memberships.html",  roleCheck=roleCheck, username=username)
 
 
 @app.route("/profile", methods=["POST", "GET"])

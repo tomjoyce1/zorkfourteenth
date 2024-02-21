@@ -75,7 +75,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for index, membership in memberships|enumerate %}
+            {% for index, membership in pending_memberships|enumerate %}
             <tr>
                 <td>{{ membership[0] }}</td> <!-- Membership ID -->
                 <td>{{ membership[1] }}</td> <!-- User ID -->

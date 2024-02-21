@@ -92,23 +92,26 @@ def user_views_memberships(userID):
 
 
 
-def coordinator_view_club_memberships(CoordinatorID):
+def coordinator_view_club_memberships(UserID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM ViewClubMemberships WHERE CoordinatorID = ?", (CoordinatorID,))
+    cursor.execute("SELECT * FROM ViewClubMemberships WHERE ApprovalStatus = 'approved' AND CoordinatorID = ?", (UserID,))
     rows = cursor.fetchall()
-    conn.close()
     club_members = [list(row) for row in rows]
+    conn.close()
     return club_members
+##UserID = 2
+##for record in coordinator_view_club_memberships(UserID):
+  ##  print(record)
 
-def coordinator_view_club_pending_memberships(CoordinatorID):
+def coordinator_view_club_pending_memberships(UserID):
     conn = sqlite3.connect('MiniEpic.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT 'User Name', 'userID' FROM ViewClubMemberships WHERE CoordinatorID = ? AND ApprovalStatus = 'pending'", (CoordinatorID,))
+    cursor.execute("SELECT * FROM ViewClubMemberships WHERE ApprovalStatus = 'pending' AND CoordinatorID = ?", (UserID,))
     rows = cursor.fetchall()
-    result = [list(row) for row in rows]
-    
-    return result
+    club_members = [list(row) for row in rows]
+    conn.close()
+    return club_members
 
 def coordinator_club_view(CoordinatorID):
     conn = sqlite3.connect('MiniEpic.db')

@@ -63,25 +63,23 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="event-heading">Club Memberships</h1> <!-- Apply the class to change the font -->
+    <h1 class="event-heading">Club Events</h1> <!-- Apply the class to change the font -->
     <table class="event-table">
         <thead>
             <tr>
-                <th>Membership ID</th>
-                <th>Coordinator ID</th>
-                <th>User ID</th>
-                <th>User Name</th>
-                <th>Approval Status</th>
+                <th>Club ID</th>
+                <th>Event ID</th>
+                <th>Title</th>
+                <th>Description</th>
             </tr>
         </thead>
         <tbody>
-            {% for index, membership in memberships|enumerate %}
+            {% for index, event in club_events|enumerate %}
             <tr>
-                <td>{{ membership[0] }}</td> <!-- Membership ID -->
-                <td>{{ membership[1] }}</td> <!-- User ID -->
-                <td>{{ membership[2] }}</td> <!-- Club ID -->
-                <td>{{ membership[3] }}</td> <!-- User Name -->
-                <td>{{ membership[4] }}</td> <!-- Approval Status-->
+                <td>{{ event[0] }}</td> <!-- Club ID -->
+                <td>{{ event[1] }}</td> <!-- Event ID -->
+                <td>{{ event[2] }}</td> <!-- Title ID -->
+                <td>{{ event[3] }}</td> <!-- Description -->
             </tr>
             {% endfor %}
         </tbody>
