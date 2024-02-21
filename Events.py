@@ -109,7 +109,7 @@ def admin_view_events():
 
 # Function to retrieve events with pending approvals for admin view
 def admin_view_events_pending():
-        conn, cursor = connect_to_database()
+    conn, cursor = connect_to_database()
     cursor.execute("SELECT * FROM View_Events WHERE ApprovalStatus = 'Pending'")
     events = cursor.fetchall()
     result = [list(row) for row in events]
