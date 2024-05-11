@@ -4,6 +4,7 @@
 
 
 ZorkUL::ZorkUL(MainWindow &mainWindow) : mainWindow(mainWindow) {
+    parser = new Parser(); // Assuming Parser is the name of your parser class
     printWelcome(); //works up to here
     createRooms();
     //createItems();
@@ -72,44 +73,46 @@ void ZorkUL::createRooms()  {
 
 }
 
-
-/**
- *  Main play routine.  Loops until end of play.
- */
-/*
-void ZorkUL::play() {
-    printWelcome();
-
-    // Enter the main command loop.  Here we repeatedly read commands and
-    // execute them until the ZorkUL game is over.
-
-    bool finished = false;
-    while (!finished) {
-        // Create pointer to command and give it a command.
-        //tom come back to this Command* command = parser.getCommand();
-        // Pass dereferenced command and check for end of game.
-        finished = processCommand(*command);
-        // Free the memory allocated by "parser.getCommand()"
-        //   with ("return new Command(...)")
-        delete command;
-    }
-    //cout << endl;
-    mainWindow.setOutputText("End");
-    //cout << "end" << endl;
-}
-*/
-
 bool ZorkUL::update(std::string buffer) {
-    // Create pointer to command and give it a command.
-    Command* command = parser.getCommand(buffer);
-    // Pass dereferenced command and check for end of game.
-    bool finished = processCommand(*command);
-    // Free the memory allocated by "parser.getCommand()"
-    //   with ("return new Command(...)")
-    delete command;
+    qDebug() << "Update function called with buffer: " << QString::fromStdString(buffer);
 
+    // Check if parser is null
+    if (!parser) {
+        qDebug() << "Error: Parser object is null";
+        return false;
+    }
+
+    qDebug() << "parser is not null";
+
+    // Create pointer to command and give it a command.
+    Command* command = parser->getCommand(buffer);
+
+    qDebug() << "command pointer made";
+
+
+    // Check if command is null
+    if (!command) {
+        qDebug() << "Error: Command pointer is null";
+        return false;
+    }
+
+    qDebug() << "command pointer made";
+
+    // Pass dereferenced command and check for end of game.
+    qDebug() << "command is true and not !command ";
+    bool finished = processCommand(*command);
+
+    // Free the memory allocated by "parser.getCommand()"
+    delete command;
+    qDebug() << "command just deleted ";
+
+    qDebug() << "Update finished: " << finished;
     return finished;
 }
+
+
+
+
 
 
 
@@ -143,7 +146,7 @@ bool ZorkUL::processCommand(Command command) {
         return false;
     }
 
-    std::string commandWord = command.getCommandWord(); // Change to std::string
+    std::string commandWord = command.getCommandWord();
     if (commandWord.compare("info") == 0)
         printHelp();
 
@@ -189,32 +192,21 @@ bool ZorkUL::processCommand(Command command) {
 
     else if (commandWord.compare("put") == 0)
     {
-
+        // Process put command
     }
-    /*
-    {
-    if (!command.hasSecondWord()) {
-        //cout << "incomplete input"<< endl;
-        mainWindow.setOutputText("Incomplete input");
-        }
-        else
-            if (command.hasSecondWord()) {
-            //cout << "you're adding " + command.getSecondWord() << endl;
-            mainWindow.setOutputText("you're adding " + command.getSecondWord());
 
-            itemsInRoom.push_Back;
-        }
-    }
-*/
     else if (commandWord.compare("quit") == 0) {
         if (command.hasSecondWord())
             mainWindow.setOutputText("overdefined input");
-        //cout << "overdefined input"<< endl;
         else
-            return true; /**signal to quit*/
+            return true; // Signal to quit
     }
     return false;
 }
+
+
+
+
 /** COMMANDS **/
 void ZorkUL::printHelp() {
     mainWindow.setOutputText("valid inputs are;");

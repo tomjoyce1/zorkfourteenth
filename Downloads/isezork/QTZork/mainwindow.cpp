@@ -42,12 +42,26 @@ void MainWindow::appendOutputText(const std::string &text) {
 
 void MainWindow::on_lineEdit_returnPressed()
 {
+    appendOutputText("works up to here");
     ui->outputLineEdit->clear();
-    bool finished = zorkUL->update(ui->lineEdit->text().toStdString());
 
-    if (finished)
-        QCoreApplication::quit();
+    std::string text = ui->lineEdit->text().toStdString();
+
+    if (!text.empty()) {
+        qDebug() << "Text not empty, calling update with text: " << QString::fromStdString(text);
+
+        bool finished = zorkUL->update(text);
+
+        if (finished) {
+            setOutputText("The game is finished");
+            QCoreApplication::quit();
+        }
+    } else {
+        qDebug() << "Text iss empty";
+        // Handle empty buffer here, such as displaying a message to the user
+    }
 
     ui->lineEdit->clear();
 }
+
 

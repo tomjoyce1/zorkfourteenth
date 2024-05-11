@@ -11,7 +11,7 @@
 
 class ZorkUL {
 private:
-    Parser parser;
+    Parser* parser;
     Room *currentRoom;
     void createRooms();
     void printWelcome(); // Remove the parameter
