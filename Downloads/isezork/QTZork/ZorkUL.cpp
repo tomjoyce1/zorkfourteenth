@@ -2,13 +2,11 @@
 #include <string> // Include the string header
 #include "ZorkUL.h"
 
-
 ZorkUL::ZorkUL(MainWindow &mainWindow) : mainWindow(mainWindow) {
     parser = new Parser(); // Assuming Parser is the name of your parser class
-    printWelcome(); //works up to here
+    printWelcome(); // works up to here
     createRooms();
-    //createItems();
-
+    // createItems();
 }
 
 void ZorkUL::printWelcome() {
@@ -89,7 +87,6 @@ bool ZorkUL::update(std::string buffer) {
 
     qDebug() << "command pointer made";
 
-
     // Check if command is null
     if (!command) {
         qDebug() << "Error: Command pointer is null";
@@ -109,8 +106,6 @@ bool ZorkUL::update(std::string buffer) {
     qDebug() << "Update finished: " << finished;
     return finished;
 }
-
-
 
 
 
@@ -222,9 +217,8 @@ void ZorkUL::goRoom(Command command) {
         return;
     }
 
-    std::string direction = command.getSecondWord(); // Change to std::string
+    std::string direction = command.getSecondWord();
 
-    // Try to leave current room.
     Room* nextRoom = currentRoom->nextRoom(direction);
 
     if (nextRoom == NULL)
@@ -235,8 +229,16 @@ void ZorkUL::goRoom(Command command) {
         //cout << currentRoom->longDescription() << endl;
         mainWindow.setOutputText(currentRoom->longDescription());
 
+        emit roomChanged(currentRoom->longDescription());
+
     }
 }
+
+ZorkUL::~ZorkUL() {
+    // Destructor implementation
+    // Free any dynamically allocated memory, close any resources, etc.
+}
+
 
 string ZorkUL::go(string direction) {
     //Make the direction lowercase

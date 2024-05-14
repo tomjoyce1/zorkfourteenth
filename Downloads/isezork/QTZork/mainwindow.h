@@ -23,6 +23,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void handleRoomChange(const std::string &description); // Changed parameter to std::string
+
 private slots:
     void on_lineEdit_returnPressed();
 

@@ -7,12 +7,14 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setStyleSheet("background-color: grey;");
+    this->setStyleSheet("background-color: gray;");
     ui->lineEdit->setStyleSheet("background-color: white;");
     ui->outputLineEdit->setStyleSheet("background-color: white;");
 
     // Initialize zorkUL and pass a reference to this MainWindow
     zorkUL = new ZorkUL(*this);
+
+    connect(zorkUL, &ZorkUL::roomChanged, this, &MainWindow::handleRoomChange);
 }
 
 MainWindow::~MainWindow() {
@@ -39,6 +41,14 @@ void MainWindow::appendOutputText(const std::string &text) {
     }
 }
 
+void MainWindow::handleRoomChange(const std::string &description) {
+    qDebug() << "Image is changing";
+    // Update the image here based on the room description
+    // For example:
+    QPixmap image("C:\\Users\\Thoma\\Downloads\\aaa.png");
+    ui->imageHolder->setPixmap(image);
+    ui->imageHolder->setScaledContents(true);
+}
 
 void MainWindow::on_lineEdit_returnPressed()
 {
@@ -57,11 +67,9 @@ void MainWindow::on_lineEdit_returnPressed()
             QCoreApplication::quit();
         }
     } else {
-        qDebug() << "Text iss empty";
+        qDebug() << "Text is empty";
         // Handle empty buffer here, such as displaying a message to the user
     }
 
     ui->lineEdit->clear();
 }
-
-

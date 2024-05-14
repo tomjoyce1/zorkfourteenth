@@ -9,7 +9,12 @@
 #include <string>
 #include "mainwindow.h"
 
-class ZorkUL {
+class ZorkUL : public QObject { // Add QObject as base class
+    Q_OBJECT // Add Q_OBJECT macro
+
+signals:
+    void roomChanged(const std::string &description);
+
 private:
     Parser* parser;
     Room *currentRoom;
@@ -29,6 +34,11 @@ public:
     string go(string direction);
 
     MainWindow &mainWindow;
+
+
 };
+
+
+
 
 #endif /*ZORKUL_H_*/
