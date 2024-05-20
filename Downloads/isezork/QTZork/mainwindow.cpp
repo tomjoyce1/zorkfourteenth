@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setStyleSheet("background-color: gray;");
+    this->setStyleSheet("background-color: black;");
     ui->lineEdit->setStyleSheet("background-color: white;");
     ui->outputLineEdit->setStyleSheet("background-color: white;");
 
@@ -42,10 +42,17 @@ void MainWindow::appendOutputText(const std::string &text) {
 }
 
 void MainWindow::handleRoomChange(const std::string &description) {
-    qDebug() << "Image is changing";
+
+    // if (currentRoom.getName() == "a") {
+    //    qDebug() << "WOOOOOOOOO is changing";
+    // }
+    qDebug() << "Imagess is changing";
+    qDebug() << "Image is changing for room:" << QString::fromStdString(description);
     // Update the image here based on the room description
     // For example:
-    QPixmap image("C:\\Users\\Thoma\\Downloads\\aaa.png");
+
+
+    QPixmap image("C:\\Users\\Thoma\\Downloads\\hellish.png");
     ui->imageHolder->setPixmap(image);
     ui->imageHolder->setScaledContents(true);
 }

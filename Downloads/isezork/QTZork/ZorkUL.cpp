@@ -108,18 +108,6 @@ bool ZorkUL::update(std::string buffer) {
 }
 
 
-
-
-
-// outputLineEdit->append("start");
-// outputLineEdit->append("info for help");
-// outputLineEdit->append("");
-// outputLineEdit->append(QString::fromStdString(currentRoom->longDescription()));
-
-
-
-
-
 //original conor one
 // void ZorkUL::printWelcome() {
 //     cout << "start"<< endl;
