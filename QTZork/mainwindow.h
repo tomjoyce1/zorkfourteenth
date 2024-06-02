@@ -23,6 +23,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 public slots:
     //void handleRoomChange(const std::string &description);
 
@@ -31,6 +32,7 @@ public slots:
 
 private slots:
     void on_lineEdit_returnPressed();
+    void toggleMenuVisibility();
 
 private:
     Ui::MainWindow *ui;

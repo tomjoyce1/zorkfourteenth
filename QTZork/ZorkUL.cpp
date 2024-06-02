@@ -10,7 +10,7 @@ ZorkUL::ZorkUL(MainWindow &mainWindow) : mainWindow(mainWindow) {
 }
 
 void ZorkUL::printWelcome() {
-    mainWindow.setOutputText("This part works printwelcome zorkul");
+    mainWindow.setOutputText("Welcome to Zork.  You find yourself in the depths of ");
 }
 
 void ZorkUL::createRooms() {
@@ -22,7 +22,7 @@ void ZorkUL::createRooms() {
 
     Antartica->addItem(new Item("x", 1, 11));
     Antartica->addItem(new Item("y", 2, 22));
-    mainWindow.appendOutputText("room Antartica created");
+    mainWindow.appendOutputText("Antartica");
 
     roomDescription = "London";
     London = new Room(roomDescription);
@@ -57,15 +57,16 @@ void ZorkUL::createRooms() {
     Alienscape = new Room(roomDescription);
 
     // Set exits for rooms
-    Antartica->setExits(Farmville, London, Mars, Mineland);
-    London->setExits(Antartica, London, Mineland, Mars);
-    Mineland->setExits(Antartica, London, Mineland, Mars);
-    Mars->setExits(Antartica, London, Mineland, Mars);
-    Moonscape->setExits(Antartica, London, Mineland, Mars);
-    Farmville->setExits(Antartica, London, Mineland, Mars);
-    Wastelandia->setExits(Antartica, London, Mineland, Mars);
-    Paradise->setExits(Antartica, London, Mineland, Mars);
-    Alienscape->setExits(Antartica, London, Mineland, Mars);
+    Antartica->setExits(Moonscape, London, Mars, Wastelandia);
+    London->setExits(Mineland, Mars, Antartica, Paradise);
+    Mineland->setExits(Mars, Antartica, Alienscape, London);
+    Mars->setExits(Alienscape, London, Paradise, Mineland);
+    Moonscape->setExits(Farmville, Antartica, Wastelandia, Paradise);
+    Farmville->setExits(Wastelandia, Moonscape, Alienscape, Paradise);
+    Wastelandia->setExits(Antartica, Moonscape, Paradise, Farmville);
+    Paradise->setExits(Moonscape, Wastelandia, London, Mars);
+    Alienscape->setExits(Mineland, Mars, Farmville, Wastelandia);
+
 
     currentRoom = Antartica;
 }

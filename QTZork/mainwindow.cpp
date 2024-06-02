@@ -11,14 +11,33 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lineEdit->setStyleSheet("background-color: white;");
     ui->outputLineEdit->setStyleSheet("background-color: white;");
 
+    connect(ui->showMenu, &QPushButton::clicked, this, &MainWindow::toggleMenuVisibility);
+
+QString buttonStyleSheet = "background-color: rgba(0,0,0,0); color: white;"; // Transparent background and white font color
+    ui->showMenu->setStyleSheet(buttonStyleSheet);
+
+QString compassButtons = "background-color: gray; color: black;";
+
+    ui->North->setStyleSheet(compassButtons);
+    ui->East->setStyleSheet(compassButtons);
+    ui->West->setStyleSheet(compassButtons);
+    ui->South->setStyleSheet(compassButtons);
+
+
     // Initialize zorkUL and pass a reference to this MainWindow
     zorkUL = new ZorkUL(*this);
+
+    QPixmap image("C:\\Users\\Thoma\\OneDrive\\Documents\\fourteenth\\qtzork\\Downloads\\isezork\\QTZork\\WallImages\\Antartica.png");
+    ui->imageHolder->setPixmap(image);
+    ui->imageHolder->setScaledContents(true);
 
     //3pm
     //connect(zorkUL, &ZorkUL::roomChanged, this, &MainWindow::handleRoomChange);
 
     //3pm
     connect(zorkUL, &ZorkUL::roomChangedImage, this, &MainWindow::handleRoomChangeImage);
+
+
 }
 
 MainWindow::~MainWindow() {
@@ -44,6 +63,18 @@ void MainWindow::appendOutputText(const std::string &text) {
         qDebug() << "Error: ui->outputLineEdit is null";
     }
 }
+
+// In MainWindow.cpp
+void MainWindow::toggleMenuVisibility() {
+    bool isVisible = ui->North->isVisible(); // Check if buttons are currently visible
+
+    // Toggle the visibility of the buttons
+    ui->North->setVisible(!isVisible);
+    ui->East->setVisible(!isVisible);
+    ui->West->setVisible(!isVisible);
+    ui->South->setVisible(!isVisible);
+}
+
 
 void MainWindow::handleRoomChangeImage(const std::string &imgName) {
 

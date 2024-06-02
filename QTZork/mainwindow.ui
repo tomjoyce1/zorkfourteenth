@@ -73,11 +73,11 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="North">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>60</y>
+      <x>1290</x>
+      <y>700</y>
       <width>83</width>
       <height>29</height>
      </rect>
@@ -99,14 +99,14 @@
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>NORTH</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="South">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>120</y>
+      <x>1290</x>
+      <y>760</y>
       <width>83</width>
       <height>29</height>
      </rect>
@@ -128,14 +128,14 @@
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>SOUTH</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="West">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>90</y>
+      <x>1200</x>
+      <y>730</y>
       <width>83</width>
       <height>29</height>
      </rect>
@@ -157,14 +157,14 @@
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>WEST</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="East">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>90</y>
+      <x>1370</x>
+      <y>730</y>
       <width>83</width>
       <height>29</height>
      </rect>
@@ -186,7 +186,7 @@
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>EAST</string>
     </property>
    </widget>
    <widget class="QLabel" name="imageHolder">
@@ -218,13 +218,43 @@
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="showMenu">
+    <property name="geometry">
+     <rect>
+      <x>1430</x>
+      <y>780</y>
+      <width>83</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Albra Text</family>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="text">
+     <string>MENU</string>
+    </property>
+   </widget>
    <zorder>imageHolder</zorder>
    <zorder>lineEdit</zorder>
    <zorder>outputLineEdit</zorder>
-   <zorder>pushButton</zorder>
-   <zorder>pushButton_2</zorder>
-   <zorder>pushButton_3</zorder>
-   <zorder>pushButton_4</zorder>
+   <zorder>North</zorder>
+   <zorder>South</zorder>
+   <zorder>West</zorder>
+   <zorder>East</zorder>
+   <zorder>showMenu</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
