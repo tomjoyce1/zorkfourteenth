@@ -1,0 +1,9 @@
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/QTZork.dir
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/install.dir
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/QTZork_autogen_timestamp_deps.dir
+C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/CMakeFiles/QTZork_autogen.dir
