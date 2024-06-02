@@ -23,6 +23,11 @@ QString compassButtons = "background-color: gray; color: black;";
     ui->West->setStyleSheet(compassButtons);
     ui->South->setStyleSheet(compassButtons);
 
+    connect(ui->North, &QPushButton::clicked, this, &MainWindow::handleDirectionButton);
+    connect(ui->East, &QPushButton::clicked, this, &MainWindow::handleDirectionButton);
+    connect(ui->South, &QPushButton::clicked, this, &MainWindow::handleDirectionButton);
+    connect(ui->West, &QPushButton::clicked, this, &MainWindow::handleDirectionButton);
+
 
     // Initialize zorkUL and pass a reference to this MainWindow
     zorkUL = new ZorkUL(*this);
@@ -114,4 +119,31 @@ void MainWindow::on_lineEdit_returnPressed()
     }
 
     ui->lineEdit->clear();
+}
+
+//north south buttons
+void MainWindow::handleDirectionButton() {
+    QPushButton *button = qobject_cast<QPushButton*>(sender());
+    if (!button) return;
+
+    QString direction;
+    if (button == ui->North) {
+        direction = "north";
+    } else if (button == ui->East) {
+        direction = "east";
+    } else if (button == ui->South) {
+        direction = "south";
+    } else if (button == ui->West) {
+        direction = "west";
+    }
+
+    if (!direction.isEmpty()) {
+        std::string command = "go " + direction.toStdString();
+        bool finished = zorkUL->update(command);
+
+        if (finished) {
+            setOutputText("The game is finished");
+            QCoreApplication::quit();
+        }
+    }
 }

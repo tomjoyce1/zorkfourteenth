@@ -29,6 +29,7 @@ public slots:
 
     //3pm
     void handleRoomChangeImage(const std::string &imgName);
+    void handleDirectionButton();
 
 private slots:
     void on_lineEdit_returnPressed();
