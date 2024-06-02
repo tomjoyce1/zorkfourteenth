@@ -1,60 +1,57 @@
 #include <iostream>
-#include <string> // Include the string header
 #include "ZorkUL.h"
+#include <map>
+#include <string>
 
 ZorkUL::ZorkUL(MainWindow &mainWindow) : mainWindow(mainWindow) {
-    parser = new Parser(); // Assuming Parser is the name of your parser class
+    parser = new Parser();
     printWelcome(); // works up to here
     createRooms();
     // createItems();
 }
 
 void ZorkUL::printWelcome() {
-    mainWindow.setOutputText("Welcome to Zork.  You find yourself in the depths of ");
+    mainWindow.setOutputText("Welcome to Zork.  You find yourself in the depths of Antartica as you embark on a magical journey.  Where will you go next? ");
 }
 
 void ZorkUL::createRooms() {
     Room *Antartica, *London, *Mineland, *Mars, *Moonscape, *Farmville, *Wastelandia, *Paradise, *Alienscape;
-    string roomDescription;
 
-    roomDescription = "Antartica";
-    Antartica = new Room(roomDescription);
+    Antartica = new Room("Antartica", "You are in the icy wasteland of Antartica. The cold bites at your skin.");
+    Antartica->addItem(new Item("Snowshoes", 1, 11));
+    Antartica->addItem(new Item("Chisel", 2, 22));
 
-    Antartica->addItem(new Item("x", 1, 11));
-    Antartica->addItem(new Item("y", 2, 22));
-    mainWindow.appendOutputText("Antartica");
+    London = new Room("London", "You are in the bustling city of London. The streets are full of life.");
+    London->addItem(new Item("Umbrella", 3, 33));
+    London->addItem(new Item("Map", 4, 44));
 
-    roomDescription = "London";
-    London = new Room(roomDescription);
-    London->addItem(new Item("xx", 3, 33));
-    London->addItem(new Item("yy", 4, 44));
+    Mineland = new Room("Mineland", "You are in a mine. The air is thick with dust and the sound of pickaxes.");
+    Mineland->addItem(new Item("Pickaxe", 5, 55));
+    Mineland->addItem(new Item("Lantern", 6, 66));
 
-    roomDescription = "Mineland";
-    Mineland = new Room(roomDescription);
-    Mineland->addItem(new Item("xx", 3, 33));
-    Mineland->addItem(new Item("yy", 4, 44));
+    Mars = new Room("Mars", "You are on the red planet Mars. The landscape is barren and rocky.");
+    Mars->addItem(new Item("Helmet", 7, 77));
+    Mars->addItem(new Item("Asteroid", 8, 88));
 
-    roomDescription = "Mars";
-    Mars = new Room(roomDescription);
-    Mars->addItem(new Item("xx", 3, 33));
-    Mars->addItem(new Item("yy", 4, 44));
+    Moonscape = new Room("Moonscape", "You are on the surface of the Moon. The earth is a distant blue sphere.");
+    Moonscape->addItem(new Item("Dust", 9, 99));
+    Moonscape->addItem(new Item("Spacegun", 10, 100));
 
-    roomDescription = "Moonscape";
-    Moonscape = new Room(roomDescription);
-    Moonscape->addItem(new Item("xx", 3, 33));
-    Moonscape->addItem(new Item("yy", 4, 44));
+    Farmville = new Room("Farmville", "You are in a peaceful farmland. The smell of fresh crops fills the air.");
+    Farmville->addItem(new Item("Hoe", 11, 111));
+    Farmville->addItem(new Item("Seeds", 12, 122));
 
-    roomDescription = "Farmville"; // Changed to std::string
-    Farmville = new Room(roomDescription);
+    Wastelandia = new Room("Wastelandia", "You are in a post-apocalyptic wasteland. The ground is scorched and barren.");
+    Wastelandia->addItem(new Item("Barometer", 13, 133));
+    Wastelandia->addItem(new Item("Safety-suit", 14, 144));
 
-    roomDescription = "Wastelandia"; // Changed to std::string
-    Wastelandia = new Room(roomDescription);
+    Paradise = new Room("Paradise", "You are in a lush paradise. The air is sweet with the scent of flowers.");
+    Paradise->addItem(new Item("Pipseeds", 15, 155));
+    Paradise->addItem(new Item("Orchid", 16, 166));
 
-    roomDescription = "Paradise"; // Changed to std::string
-    Paradise = new Room(roomDescription);
-
-    roomDescription = "Alienscape"; // Changed to std::string
-    Alienscape = new Room(roomDescription);
+    Alienscape = new Room("Alienscape", "You are in an alien landscape. Strange plants and creatures surround you.");
+    Alienscape->addItem(new Item("Blowtorch", 17, 177));
+    Alienscape->addItem(new Item("Marblefruit", 18, 188));
 
     // Set exits for rooms
     Antartica->setExits(Moonscape, London, Mars, Wastelandia);
@@ -63,7 +60,7 @@ void ZorkUL::createRooms() {
     Mars->setExits(Alienscape, London, Paradise, Mineland);
     Moonscape->setExits(Farmville, Antartica, Wastelandia, Paradise);
     Farmville->setExits(Wastelandia, Moonscape, Alienscape, Paradise);
-    Wastelandia->setExits(Antartica, Moonscape, Paradise, Farmville);
+    Wastelandia->setExits(London, Moonscape, Paradise, Farmville);
     Paradise->setExits(Moonscape, Wastelandia, London, Mars);
     Alienscape->setExits(Mineland, Mars, Farmville, Wastelandia);
 
@@ -109,71 +106,81 @@ bool ZorkUL::update(std::string buffer) {
 }
 
 
-//original conor one
-// void ZorkUL::printWelcome() {
-//     cout << "start"<< endl;
-//     cout << "info for help"<< endl;
-//     cout << endl;
-//     cout << currentRoom->longDescription() << endl;
 
 
-// }
+std::map<std::string, std::string> itemInteractions = {
+    {"Snowshoes", "You can traverse icy terrain more easily.  That'll come in handy as you sense polar bears in the distance."},
+    {"Chisel", "You can use the chisel to carve through ice or stone.  Pity that it's time to go"},
+    {"Umbrella", "The umbrella keeps you dry in the rain."},
+    {"Map", "The map helps you navigate through unfamiliar territory."},
+    {"Pickaxe", "Use the pickaxe to mine for resources."},
+    {"Lantern", "The lantern provides light in dark areas."},
+    {"Helmet", "The helmet protects your head from impacts."},
+    {"Asteroid", "A fragment of an asteroid. It might have some value."},
+    {"Dust", "Moon dust. It's lightweight and powdery."},
+    {"Spacegun", "A futuristic weapon. Handle with care."},
+    {"Hoe", "Use the hoe to cultivate the soil."},
+    {"Seeds", "Plant these seeds to grow crops."},
+    {"Barometer", "Measures atmospheric pressure."},
+    {"Safety-suit", "Provides protection from hazardous environments."},
+    {"Pipseeds", "Seeds of exotic plants. Handle with care."},
+    {"Orchid", "A beautiful flower with a pleasant fragrance."},
+    {"Blowtorch", "Emits a hot flame. Useful for cutting or welding."},
+    {"Marblefruit", "A rare fruit with a marble-like texture."},
+    // Add more items and interactions here if needed
+};
 
-/**
- * Given a command, process (that is: execute) the command.
- * If this command ends the ZorkUL game, true is returned, otherwise false is
- * returned.
- */
+
+void ZorkUL::addItemToInventory(const Item& item) {
+    playerInventory.push_back(item);
+}
+
+
+void ZorkUL::removeItemFromInventory(const std::string& itemName) {
+    for (auto iter = playerInventory.begin(); iter != playerInventory.end(); ++iter) {
+        if (iter->getShortDescription() == itemName) {
+            playerInventory.erase(iter);
+            break; // Exit the loop once the item is removed
+        }
+    }
+}
+
+bool ZorkUL::playerHasItem(const std::string& itemName) const {
+    for (const auto& item : playerInventory) {
+        if (item.getShortDescription() == itemName) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void ZorkUL::processItemInteraction(const std::string& itemName) {
+
+    auto it = itemInteractions.find(itemName);
+    if (it != itemInteractions.end()) {
+        // Item interaction found, display the corresponding message
+        mainWindow.setOutputText(it->second);
+        // Implement additional logic as needed (e.g., enemy attack)
+    } else {
+        // No specific interaction defined for this item
+        mainWindow.setOutputText("You took the item.  Time to scarper to a new area.");
+    }
+}
+
 bool ZorkUL::processCommand(Command command) {
+    // Check if the command is unknown
     if (command.isUnknown()) {
-        mainWindow.setOutputText("invalid input");
+        mainWindow.setOutputText("Invalid input");
         return false;
     }
 
+
+
     std::string commandWord = command.getCommandWord();
-    if (commandWord.compare("info") == 0)
-        printHelp();
 
-    else if (commandWord.compare("map") == 0)
-    {
-        cout << "[h] --- [f] --- [g]" << endl;
-        cout << "         |         " << endl;
-        cout << "         |         " << endl;
-        cout << "[c] --- [a] --- [b]" << endl;
-        cout << "         |         " << endl;
-        cout << "         |         " << endl;
-        cout << "[i] --- [d] --- [e]" << endl;
-    }
-
-    else if (commandWord.compare("go") == 0)
+    if(commandWord.compare("go") == 0)
         goRoom(command);
-
-    else if (commandWord.compare("take") == 0)
-    {
-        if (!command.hasSecondWord()) {
-            mainWindow.setOutputText("Incomplete input");
-        }
-        else
-            if (command.hasSecondWord()) {
-
-                mainWindow.setOutputText("you're tryna take " + command.getSecondWord());
-
-                //mainWindow.setOutputText("you're tryna take" + command.getSecondWord());
-                //cout << "you're trying to take " + command.getSecondWord() << endl;
-                int location = currentRoom->isItemInRoom(command.getSecondWord());
-                if (location  < 0 )
-                    mainWindow.setOutputText("Item is not in this place.  Better luck next time chump.");
-
-                else
-                    mainWindow.setOutputText("item is in room");
-
-                mainWindow.appendOutputText("index number " + std::to_string(location));            //cout << "index number " << + location << endl;
-                //cout << endl;
-                mainWindow.setOutputText(currentRoom->longDescription());
-                //cout << currentRoom->longDescription() << endl;
-            }
-    }
-
     else if (commandWord.compare("put") == 0)
     {
         // Process put command
@@ -185,9 +192,43 @@ bool ZorkUL::processCommand(Command command) {
         else
             return true; // Signal to quit
     }
+
+
+    else if (commandWord.compare("take") == 0) {
+        // Handle taking an item
+        if (!command.hasSecondWord()) {
+            mainWindow.setOutputText("Incomplete input");
+        } else {
+            std::string itemName = command.getSecondWord();
+            int location = currentRoom->isItemInRoom(itemName);
+            if (location < 0) {
+                mainWindow.setOutputText("Item is not in this place. Better luck next time chump.");
+            } else {
+                // Item found in the room
+                mainWindow.setOutputText("You've taken " + itemName);
+                currentRoom->removeItem(location); // Remove the item from the room
+                // Process the item interaction
+                processItemInteraction(itemName);
+            }
+        }
+    }
+
+    else if (commandWord.compare("show") == 0 && command.hasSecondWord() && command.getSecondWord() == "items") {
+        // Handle the "show items" command
+        std::string itemList;
+        if (playerInventory.empty()) {
+            mainWindow.setOutputText("Your inventory is empty.");
+        } else {
+            for (const auto& item : playerInventory) {
+                itemList += item.getShortDescription() + "\n";
+            }
+            mainWindow.setOutputText("Items in your inventory:\n" + itemList);
+        }
+    }
+
+
     return false;
 }
-
 
 
 
@@ -211,7 +252,7 @@ void ZorkUL::goRoom(Command command) {
     Room* nextRoom = currentRoom->nextRoom(direction);
 
     if (nextRoom == NULL)
-        mainWindow.setOutputText("next room is null so underdefined input");
+        mainWindow.setOutputText("Don't think you can escape that way!");
     //cout << "underdefined input"<< endl;
     else {
         currentRoom = nextRoom;

@@ -15,6 +15,8 @@ class Room {
 
 private:
     std::string description;
+    std::string settingDescription;
+
 	map<string, Room*> exits;
 	string exitString();
     vector <Item> itemsInRoom;
@@ -22,9 +24,9 @@ private:
     Command commandInstance; // Declare a Command instance
 
 public:
+    void removeItem(int index);
     int numberOfItems();
-    Room(std::string description);
-    string shortDescription();
+    Room(std::string description, std::string settingDescription);    string shortDescription();
 	string longDescription();
 	Room* nextRoom(string direction);
     void setExits(Room *north, Room *east, Room *south, Room *west);

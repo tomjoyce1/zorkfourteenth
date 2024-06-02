@@ -2,8 +2,8 @@
 #include "mainwindow.h"
 
 
-Room::Room(std::string description) : description(description), commandInstance(Command("", "")) {}
 
+Room::Room(std::string description, std::string settingDescription) : description(description), settingDescription(settingDescription), commandInstance(Command("", "")) {}
 // setExits implementation
 void Room::setExits(Room* north, Room* east, Room* south, Room* west) {
     exits["north"] = north;
@@ -17,7 +17,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-    return "room = " + description + ".\n" + displayItem() + exitString();
+    return "🌍" + description + " 🗺️ " + settingDescription + " 📌 " + displayItem() + " 🧭 " + exitString();
 }
 
 string Room::exitString() {
@@ -28,6 +28,12 @@ string Room::exitString() {
 	return returnString;
 }
 
+void Room::removeItem(int index) {
+    if (index >= 0 && index < itemsInRoom.size()) {
+        itemsInRoom.erase(itemsInRoom.begin() + index);
+    }
+}
+
 Room* Room::nextRoom(string direction) {
 	map<string, Room*>::iterator next = exits.find(direction); //returns an iterator for the "pair"
 	if (next == exits.end())
@@ -36,20 +42,17 @@ Room* Room::nextRoom(string direction) {
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
-//come back and fix later EMERGENCY
 void Room::addItem(Item *inItem) {
-    // Use the commandInstance to get the second word
-   // std::string output = "Just added " + commandInstance.getSecondWord();
-  //  mainWindowPtr->setOutputText(output);
-  //  itemsInRoom.push_back(*inItem);
+    itemsInRoom.push_back(*inItem); // Add the item to the vector
 }
 
 
+
 string Room::displayItem() {
-    string tempString = "items in room = ";
+    string tempString = "The loot you discovered = ";
     int sizeItems = (itemsInRoom.size());
     if (itemsInRoom.size() < 1) {
-        tempString = "no items in room";
+        tempString = "Unlucky! No items in the area.";
         }
     else if (itemsInRoom.size() > 0) {
        int x = (0);

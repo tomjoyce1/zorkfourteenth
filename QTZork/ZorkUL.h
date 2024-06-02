@@ -27,15 +27,28 @@ private:
     void goRoom(Command command);
     void createItems();
     void displayItems();
+    std::vector<Item> playerInventory; // Vector to store the player's items
 
 public:
     ZorkUL(MainWindow &mainWindow);
+
+    void addItemToInventory(const Item& item);
+
+    // Function to remove an item from the player's inventory
+    void removeItemFromInventory(const std::string& itemName);
+
+    // Function to check if the player has a specific item
+    bool playerHasItem(const std::string& itemName) const;
+
+
 
     ~ZorkUL();
     bool update(std::string buffer);
     string go(string direction);
 
     MainWindow &mainWindow;
+
+    void processItemInteraction(const std::string& itemName);
 
 
 };

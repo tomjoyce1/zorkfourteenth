@@ -29,7 +29,7 @@ void Item::setValue(float inValue)
         value = inValue;
 }
 
-std::string Item::getShortDescription()
+std::string Item::getShortDescription() const
 {
     return description;
 }

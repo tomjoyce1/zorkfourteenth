@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ZorkUL.h" // Include ZorkUL.h here
+#include "ZorkUL.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -99,7 +99,7 @@ void MainWindow::handleRoomChangeImage(const std::string &imgName) {
 
 void MainWindow::on_lineEdit_returnPressed()
 {
-    appendOutputText("works up to here");
+
     ui->outputLineEdit->clear();
 
     std::string text = ui->lineEdit->text().toStdString();

@@ -16,7 +16,7 @@ private:
 public:
     Item(std::string description, int weightGrams, float value);
     Item(std::string description, MainWindow* mainWindow);
-    std::string getShortDescription();
+    std::string getShortDescription() const;
     std::string getLongDescription();
     int getWeight();
     void setWeight(int weightGrams);
