@@ -13,63 +13,63 @@ void ZorkUL::printWelcome() {
     mainWindow.setOutputText("This part works printwelcome zorkul");
 }
 
-void ZorkUL::createRooms()  {
-    Room *a, *b, *c, *d, *e, *f, *g, *h, *i;
-    string roomDescription; // Declare roomDescription as a string here
+void ZorkUL::createRooms() {
+    Room *Antartica, *London, *Mineland, *Mars, *Moonscape, *Farmville, *Wastelandia, *Paradise, *Alienscape;
+    string roomDescription;
 
-    roomDescription = "a";
-    a = new Room(roomDescription);
+    roomDescription = "Antartica";
+    Antartica = new Room(roomDescription);
 
-    a->addItem(new Item("x", 1, 11));
-    a->addItem(new Item("y", 2, 22));
-    mainWindow.appendOutputText("room a created");
+    Antartica->addItem(new Item("x", 1, 11));
+    Antartica->addItem(new Item("y", 2, 22));
+    mainWindow.appendOutputText("room Antartica created");
 
-    roomDescription = "b";
-    b = new Room(roomDescription);
-    b->addItem(new Item("xx", 3, 33));
-    b->addItem(new Item("yy", 4, 44));
+    roomDescription = "London";
+    London = new Room(roomDescription);
+    London->addItem(new Item("xx", 3, 33));
+    London->addItem(new Item("yy", 4, 44));
 
-    roomDescription = "c";
-    c = new Room(roomDescription);
-    c->addItem(new Item("xx", 3, 33));
-    c->addItem(new Item("yy", 4, 44));
+    roomDescription = "Mineland";
+    Mineland = new Room(roomDescription);
+    Mineland->addItem(new Item("xx", 3, 33));
+    Mineland->addItem(new Item("yy", 4, 44));
 
-    roomDescription = "d";
-    d = new Room(roomDescription);
-    d->addItem(new Item("xx", 3, 33));
-    d->addItem(new Item("yy", 4, 44));
+    roomDescription = "Mars";
+    Mars = new Room(roomDescription);
+    Mars->addItem(new Item("xx", 3, 33));
+    Mars->addItem(new Item("yy", 4, 44));
 
-    roomDescription = "e";
-    e = new Room(roomDescription);
-    e->addItem(new Item("xx", 3, 33));
-    e->addItem(new Item("yy", 4, 44));
+    roomDescription = "Moonscape";
+    Moonscape = new Room(roomDescription);
+    Moonscape->addItem(new Item("xx", 3, 33));
+    Moonscape->addItem(new Item("yy", 4, 44));
 
-    roomDescription = "f"; // Change to std::string
-    f = new Room(roomDescription);
+    roomDescription = "Farmville"; // Changed to std::string
+    Farmville = new Room(roomDescription);
 
-    roomDescription = "g"; // Change to std::string
-    g = new Room(roomDescription);
+    roomDescription = "Wastelandia"; // Changed to std::string
+    Wastelandia = new Room(roomDescription);
 
-    roomDescription = "h"; // Change to std::string
-    h = new Room(roomDescription);
+    roomDescription = "Paradise"; // Changed to std::string
+    Paradise = new Room(roomDescription);
 
-    roomDescription = "i"; // Change to std::string
-    i = new Room(roomDescription);
+    roomDescription = "Alienscape"; // Changed to std::string
+    Alienscape = new Room(roomDescription);
 
     // Set exits for rooms
-    a->setExits(f, b, d, c);
-    b->setExits(a, b, c, d);
-    c->setExits(a, b, c, d);
-    d->setExits(a, b, c, d);
-    e->setExits(a, b, c, d);
-    f->setExits(a, b, c, d);
-    g->setExits(a, b, c, d);
-    h->setExits(a, b, c, d);
-    i->setExits(a, b, c, d);
+    Antartica->setExits(Farmville, London, Mars, Mineland);
+    London->setExits(Antartica, London, Mineland, Mars);
+    Mineland->setExits(Antartica, London, Mineland, Mars);
+    Mars->setExits(Antartica, London, Mineland, Mars);
+    Moonscape->setExits(Antartica, London, Mineland, Mars);
+    Farmville->setExits(Antartica, London, Mineland, Mars);
+    Wastelandia->setExits(Antartica, London, Mineland, Mars);
+    Paradise->setExits(Antartica, London, Mineland, Mars);
+    Alienscape->setExits(Antartica, London, Mineland, Mars);
 
-    currentRoom = a;
-
+    currentRoom = Antartica;
 }
+
 
 bool ZorkUL::update(std::string buffer) {
     qDebug() << "Update function called with buffer: " << QString::fromStdString(buffer);
@@ -218,6 +218,9 @@ void ZorkUL::goRoom(Command command) {
         mainWindow.setOutputText(currentRoom->longDescription());
 
         emit roomChanged(currentRoom->longDescription());
+
+        //3pm
+        emit roomChangedImage(currentRoom->shortDescription());
 
     }
 }

@@ -24,7 +24,10 @@ public:
     ~MainWindow();
 
 public slots:
-    void handleRoomChange(const std::string &description); // Changed parameter to std::string
+    //void handleRoomChange(const std::string &description);
+
+    //3pm
+    void handleRoomChangeImage(const std::string &imgName);
 
 private slots:
     void on_lineEdit_returnPressed();

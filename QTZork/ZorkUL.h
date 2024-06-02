@@ -14,6 +14,8 @@ class ZorkUL : public QObject { // Add QObject as base class
 
 signals:
     void roomChanged(const std::string &description);
+    //3pm
+    void roomChangedImage(const std::string &imgName);
 
 private:
     Parser* parser;

@@ -36,10 +36,10 @@ namespace {
 struct qt_meta_stringdata_CLASSMainWindowENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSMainWindowENDCLASS = QtMocHelpers::stringData(
     "MainWindow",
-    "handleRoomChange",
+    "handleRoomChangeImage",
     "",
     "std::string",
-    "description",
+    "imgName",
     "on_lineEdit_returnPressed"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
@@ -80,7 +80,7 @@ Q_CONSTINIT const QMetaObject MainWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSMainWindowENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<MainWindow, std::true_type>,
-        // method 'handleRoomChange'
+        // method 'handleRoomChangeImage'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const std::string &, std::false_type>,
         // method 'on_lineEdit_returnPressed'
@@ -95,7 +95,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         auto *_t = static_cast<MainWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->handleRoomChange((*reinterpret_cast< std::add_pointer_t<std::string>>(_a[1]))); break;
+        case 0: _t->handleRoomChangeImage((*reinterpret_cast< std::add_pointer_t<std::string>>(_a[1]))); break;
         case 1: _t->on_lineEdit_returnPressed(); break;
         default: ;
         }

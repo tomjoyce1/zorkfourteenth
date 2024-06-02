@@ -17,7 +17,7 @@ string Room::shortDescription() {
 }
 
 string Room::longDescription() {
-	return "room = " + description + ".\n" + displayItem() + exitString();
+    return "room = " + description + ".\n" + displayItem() + exitString();
 }
 
 string Room::exitString() {

@@ -14,7 +14,11 @@ MainWindow::MainWindow(QWidget *parent)
     // Initialize zorkUL and pass a reference to this MainWindow
     zorkUL = new ZorkUL(*this);
 
-    connect(zorkUL, &ZorkUL::roomChanged, this, &MainWindow::handleRoomChange);
+    //3pm
+    //connect(zorkUL, &ZorkUL::roomChanged, this, &MainWindow::handleRoomChange);
+
+    //3pm
+    connect(zorkUL, &ZorkUL::roomChangedImage, this, &MainWindow::handleRoomChangeImage);
 }
 
 MainWindow::~MainWindow() {
@@ -41,18 +45,18 @@ void MainWindow::appendOutputText(const std::string &text) {
     }
 }
 
-void MainWindow::handleRoomChange(const std::string &description) {
+void MainWindow::handleRoomChangeImage(const std::string &imgName) {
 
-    // if (currentRoom.getName() == "a") {
-    //    qDebug() << "WOOOOOOOOO is changing";
-    // }
-    qDebug() << "Imagess is changing";
-    qDebug() << "Image is changing for room:" << QString::fromStdString(description);
+
+    qDebug() << "Image is changing";
+    qDebug() << "Image is changing for room:" << QString::fromStdString(imgName);
+
+
     // Update the image here based on the room description
     // For example:
 
 
-    QPixmap image("C:\\Users\\Thoma\\Downloads\\hellish.png");
+    QPixmap image("C:\\Users\\Thoma\\OneDrive\\Documents\\fourteenth\\qtzork\\Downloads\\isezork\\QTZork\\WallImages\\" + QString::fromStdString(imgName));
     ui->imageHolder->setPixmap(image);
     ui->imageHolder->setScaledContents(true);
 }
