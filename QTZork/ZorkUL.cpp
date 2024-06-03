@@ -6,6 +6,7 @@
 //tue
 #include "ConcreteItem.h"
 #include "MainWindow.h"
+#include "keyvaluestore.h"
 
 
 
@@ -113,28 +114,31 @@ bool ZorkUL::update(std::string buffer) {
 
 
 
+// std::map<std::string, std::string> itemInteractions = {
 
-std::map<std::string, std::string> itemInteractions = {
-    {"Snowshoes", "You can traverse icy terrain more easily.  That'll come in handy as you sense polar bears in the distance."},
-    {"Chisel", "You can use the chisel to carve through ice or stone.  Pity that it's time to go"},
-    {"Umbrella", "The umbrella keeps you dry in the rain."},
-    {"Map", "The map helps you navigate through unfamiliar territory."},
-    {"Pickaxe", "Use the pickaxe to mine for resources."},
-    {"Lantern", "The lantern provides light in dark areas."},
-    {"Helmet", "The helmet protects your head from impacts."},
-    {"Asteroid", "A fragment of an asteroid. It might have some value."},
-    {"Dust", "Moon dust. It's lightweight and powdery."},
-    {"Spacegun", "A futuristic weapon. Handle with care."},
-    {"Hoe", "Use the hoe to cultivate the soil."},
-    {"Seeds", "Plant these seeds to grow crops."},
-    {"Barometer", "Measures atmospheric pressure."},
-    {"Safety-suit", "Provides protection from hazardous environments."},
-    {"Pipseeds", "Seeds of exotic plants. Handle with care."},
-    {"Orchid", "A beautiful flower with a pleasant fragrance."},
-    {"Blowtorch", "Emits a hot flame. Useful for cutting or welding."},
-    {"Marblefruit", "A rare fruit with a marble-like texture."},
+KeyValueStore<std::string, std::string> itemInteractionsStore = {
+    std::make_pair("Snowshoes", "You can traverse icy terrain more easily. That'll come in handy as you sense polar bears in the distance."),
+    std::make_pair("Chisel", "You can use the chisel to carve through ice or stone. Pity that it's time to go"),
+    std::make_pair("Umbrella", "The umbrella keeps you dry in the rain."),
+    std::make_pair("Map", "The map helps you navigate through unfamiliar territory."),
+    std::make_pair("Pickaxe", "Use the pickaxe to mine for resources."),
+    std::make_pair("Lantern", "The lantern provides light in dark areas."),
+    std::make_pair("Helmet", "The helmet protects your head from impacts."),
+    std::make_pair("Asteroid", "A fragment of an asteroid. It might have some value."),
+    std::make_pair("Dust", "Moon dust. It's lightweight and powdery."),
+    std::make_pair("Spacegun", "A futuristic weapon. Handle with care."),
+    std::make_pair("Hoe", "Use the hoe to cultivate the soil."),
+    std::make_pair("Seeds", "Plant these seeds to grow crops."),
+    std::make_pair("Barometer", "Measures atmospheric pressure."),
+    std::make_pair("Safety-suit", "Provides protection from hazardous environments."),
+    std::make_pair("Pipseeds", "Seeds of exotic plants. Handle with care."),
+    std::make_pair("Orchid", "A beautiful flower with a pleasant fragrance."),
+    std::make_pair("Blowtorch", "Emits a hot flame. Useful for cutting or welding."),
+    std::make_pair("Marblefruit", "A rare fruit with a marble-like texture.")
     // Add more items and interactions here if needed
 };
+
+
 
 
 void ZorkUL::addItemToInventory(const Item& item) {
@@ -163,15 +167,15 @@ bool ZorkUL::playerHasItem(const std::string& itemName) const {
 
 void ZorkUL::processItemInteraction(const std::string& itemName) {
 
-    auto it = itemInteractions.find(itemName);
-    if (it != itemInteractions.end()) {
-        // Item interaction found, display the corresponding message
-        mainWindow.setOutputText(it->second);
-        // Implement additional logic as needed (e.g., enemy attack)
+
+    std::string interaction = itemInteractionsStore.getValue(itemName); // Use KeyValueStore to get item interaction
+
+//    auto it = itemInteractions.find(itemName);
+    if (!interaction.empty()) {        // Item interaction found, display the corresponding message
+        mainWindow.setOutputText(interaction);        // Implement additional logic as needed (e.g., enemy attack)
     } else {
         // No specific interaction defined for this item
-        mainWindow.setOutputText("You took the item.  Time to scarper to a new area.");
-    }
+        mainWindow.setOutputText("You took the item.  Time to scarper to a new area.");    }
 }
 
 bool ZorkUL::processCommand(Command command) {
