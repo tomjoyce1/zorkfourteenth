@@ -15,6 +15,7 @@ private:
     float value;
     bool weaponCheck;
     MainWindow* mainWindowInstance;
+    friend class ConcreteItem;
 
 
 public:
