@@ -17,6 +17,9 @@ public:
     ConcreteItem(std::string description, int weightGrams, float value);
     ConcreteItem(std::string description, MainWindow* mainWindow);
 
+
+    ConcreteItem(const ConcreteItem& other); // Copy constructor for deep copy
+
     int getWeightGrams() const;
     float getValue() const;
 

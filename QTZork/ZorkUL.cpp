@@ -12,12 +12,21 @@
 
 
 
-ZorkUL::ZorkUL(MainWindow &mainWindow) : mainWindow(mainWindow) {
-    parser = new Parser();
+// ZorkUL::ZorkUL(MainWindow &mainWindow) : mainWindow(mainWindow) {
+//     parser = new Parser();
+//     printWelcome(); // works up to here
+//     createRooms();
+//     // createItems();
+// }
+
+ZorkUL::ZorkUL(MainWindow &mainWindow)
+    : mainWindow(mainWindow), parser(new Parser()), currentRoom(nullptr) {
     printWelcome(); // works up to here
     createRooms();
     // createItems();
 }
+
+
 
 void ZorkUL::printWelcome() {
     mainWindow.setOutputText("Welcome to Zork.  You find yourself in the depths of Antartica as you embark on a magical journey.  Where will you go next? ");

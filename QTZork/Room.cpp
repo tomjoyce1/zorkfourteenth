@@ -42,9 +42,11 @@ Room* Room::nextRoom(string direction) {
 				// part of the "pair" (<string, Room*>) and return it.
 }
 
-void Room::addItem(Item *inItem) {
-    itemsInRoom.push_back(*inItem); // Add the item to the vector
-}
+ void Room::addItem(Item *inItem) {
+     itemsInRoom.push_back(*inItem); // Add the item to the vector
+ }
+
+
 
 
 

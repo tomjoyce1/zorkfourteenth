@@ -22,6 +22,8 @@ public:
     Item(std::string description, int weightGrams, float value);
     Item(std::string description, MainWindow* mainWindow);
 
+    //copy cons
+    Item(const Item& other); // Copy constructor for deep copy
 
     virtual ~Item() = default;
 
