@@ -2,7 +2,6 @@
 
 
 
-//constructor for command class, takes in two strings
 Command::Command(string firstWord, string secondWord) {
 	this->commandWord = firstWord;
 	this->secondWord = secondWord;
