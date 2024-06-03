@@ -36,7 +36,7 @@ void ZorkUL::createRooms() {
     Room *Antartica, *London, *Mineland, *Mars, *Moonscape, *Farmville, *Wastelandia, *Paradise, *Alienscape;
 
     Antartica = new Room("Antartica", "You are in the icy wasteland of Antartica. The cold bites at your skin.");
-    Antartica->addItem(new ConcreteItemNamespace::ConcreteItem("Snowshoes", 1, 11.0f));
+    Antartica->addItem(new ConcreteItemNamespace::ConcreteItem("Snowshoes", 1, 11));
     Antartica->addItem(new ConcreteItemNamespace::ConcreteItem("Chisel", 2, 22));
 
     London = new Room("London", "You are in the bustling city of London. The streets are full of life.");

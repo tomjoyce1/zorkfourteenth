@@ -6,9 +6,10 @@
 #include "CustomException.h"
 #include <string>
 #include <iostream>
+#include "Comparer.h"
 
 namespace ConcreteItemNamespace {
-class ConcreteItem : public Item {
+class ConcreteItem : public Item, public ComparerNamespace::Comparer {
 private:
     int weightGrams;
     float value;
@@ -16,7 +17,6 @@ private:
 public:
     ConcreteItem(std::string description, int weightGrams, float value);
     ConcreteItem(std::string description, MainWindow* mainWindow);
-
 
     ConcreteItem(const ConcreteItem& other); // Copy constructor for deep copy
 

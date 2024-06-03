@@ -22,7 +22,7 @@ float ConcreteItem::getValue() const {
 }
 
 bool ConcreteItem::operator==(const ConcreteItem& other) const {
-    weightGrams == other.weightGrams && value == other.value;
+    return weightGrams == other.weightGrams && value == other.value;
 }
 
 bool ConcreteItem::operator!=(const ConcreteItem& other) const {

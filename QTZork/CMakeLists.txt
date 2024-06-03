@@ -44,6 +44,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         keyvaluestore.h
         customException.h
         Describable.h
+        Comparer.h
 
 
     )
