@@ -27,6 +27,7 @@ private:
     void goRoom(Command command);
     void createItems();
     void displayItems();
+    void displayDestinations();
     std::vector<Item> playerInventory; // Vector to store the player's items
 
 public:

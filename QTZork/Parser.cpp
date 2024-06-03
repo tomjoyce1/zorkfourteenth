@@ -17,7 +17,7 @@ Command* Parser::getCommand(std::string buffer) {
         return nullptr; // Or create a default command: return new Command("", "");
     }
 
-    string inputLine = ""; // will hold the full input line
+    string inputLine = "";
     string word1;
     string word2;
     // string buffer;

@@ -10,7 +10,7 @@
 
 
 
-
+int placesVisited = 0;
 
 // ZorkUL::ZorkUL(MainWindow &mainWindow) : mainWindow(mainWindow) {
 //     parser = new Parser();
@@ -177,6 +177,8 @@ bool ZorkUL::playerHasItem(const std::string& itemName) const {
 
 void ZorkUL::processItemInteraction(const std::string& itemName) {
 
+    placesVisited += 1;
+
 
     std::string interaction = itemInteractionsStore.getValue(itemName); // Use KeyValueStore to get item interaction
 
@@ -293,6 +295,13 @@ ZorkUL::~ZorkUL() {
 }
 
 
+void ZorkUL::displayDestinations() {
+    qDebug() << "Number of places visited: " << placesVisited;
+}
+
+
+
+//jump
 string ZorkUL::go(string direction) {
     //Make the direction lowercase
     //transform(direction.begin(), direction.end(), direction.begin(),:: tolower);
