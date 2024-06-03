@@ -27,40 +27,41 @@ void ZorkUL::createRooms() {
     Room *Antartica, *London, *Mineland, *Mars, *Moonscape, *Farmville, *Wastelandia, *Paradise, *Alienscape;
 
     Antartica = new Room("Antartica", "You are in the icy wasteland of Antartica. The cold bites at your skin.");
-    Antartica->addItem(new ConcreteItem("Snowshoes", 1, 11));
-    Antartica->addItem(new ConcreteItem("Chisel", 2, 22));
+    Antartica->addItem(new ConcreteItemNamespace::ConcreteItem("Snowshoes", 1, 11));
+    Antartica->addItem(new ConcreteItemNamespace::ConcreteItem("Chisel", 2, 22));
 
     London = new Room("London", "You are in the bustling city of London. The streets are full of life.");
-    London->addItem(new ConcreteItem("Umbrella", 3, 33));
-    London->addItem(new ConcreteItem("Map", 4, 44));
+    London->addItem(new ConcreteItemNamespace::ConcreteItem("Umbrella", 3, 33));
+    London->addItem(new ConcreteItemNamespace::ConcreteItem("Map", 4, 44));
 
     Mineland = new Room("Mineland", "You are in a mine. The air is thick with dust and the sound of pickaxes.");
-    Mineland->addItem(new ConcreteItem("Pickaxe", 5, 55));
-    Mineland->addItem(new ConcreteItem("Lantern", 6, 66));
+    Mineland->addItem(new ConcreteItemNamespace::ConcreteItem("Pickaxe", 5, 55));
+    Mineland->addItem(new ConcreteItemNamespace::ConcreteItem("Lantern", 6, 66));
 
     Mars = new Room("Mars", "You are on the red planet Mars. The landscape is barren and rocky.");
-    Mars->addItem(new ConcreteItem("Helmet", 7, 77));
-    Mars->addItem(new ConcreteItem("Asteroid", 8, 88));
+    Mars->addItem(new ConcreteItemNamespace::ConcreteItem("Helmet", 7, 77));
+    Mars->addItem(new ConcreteItemNamespace::ConcreteItem("Asteroid", 8, 88));
 
     Moonscape = new Room("Moonscape", "You are on the surface of the Moon. The earth is a distant blue sphere.");
-    Moonscape->addItem(new ConcreteItem("Dust", 9, 99));
-    Moonscape->addItem(new ConcreteItem("Spacegun", 10, 100));
+    Moonscape->addItem(new ConcreteItemNamespace::ConcreteItem("Dust", 9, 99));
+    Moonscape->addItem(new ConcreteItemNamespace::ConcreteItem("Spacegun", 10, 100));
 
     Farmville = new Room("Farmville", "You are in a peaceful farmland. The smell of fresh crops fills the air.");
-    Farmville->addItem(new ConcreteItem("Hoe", 11, 111));
-    Farmville->addItem(new ConcreteItem("Seeds", 12, 122));
+    Farmville->addItem(new ConcreteItemNamespace::ConcreteItem("Hoe", 11, 111));
+    Farmville->addItem(new ConcreteItemNamespace::ConcreteItem("Seeds", 12, 122));
 
     Wastelandia = new Room("Wastelandia", "You are in a post-apocalyptic wasteland. The ground is scorched and barren.");
-    Wastelandia->addItem(new ConcreteItem("Barometer", 13, 133));
-    Wastelandia->addItem(new ConcreteItem("Safety-suit", 14, 144));
+    Wastelandia->addItem(new ConcreteItemNamespace::ConcreteItem("Barometer", 13, 133));
+    Wastelandia->addItem(new ConcreteItemNamespace::ConcreteItem("Safety-suit", 14, 144));
 
     Paradise = new Room("Paradise", "You are in a lush paradise. The air is sweet with the scent of flowers.");
-    Paradise->addItem(new ConcreteItem("Pipseeds", 15, 155));
-    Paradise->addItem(new ConcreteItem("Orchid", 16, 166));
+    Paradise->addItem(new ConcreteItemNamespace::ConcreteItem("Pipseeds", 15, 155));
+    Paradise->addItem(new ConcreteItemNamespace::ConcreteItem("Orchid", 16, 166));
 
     Alienscape = new Room("Alienscape", "You are in an alien landscape. Strange plants and creatures surround you.");
-    Alienscape->addItem(new ConcreteItem("Blowtorch", 17, 177));
-    Alienscape->addItem(new ConcreteItem("Marblefruit", 18, 188));
+    Alienscape->addItem(new ConcreteItemNamespace::ConcreteItem("Blowtorch", 17, 177));
+    Alienscape->addItem(new ConcreteItemNamespace::ConcreteItem("Marblefruit", 18, 188));
+
 
     // Set exits for rooms
     Antartica->setExits(Moonscape, London, Mars, Wastelandia);
