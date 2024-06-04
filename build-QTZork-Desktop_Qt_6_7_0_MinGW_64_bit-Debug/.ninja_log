@@ -28,3 +28,16 @@
 1132	6534	7391988520264093	CMakeFiles/QTZork.dir/ZorkUL.cpp.obj	8076d53cc26664c4
 1113	6579	7391988520736454	CMakeFiles/QTZork.dir/mainwindow.cpp.obj	52f2e23fbf7fe5d1
 6579	7323	7391988528081813	QTZork.exe	a82052b97b643991
+325	3557	7392006748852129	QTZork_autogen/timestamp	831ce9e9f9aa1dd7
+325	3557	7392006748852129	QTZork_autogen/mocs_compilation.cpp	831ce9e9f9aa1dd7
+325	3557	7392006748852129	C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/QTZork_autogen/timestamp	831ce9e9f9aa1dd7
+325	3557	7392006748852129	C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZork-Desktop_Qt_6_7_0_MinGW_64_bit-Debug/QTZork_autogen/mocs_compilation.cpp	831ce9e9f9aa1dd7
+3579	12235	7392006834273640	CMakeFiles/QTZork.dir/item.cpp.obj	23bf96eb574843b2
+3592	12238	7392006836067307	CMakeFiles/QTZork.dir/Room.cpp.obj	5ca36bd94fa9fa0d
+3586	12241	7392006836493670	CMakeFiles/QTZork.dir/Parser.cpp.obj	18d513a4f1cd06d5
+3606	12496	7392006837562565	CMakeFiles/QTZork.dir/concreteitem.cpp.obj	ae3a3c64d1343e5b
+3559	12628	7392006840488175	CMakeFiles/QTZork.dir/QTZork_autogen/mocs_compilation.cpp.obj	a5da1e1689803f4b
+3566	12638	7392006840671478	CMakeFiles/QTZork.dir/main.cpp.obj	7234bfb9aacbfb64
+3600	13252	7392006846760505	CMakeFiles/QTZork.dir/ZorkUL.cpp.obj	8076d53cc26664c4
+3572	13317	7392006847445279	CMakeFiles/QTZork.dir/mainwindow.cpp.obj	52f2e23fbf7fe5d1
+13318	14096	7392006855097385	QTZork.exe	a82052b97b643991

@@ -1,9 +1,13 @@
 template<typename KeyType, typename ValueType>
+
+//template of key-value store using a std::map
+
 class KeyValueStore {
 private:
     std::map<KeyType, ValueType> data;
 public:
-    // Constructor accepting brace-enclosed initializer list
+
+    //constructor intitializes data with key value pairs
     KeyValueStore(std::initializer_list<std::pair<const KeyType, ValueType>> list) : data(list) {}
 
     void addItem(const KeyType& key, const ValueType& value) {
@@ -15,8 +19,8 @@ public:
         if (it != data.end()) {
             return it->second;
         } else {
-            // Handle key not found
-            return ValueType(); // Return default-constructed value
+            // if key not found
+            return ValueType();
         }
     }
 };

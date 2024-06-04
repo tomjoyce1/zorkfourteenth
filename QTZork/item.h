@@ -5,7 +5,6 @@
 #include "Describable.h"
 
 
-// Forward declaration of MainWindow
 class MainWindow;
 
 class Item : public Describable {
@@ -22,9 +21,10 @@ public:
     Item(std::string description, int weightGrams, float value);
     Item(std::string description, MainWindow* mainWindow);
 
-    //copy cons
-    Item(const Item& other); // Copy constructor for deep copy
+    //copy cons deep copy
+    Item(const Item& other);
 
+    //virt destructor
     virtual ~Item() = default;
 
     virtual std::string getShortDescription() const override;

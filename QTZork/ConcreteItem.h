@@ -1,4 +1,3 @@
-// ConcreteItem.h
 #ifndef CONCRETEITEM_H
 #define CONCRETEITEM_H
 
@@ -15,10 +14,12 @@ private:
     float value;
 
 public:
+    //2 constructors, diff parameters
     ConcreteItem(std::string description, int weightGrams, float value);
     ConcreteItem(std::string description, MainWindow* mainWindow);
 
-    ConcreteItem(const ConcreteItem& other); // Copy constructor for deep copy
+    // Copy constructor for deep copy
+    ConcreteItem(const ConcreteItem& other);
 
     int getWeightGrams() const;
     float getValue() const;
@@ -30,6 +31,8 @@ public:
     bool operator>(const ConcreteItem& other) const;
     bool operator>=(const ConcreteItem& other) const;
 
+
+    //parameters=object os + ConcreteItem object, outputs ConcreteItem objects to console.
     friend std::ostream& operator<<(std::ostream& os, const ConcreteItem& item);
 };
 }

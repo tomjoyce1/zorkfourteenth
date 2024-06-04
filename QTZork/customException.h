@@ -1,4 +1,3 @@
-// CustomException.h
 #ifndef CUSTOMEXCEPTION_H
 #define CUSTOMEXCEPTION_H
 
@@ -10,8 +9,10 @@ private:
     std::string message;
 
 public:
+    //prevents implicit conversions. Compiler wont automatically convert types without explicit casting or initialization.
     explicit CustomException(const std::string& msg) : message(msg) {}
 
+    //returns a const char* pointer to the exception message.
     virtual const char* what() const noexcept override {
         return message.c_str();
     }
