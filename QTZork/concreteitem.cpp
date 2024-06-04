@@ -53,6 +53,7 @@ std::ostream& operator<<(std::ostream& os, const ConcreteItem& item) {
 
 ConcreteItem::ConcreteItem(const ConcreteItem& other)
     : Item(other), weightGrams(other.weightGrams), value(other.value) {
+    // Copy constructor for deep copy
 }
 
 

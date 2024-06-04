@@ -116,7 +116,6 @@ bool ZorkUL::update(std::string buffer) {
 
 
 
-// std::map<std::string, std::string> itemInteractions = {
 
 KeyValueStore<std::string, std::string> itemInteractionsStore = {
     std::make_pair("Snowshoes", "You can traverse icy terrain more easily. That'll come in handy as you sense polar bears in the distance."),
@@ -125,7 +124,7 @@ KeyValueStore<std::string, std::string> itemInteractionsStore = {
     std::make_pair("Map", "The map helps you navigate through unfamiliar territory."),
     std::make_pair("Pickaxe", "Use the pickaxe to mine for resources."),
     std::make_pair("Lantern", "The lantern provides light in dark areas."),
-    std::make_pair("Helmet", "The helmet protects your head from impacts."),
+    std::make_pair("Helmet", "The helmet protects your head from impact."),
     std::make_pair("Asteroid", "A fragment of an asteroid. It might have some value."),
     std::make_pair("Dust", "Moon dust. It's lightweight and powdery."),
     std::make_pair("Spacegun", "A futuristic weapon. Handle with care."),
@@ -182,7 +181,7 @@ void ZorkUL::processItemInteraction(const std::string& itemName) {
 }
 
 bool ZorkUL::processCommand(Command command) {
-    // Check if the command is unknown
+
     if (command.isUnknown()) {
         mainWindow.setOutputText("Invalid input");
         return false;

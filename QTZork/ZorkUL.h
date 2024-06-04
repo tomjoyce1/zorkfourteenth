@@ -18,6 +18,7 @@ signals:
     void roomChangedImage(const std::string &imgName);
 
 private:
+
     Parser* parser;
     Room *currentRoom;
     void createRooms();
