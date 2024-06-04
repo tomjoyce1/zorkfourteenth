@@ -8,12 +8,12 @@
 
 class Parser {
 private:
-    MainWindow* mainWindow; // Pointer to MainWindow
+    MainWindow* mainWindow;
 	CommandWords *commands;
 
 public:
     Parser();
-    Parser(MainWindow* mainWindow); // Constructor with MainWindow parameter
+    Parser(MainWindow* mainWindow);
 
     Command* getCommand(std::string buffer);
 	void showCommands();

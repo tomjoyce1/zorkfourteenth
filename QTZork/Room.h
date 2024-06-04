@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include "item.h"
-#include "mainwindow.h" // Include MainWindow header
+#include "mainwindow.h"
 #include "Command.h"
 using namespace std;
 
@@ -15,8 +15,8 @@ class Room {
 
 private:
     struct RoomFlags {
-        bool hasMonster : 1;    // 1 bit for indicating if the room has a monster
-        bool addMonster : 1;    // 1 bit for indicating if a monster should be added to the room
+        bool hasMonster : 1;    // 1 bit shows if the room has a monster
+        bool addMonster : 1;    // 1 bit says if monster should be added to the room
     } flags;
 
     std::string description;
@@ -25,8 +25,8 @@ private:
     map<string, Room*> exits;
     string exitString();
     vector <Item> itemsInRoom;
-    MainWindow* mainWindowPtr; // Pointer to MainWindow object
-    Command commandInstance; // Declare a Command instance
+    MainWindow* mainWindowPtr;
+    Command commandInstance;
 
 public:
     void removeItem(int index);
@@ -41,11 +41,11 @@ public:
     int isItemInRoom(string inString);
     void removeItemFromRoom(int location);
 
-    // Setter for room properties
+
     void setHasMonster(bool value) { flags.hasMonster = value; }
     void setAddMonster(bool value) { flags.addMonster = value; }
 
-    // Getter for room properties
+
     bool hasMonster() const { return flags.hasMonster; }
     bool addMonster() const { return flags.addMonster; }
 };

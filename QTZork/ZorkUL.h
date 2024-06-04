@@ -9,36 +9,34 @@
 #include <string>
 #include "mainwindow.h"
 
-class ZorkUL : public QObject { // Add QObject as base class
-    Q_OBJECT // Add Q_OBJECT macro
+class ZorkUL : public QObject { // QObject is base class
+    Q_OBJECT
 
 signals:
     void roomChanged(const std::string &description);
-    //3pm
+
     void roomChangedImage(const std::string &imgName);
 
 private:
     Parser* parser;
     Room *currentRoom;
     void createRooms();
-    void printWelcome(); // Remove the parameter
+    void printWelcome();
     bool processCommand(Command command);
     void printHelp();
     void goRoom(Command command);
     void createItems();
     void displayItems();
     void displayDestinations();
-    std::vector<Item> playerInventory; // Vector to store the player's items
+    std::vector<Item> playerInventory;
 
 public:
     ZorkUL(MainWindow &mainWindow);
 
     void addItemToInventory(const Item& item);
 
-    // Function to remove an item from the player's inventory
     void removeItemFromInventory(const std::string& itemName);
 
-    // Function to check if the player has a specific item
     bool playerHasItem(const std::string& itemName) const;
 
 

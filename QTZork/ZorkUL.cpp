@@ -2,22 +2,14 @@
 #include "ZorkUL.h"
 #include <map>
 #include <string>
-
-//tue
 #include "ConcreteItem.h"
 #include "MainWindow.h"
 #include "keyvaluestore.h"
 
 
-
 int placesVisited = 0;
 
-// ZorkUL::ZorkUL(MainWindow &mainWindow) : mainWindow(mainWindow) {
-//     parser = new Parser();
-//     printWelcome(); // works up to here
-//     createRooms();
-//     // createItems();
-// }
+
 
 ZorkUL::ZorkUL(MainWindow &mainWindow)
     : mainWindow(mainWindow), parser(new Parser()), currentRoom(nullptr) {
@@ -160,7 +152,7 @@ void ZorkUL::removeItemFromInventory(const std::string& itemName) {
     for (auto iter = playerInventory.begin(); iter != playerInventory.end(); ++iter) {
         if (iter->getShortDescription() == itemName) {
             playerInventory.erase(iter);
-            break; // Exit the loop once the item is removed
+            break;
         }
     }
 }
@@ -180,13 +172,12 @@ void ZorkUL::processItemInteraction(const std::string& itemName) {
     placesVisited += 1;
 
 
-    std::string interaction = itemInteractionsStore.getValue(itemName); // Use KeyValueStore to get item interaction
+    std::string interaction = itemInteractionsStore.getValue(itemName);
 
-//    auto it = itemInteractions.find(itemName);
-    if (!interaction.empty()) {        // Item interaction found, display the corresponding message
-        mainWindow.setOutputText(interaction);        // Implement additional logic as needed (e.g., enemy attack)
+    if (!interaction.empty()) {
+        mainWindow.setOutputText(interaction);
     } else {
-        // No specific interaction defined for this item
+
         mainWindow.setOutputText("You took the item.  Time to scarper to a new area.");    }
 }
 

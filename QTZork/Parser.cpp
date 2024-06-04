@@ -2,11 +2,10 @@
 #include "mainwindow.h"
 
 Parser::Parser() {
-    mainWindow = nullptr; // Initialize the pointer to nullptr or provide a valid default value
+    mainWindow = nullptr; // Initialize the pointer to nullptr
     commands = new CommandWords();
 }
 
-// Constructor with MainWindow parameter implementation
 Parser::Parser(MainWindow* mainWindow) : mainWindow(mainWindow) {
     commands = new CommandWords();
 }
@@ -14,7 +13,7 @@ Parser::Parser(MainWindow* mainWindow) : mainWindow(mainWindow) {
 Command* Parser::getCommand(std::string buffer) {
     if (buffer.empty()) {
         // Handle empty buffer (return nullptr or create a default command)
-        return nullptr; // Or create a default command: return new Command("", "");
+        return nullptr;
     }
 
     string inputLine = "";
@@ -33,11 +32,11 @@ Command* Parser::getCommand(std::string buffer) {
     // Break "buffer" up by spaces
     bool finished = false;
     while (!finished) {
-        pos = buffer.find_first_of(' ', last_pos); // find and remember first space.
-        if (pos == string::npos) { // if we found the last word,
+        pos = buffer.find_first_of(' ', last_pos); // finds & remember first space.
+        if (pos == string::npos) { // if last word found,
             words.push_back(buffer.substr(last_pos)); // add it to vector "words"
             finished = true; // and finish searching.
-        } else { // otherwise add to vector and move on to next word.
+        } else { // else add to vector and move on to next word.
             words.push_back(buffer.substr(last_pos, pos - last_pos));
             last_pos = pos + 1;
         }
@@ -50,16 +49,12 @@ Command* Parser::getCommand(std::string buffer) {
         word2 = words[1]; //get second word
     }
 
-    // note: we just ignore the rest of the input line.
-    // Now check whether this word is known. If so, create a command with it.
-    // If not, create a "nil" command (empty string for unknown command).
     if (commands->isCommand(word1))
         return new Command(word1, word2);
     else
         return new Command("", word2);
 }
 
-// Print out a list of valid command words
 void Parser::showCommands() {
     commands->showAll();
 }

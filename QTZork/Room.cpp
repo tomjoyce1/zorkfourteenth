@@ -4,7 +4,8 @@
 
 
 Room::Room(std::string description, std::string settingDescription) : description(description), settingDescription(settingDescription), commandInstance(Command("", "")) {}
-// setExits implementation
+
+
 void Room::setExits(Room* north, Room* east, Room* south, Room* west) {
     exits["north"] = north;
     exits["east"] = east;
@@ -43,7 +44,7 @@ Room* Room::nextRoom(string direction) {
 }
 
  void Room::addItem(Item *inItem) {
-     itemsInRoom.push_back(*inItem); // Add the item to the vector
+     itemsInRoom.push_back(*inItem);
  }
 
 

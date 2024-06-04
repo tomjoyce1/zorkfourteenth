@@ -54,5 +54,4 @@ void Item::setWeaponCheck(int inWeaponCheck) {
 Item::Item(const Item& other)
     : description(other.description), weightGrams(other.weightGrams),
     value(other.value), mainWindowInstance(other.mainWindowInstance) {
-    // Copy constructor for deep copy
 }

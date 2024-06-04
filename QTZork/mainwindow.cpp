@@ -51,21 +51,21 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::setOutputText(const std::string &text) {
-    if (ui->outputLineEdit) { // Check if ui->outputLineEdit is not null
+    if (ui->outputLineEdit) {
         QString qText = QString::fromStdString(text);
         ui->outputLineEdit->setText(qText);
     } else {
-        // Handle the case where ui->outputLineEdit is null
+
         qDebug() << "Error: ui->outputLineEdit is null";
     }
 }
 
 void MainWindow::appendOutputText(const std::string &text) {
-    if (ui->outputLineEdit) { // Check if ui->outputLineEdit is not null
+    if (ui->outputLineEdit) {
         std::string currentText = ui->outputLineEdit->text().toStdString();
         ui->outputLineEdit->setText(QString::fromStdString(currentText + text));
     } else {
-        // Handle the case where ui->outputLineEdit is null
+
         qDebug() << "Error: ui->outputLineEdit is null";
     }
 }
