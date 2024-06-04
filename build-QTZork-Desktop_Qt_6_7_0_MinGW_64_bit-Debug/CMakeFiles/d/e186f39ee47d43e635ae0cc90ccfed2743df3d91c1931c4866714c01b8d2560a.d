@@ -285,81 +285,23 @@ QTZork_autogen/timestamp: \
   C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateTargets.cmake \
   C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6ZlibPrivate/Qt6ZlibPrivateVersionlessTargets.cmake \
   C:/Qt/Tools/CMake_64/bin/cmake.exe \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCXXCompiler.cmake.in \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCXXCompilerABI.cpp \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeCompilerIdDetection.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCXXCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompileFeatures.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineRCCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeFindBinUtils.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeFindDependencyMacro.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeNinjaFindMake.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeParseImplicitIncludeInfo.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeParseImplicitLinkInfo.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeParseLibraryArchitecture.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeRCCompiler.cmake.in \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeRCInformation.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeSystem.cmake.in \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestCXXCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestCompilerCommon.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CMakeTestRCCompiler.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckCXXCompilerFlag.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckCXXSourceCompiles.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckIncludeFileCXX.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/CheckLibraryExists.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/ADSP-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Borland-DetermineCompiler.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Clang-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Cray-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/GHS-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/GNU-FindBinUtils.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/GNU.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IAR-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Intel-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/MSVC-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/PGI-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/PathScale-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/SCO-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/TI-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Tasking-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/Watcom-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/FindPackageHandleStandardArgs.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/FindPackageMessage.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/FindThreads.cmake \
@@ -368,8 +310,6 @@ QTZork_autogen/timestamp: \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Internal/CheckCompilerFlag.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Internal/CheckFlagCommonConfig.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Internal/FeatureTesting.cmake \
-  C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-Determine-CXX.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-GNU-CXX-ABI.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-GNU-CXX.cmake \
   C:/Qt/Tools/CMake_64/share/cmake-3.27/Modules/Platform/Windows-GNU.cmake \
@@ -591,20 +531,24 @@ QTZork_autogen/timestamp: \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wchar.h \
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wctype.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/CMakeLists.txt \
-  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Character.cpp \
-  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Character.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Command.cpp \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Command.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/CommandWords.cpp \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/CommandWords.h \
+  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Comparer.h \
+  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Describable.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Parser.cpp \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Parser.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Room.cpp \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Room.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/ZorkUL.cpp \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/ZorkUL.h \
+  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/concreteitem.cpp \
+  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/concreteitem.h \
+  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/customException.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/item.cpp \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/item.h \
+  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/keyvaluestore.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/main.cpp \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/mainwindow.cpp \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/mainwindow.h \

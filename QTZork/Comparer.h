@@ -1,4 +1,3 @@
-// Comparer.h
 #ifndef COMPARER_H
 #define COMPARER_H
 

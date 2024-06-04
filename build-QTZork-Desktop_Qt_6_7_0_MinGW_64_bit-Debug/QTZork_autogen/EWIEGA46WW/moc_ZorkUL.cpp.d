@@ -365,6 +365,7 @@ C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/build-QTZo
   C:/Qt/Tools/mingw1120_64/x86_64-w64-mingw32/include/wctype.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Command.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/CommandWords.h \
+  C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Describable.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Parser.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/Room.h \
   C:/Users/Thoma/OneDrive/Documents/fourteenth/qtzork/Downloads/isezork/QTZork/item.h \

@@ -1,10 +1,10 @@
 #ifndef COMMAND_H_
 #define COMMAND_H_
 
+//guard condition above, checks if defined
+
 #include <string>
 using namespace std;
-
-
 
 class Command {
 private:
