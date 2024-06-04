@@ -8,13 +8,28 @@ ConcreteItem::ConcreteItem(std::string description, int weightGrams, float value
     if (weightGrams <= 0) {
         throw CustomException("Weight must be positive");
     }
+    weight.weightGrams = weightGrams;
+
 }
 
+
+
 ConcreteItem::ConcreteItem(std::string description, MainWindow* mainWindow)
-    : Item(description, mainWindow), weightGrams(0), value(0.0f) {}
+    : Item(description, mainWindow), value(0.0f) {
+    weight.weightGrams = 0;
+}
+
+ConcreteItem::ConcreteItem(const ConcreteItem& other)
+    : Item(other), value(other.value) {
+    weight = other.weight;
+}
 
 int ConcreteItem::getWeightGrams() const {
-    return weightGrams;
+    return weight.weightGrams;
+}
+
+float ConcreteItem::getWeightKilos() const {
+    return weight.weightKilos;
 }
 
 float ConcreteItem::getValue() const {
@@ -22,7 +37,7 @@ float ConcreteItem::getValue() const {
 }
 
 bool ConcreteItem::operator==(const ConcreteItem& other) const {
-    return weightGrams == other.weightGrams && value == other.value;
+    return weight.weightGrams == other.weight.weightGrams && value == other.value;
 }
 
 bool ConcreteItem::operator!=(const ConcreteItem& other) const {
@@ -30,32 +45,24 @@ bool ConcreteItem::operator!=(const ConcreteItem& other) const {
 }
 
 bool ConcreteItem::operator<(const ConcreteItem& other) const {
-    return weightGrams < other.weightGrams;
+    return weight.weightGrams < other.weight.weightGrams;
 }
 
 bool ConcreteItem::operator<=(const ConcreteItem& other) const {
-    return weightGrams <= other.weightGrams;
+    return !(*this > other);
 }
 
 bool ConcreteItem::operator>(const ConcreteItem& other) const {
-    return weightGrams > other.weightGrams;
+    return weight.weightGrams > other.weight.weightGrams;
 }
 
 bool ConcreteItem::operator>=(const ConcreteItem& other) const {
-    return weightGrams >= other.weightGrams;
+    return !(*this < other);
 }
 
 std::ostream& operator<<(std::ostream& os, const ConcreteItem& item) {
-    os << "Weight: " << item.weightGrams << "g, Value: " << item.value;
+    os << "Weight: " << item.getWeightGrams() << "g, Value: " << item.getValue();
     return os;
 }
-
-
-ConcreteItem::ConcreteItem(const ConcreteItem& other)
-    : Item(other), weightGrams(other.weightGrams), value(other.value) {
-    // Copy constructor for deep copy
-}
-
-
 
 } // namespace ConcreteItemNamespace

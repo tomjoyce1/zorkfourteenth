@@ -8,20 +8,27 @@
 #include "Comparer.h"
 
 namespace ConcreteItemNamespace {
+
 class ConcreteItem : public Item, public ComparerNamespace::Comparer {
 private:
-    int weightGrams;
+    union Weight {
+        int weightGrams;
+        float weightKilos;
+
+        Weight() : weightGrams(0) {}
+        ~Weight() {}
+    } weight;
+
     float value;
 
 public:
-    //2 constructors, diff parameters
     ConcreteItem(std::string description, int weightGrams, float value);
     ConcreteItem(std::string description, MainWindow* mainWindow);
 
-    // Copy constructor for deep copy
     ConcreteItem(const ConcreteItem& other);
 
     int getWeightGrams() const;
+    float getWeightKilos() const;
     float getValue() const;
 
     bool operator==(const ConcreteItem& other) const;
@@ -31,10 +38,9 @@ public:
     bool operator>(const ConcreteItem& other) const;
     bool operator>=(const ConcreteItem& other) const;
 
-
-    //parameters=object os + ConcreteItem object, outputs ConcreteItem objects to console.
     friend std::ostream& operator<<(std::ostream& os, const ConcreteItem& item);
 };
-}
+
+} // namespace ConcreteItemNamespace
 
 #endif // CONCRETEITEM_H

@@ -1,8 +1,6 @@
 #ifndef PARSER_H_
 #define PARSER_H_
 #include "mainwindow.h"
-
-//testing
 #include "Command.h"
 #include "CommandWords.h"
 
